@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D Action Potential - Myelinated vs Unmyelinated | Brains, Minds, and Machines</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="../" class="back-link">← All animations</a>
+
+  <div id="canvas-container"></div>
+
+  <div class="voltmeter" style="min-width: 280px;">
+    <div class="voltmeter-title">🔬 Electrode Reading</div>
+    <div class="voltage-display" id="voltage-value">-70<span style="font-size: 20px;">mV</span></div>
+    <div class="voltage-bar">
+      <div class="voltage-indicator" id="voltage-indicator"></div>
+    </div>
+    <div class="phase-label" id="phase-label">Resting State</div>
+    <div class="refractory-indicator" id="refractory-indicator" style="background: rgba(81, 207, 102, 0.2); color: var(--success);">
+      Ready to Fire
+    </div>
+    <div class="refractory-indicator" id="pump-indicator" style="background: rgba(255, 184, 107, 0.2); color: #ffb86b; margin-top: 6px;">
+      ⚡ Na⁺/K⁺-ATPase: Standby
+    </div>
+    <div style="margin-top: 12px; border-top: 1px solid rgba(122, 225, 255, 0.3); padding-top: 10px;">
+      <div style="font-size: 11px; color: var(--muted); margin-bottom: 5px;">AP Waveform at Electrode</div>
+      <canvas id="ap-graph" width="250" height="100" style="width: 100%; background: rgba(0,0,0,0.3); border-radius: 4px; border: 1px solid rgba(122, 225, 255, 0.2);"></canvas>
+      <div style="display: flex; justify-content: space-between; font-size: 9px; color: var(--muted); margin-top: 3px;">
+        <span>-100 ms</span>
+        <span id="ap-time-label">t=0 @ AP arrival</span>
+        <span>500 ms</span>
+      </div>
+    </div>
+    <div style="margin-top: 12px; border-top: 1px solid rgba(255, 184, 107, 0.3); padding-top: 10px;">
+      <div style="font-size: 11px; color: var(--accent-2); margin-bottom: 5px;">📊 Hillock Voltage (Long Scale)</div>
+      <div id="hillock-legend" style="display: none; font-size: 9px; margin-bottom: 4px;">
+        <span style="color: #ffb86b;">━ Unmyelinated</span>
+        <span style="color: #51cf66; margin-left: 10px;">━ Myelinated</span>
+      </div>
+      <canvas id="hillock-graph" width="250" height="120" style="width: 100%; background: rgba(0,0,0,0.3); border-radius: 4px; border: 1px solid rgba(255, 184, 107, 0.2);"></canvas>
+      <div style="display: flex; justify-content: space-between; font-size: 9px; color: var(--muted); margin-top: 3px;">
+        <span>0</span>
+        <span style="color: var(--accent-2);">Threshold: -55mV</span>
+        <span id="hillock-time-label">5s</span>
+      </div>
+    </div>
+    <div id="timing-graph-container" style="display: none; margin-top: 12px; border-top: 1px solid rgba(81, 207, 102, 0.3); padding-top: 10px;">
+      <div style="font-size: 11px; color: #51cf66; margin-bottom: 5px;">⚡ AP Position Along Axon</div>
+      <div style="font-size: 9px; color: var(--muted); margin-bottom: 6px; line-height: 1.4;">
+        <span style="color: #ffb86b;">● Unmyelinated</span> &nbsp;|&nbsp; 
+        <span style="color: #51cf66;">● Myelinated</span> (6× faster)
+      </div>
+      <canvas id="timing-graph" width="250" height="90" style="width: 100%; background: rgba(0,0,0,0.3); border-radius: 4px; border: 1px solid rgba(81, 207, 102, 0.2);"></canvas>
+      <div style="display: flex; justify-content: space-between; font-size: 9px; color: var(--muted); margin-top: 3px;">
+        <span>Soma</span>
+        <span id="timing-stats" style="color: #51cf66;">Ratio: 6x faster</span>
+        <span>Terminal</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background: #7ae1ff;"></div>
+      <span>Membrane / Cytoplasm</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #ff6b6b;"></div>
+      <span>Na⁺ (extracellular → influx)</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #ffdd00;"></div>
+      <span>K⁺ (intracellular → efflux)</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #4338ca;"></div>
+      <span>Cl⁻ (IPSP / inhibitory)</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #1a1a2e;"></div>
+      <span>Refractory (channels inactivated)</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #22c55e;"></div>
+      <span>NT vesicles & release</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background: #ffffff; border: 1px solid #666;"></div>
+      <span>Ca²⁺ (extracellular)</span>
+    </div>
+    <div class="myelin-legend">
+      <div style="font-size: 10px; color: var(--accent); margin-bottom: 4px;">Myelinated Neuron (Bottom):</div>
+      <div class="myelin-legend-item">
+        <div class="myelin-color" style="background: linear-gradient(90deg, #f5e6d3, #e8d4b8);"></div>
+        <span>Myelin sheath (insulating)</span>
+      </div>
+      <div class="myelin-legend-item">
+        <div class="myelin-color" style="background: #51cf66;"></div>
+        <span>Node of Ranvier (channels)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="click-hint">
+    🖱️ Click neuron to stimulate • Scroll to zoom • Drag to rotate • Top: Unmyelinated | Bottom: Myelinated
+  </div>
+
+  <div class="comparison-panel" id="comparison-panel" style="display: none;">
+    <h3>⚡ Saltatory vs Continuous Conduction</h3>
+    <div class="neuron-label">
+      <div class="neuron-indicator" style="background: #ffb86b;"></div>
+      <span>Unmyelinated (continuous)</span>
+    </div>
+    <div class="neuron-label">
+      <div class="neuron-indicator" style="background: #51cf66;"></div>
+      <span>Myelinated (saltatory)</span>
+    </div>
+    <div style="margin-top: 12px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 6px;">
+      <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px;">
+        <div>
+          <div style="color: #ffb86b; font-weight: bold;">Unmyelinated</div>
+          <div style="font-size: 18px; color: #ffb86b;" id="unmyel-delay">-- ms</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="color: #51cf66; font-weight: bold;">Myelinated</div>
+          <div style="font-size: 18px; color: #51cf66;" id="myel-delay">-- ms</div>
+        </div>
+      </div>
+      <div style="text-align: center; font-size: 14px; color: var(--accent); border-top: 1px solid rgba(122, 225, 255, 0.2); padding-top: 8px;">
+        Speed Ratio: <span id="speed-ratio" style="font-weight: bold; font-size: 18px;">--</span>x faster
+      </div>
+    </div>
+    <div style="margin-top: 10px; font-size: 10px; color: var(--muted); line-height: 1.4;">
+      <strong>Why myelination speeds conduction:</strong><br>
+      • AP "jumps" between nodes (saltatory)<br>
+      • No ion exchange under myelin<br>
+      • Reduced capacitance → faster charging<br>
+      • ~6x faster in myelinated axons
+    </div>
+  </div>
+
+  <div class="controls-panel">
+    <h2>Animation Controls</h2>
+    
+    <div class="button-group">
+      <button id="btn-start" class="active">▶ Start</button>
+      <button id="btn-stop">⏸ Pause</button>
+      <button id="btn-reset">⟲ Reset</button>
+    </div>
+
+    <div class="button-group">
+      <button id="btn-reset-cam">📷 Reset Camera</button>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Loop Animation</span>
+        <input type="checkbox" id="loop-checkbox" checked>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>🧠 Comparison Mode</h2>
+    
+    <div class="control-group">
+      <div class="control-label">
+        <span>Show Myelinated Neuron</span>
+        <input type="checkbox" id="myelin-toggle">
+      </div>
+      <div style="font-size: 10px; color: var(--muted); margin-top: 4px;">
+        Adds a second neuron below with myelin sheaths to compare saltatory vs continuous conduction
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Animation Speed</span>
+        <span class="control-value" id="speed-val">1.0x</span>
+      </div>
+      <input type="range" id="speed-slider" min="0.1" max="3" step="0.1" value="1.0">
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>Synaptic Input</h2>
+
+    <div class="button-group">
+      <button id="btn-excite" class="excite">⚡ +EPSP</button>
+      <button id="btn-inhibit" class="inhibit">🛑 +IPSP</button>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Spontaneous EPSP Rate</span>
+        <span class="control-value" id="epsp-rate-val">50%</span>
+      </div>
+      <input type="range" id="epsp-rate-slider" min="0" max="100" step="5" value="50">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Spontaneous IPSP Rate</span>
+        <span class="control-value" id="ipsp-rate-val">30%</span>
+      </div>
+      <input type="range" id="ipsp-rate-slider" min="0" max="100" step="5" value="30">
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>Extracellular Ion Visibility</h2>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Show Extracellular Ions</span>
+        <input type="checkbox" id="extracellular-toggle">
+      </div>
+      <div style="font-size: 10px; color: var(--muted); margin-top: 4px;">
+        Hide Na⁺/Cl⁻/Ca²⁺ in extracellular space to save GPU memory
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span style="color: #ff6b6b;">Na⁺ (extracellular)</span>
+        <span class="control-value" id="na-opacity-val">50%</span>
+      </div>
+      <input type="range" id="na-opacity-slider" min="0" max="100" step="5" value="50">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span style="color: #ffdd00;">K⁺ (intracellular)</span>
+        <span class="control-value" id="k-opacity-val">35%</span>
+      </div>
+      <input type="range" id="k-opacity-slider" min="0" max="100" step="5" value="35">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span style="color: #4338ca;">Cl⁻ (extracellular)</span>
+        <span class="control-value" id="cl-opacity-val">40%</span>
+      </div>
+      <input type="range" id="cl-opacity-slider" min="0" max="100" step="5" value="40">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span style="color: #ffffff; text-shadow: 0 0 3px #000;">Ca²⁺ (extracellular)</span>
+        <span class="control-value" id="ca-opacity-val">45%</span>
+      </div>
+      <input type="range" id="ca-opacity-slider" min="0" max="100" step="5" value="45">
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>Neuron Properties</h2>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Na⁺ Channel Density</span>
+        <span class="control-value" id="na-density-val">100</span>
+      </div>
+      <input type="range" id="na-density-slider" min="50" max="200" step="10" value="100">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>K⁺ Channel Density</span>
+        <span class="control-value" id="k-density-val">100</span>
+      </div>
+      <input type="range" id="k-density-slider" min="50" max="200" step="10" value="100">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Propagation Speed</span>
+        <span class="control-value" id="prop-speed-val">100</span>
+      </div>
+      <input type="range" id="prop-speed-slider" min="10" max="500" step="10" value="100">
+      <div id="transit-time-display" style="font-size: 9px; color: var(--muted); margin-top: 4px; line-height: 1.3;">
+        <div>Transit (1.5mm): <span style="color: #ffb86b;" id="unmyel-transit">--</span> unmyel | <span style="color: #51cf66;" id="myel-transit">--</span> myel</div>
+        <div style="margin-top: 2px;">Real: <span style="color: #ffb86b;">0.75ms</span> (1μm) | <span style="color: #51cf66;">0.013ms</span> (20μm)</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Synaptic Integration:</strong><br>
+      • EPSPs (red glow) depolarize dendrites<br>
+      • IPSPs (blue glow) hyperpolarize<br>
+      • Soma integrates spatially & temporally<br>
+      • Threshold at hillock: -55 mV → AP!<br>
+      • Dark regions = refractory period<br><br>
+      <strong>Ion Flow During AP:</strong><br>
+      • 🔴 Red = Na⁺ (rushes IN during depol.)<br>
+      • 🟡 Yellow = K⁺ (rushes OUT during repol.)<br>
+      • 🔵 Blue = Cl⁻ (IPSPs)<br><br>
+      <strong>Na⁺/K⁺-ATPase Pump:</strong><br>
+      • 3 Na⁺ pumped OUT : 2 K⁺ pumped IN<br>
+      • Restores resting concentrations
+    </div>
+
+    <div class="stats">
+      <div>FPS: <span id="fps">60</span></div>
+      <div style="color: #7ae1ff;">Soma V: <span id="soma-voltage">-70</span> mV</div>
+      <div style="color: #ffb86b;">Hillock V: <span id="hillock-voltage">-68</span> mV</div>
+      <div style="font-size: 10px; color: #888;">[Na⁺]ᵢ: <span id="hillock-na">15.4</span> mM</div>
+      <div style="font-size: 10px; color: #ff6b6b;">Hillock +ions: <span id="hillock-pos-ions">0</span></div>
+      <div>Active Ions: <span id="ion-count">0</span></div>
+      <div>Wave Position: <span id="wave-pos">0</span>%</div>
+    </div>
+  </div>
+
+  <!-- Load the main module -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

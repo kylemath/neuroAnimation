@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Molecular Membrane - Axon Hillock | Brains, Minds, and Machines</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="../" class="back-link">← All animations</a>
+
+  <div id="canvas-container"></div>
+
+  <!-- Electrophysiology Graphs Panel -->
+  <div class="graphs-panel draggable-panel" id="graphs-panel">
+    <div class="panel-header">
+      <div class="panel-title">📊 Electrophysiology</div>
+      <div class="panel-controls">
+        <button class="minimize-btn" onclick="togglePanel('graphs-panel')">−</button>
+      </div>
+    </div>
+    <div class="panel-content">
+      <div class="graph-container">
+        <div class="graph-title">Long-Term Voltage Trace</div>
+        <canvas id="long-term-graph" width="400" height="120"></canvas>
+      </div>
+      <div class="graph-container">
+        <div class="graph-title">Oscilloscope (100ms window)</div>
+        <canvas id="short-term-graph" width="400" height="120"></canvas>
+      </div>
+      <div class="graph-container">
+        <div class="graph-title">Compartmental Voltages</div>
+        <canvas id="current-graph" width="400" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-panel draggable-panel" id="info-panel">
+    <div class="panel-header">
+      <div class="panel-title">🔬 Membrane Patch</div>
+      <div class="panel-controls">
+        <button class="minimize-btn" onclick="togglePanel('info-panel')">−</button>
+      </div>
+    </div>
+    <div class="panel-content">
+    <div class="panel-subtitle">Axon Hillock - Molecular Scale (~200nm × 200nm)</div>
+    
+    <div class="voltage-section">
+      <div class="voltage-display" id="membrane-voltage">-70<span class="unit">mV</span></div>
+      <div class="voltage-bar">
+        <div class="voltage-marker" id="voltage-marker"></div>
+        <div class="voltage-labels">
+          <span>-90</span>
+          <span>-55 (threshold)</span>
+          <span>+40</span>
+        </div>
+      </div>
+      <div class="phase-indicator" id="phase-indicator">Resting State</div>
+    </div>
+
+    <div class="stats-section">
+      <div class="stat-row">
+        <span class="stat-label">Scale</span>
+        <span class="stat-value">~7nm membrane thickness</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Na⁺ Channels Open</span>
+        <span class="stat-value" id="na-open-count">0 / 8</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">K⁺ Channels Open</span>
+        <span class="stat-value" id="k-open-count">0 / 6</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Na⁺/K⁺ Pumps Active</span>
+        <span class="stat-value" id="pump-count">2 cycling</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">ATP Available</span>
+        <span class="stat-value" id="atp-count">12</span>
+      </div>
+    </div>
+
+    <div class="concentration-section">
+      <div class="conc-title">Ion Concentrations</div>
+      <div class="conc-grid">
+        <div class="conc-side">
+          <div class="conc-header">Extracellular</div>
+          <div class="conc-item na">Na⁺: 145 mM</div>
+          <div class="conc-item k">K⁺: 5 mM</div>
+          <div class="conc-item cl">Cl⁻: 120 mM</div>
+        </div>
+        <div class="conc-side">
+          <div class="conc-header">Intracellular</div>
+          <div class="conc-item na">Na⁺: 15 mM</div>
+          <div class="conc-item k">K⁺: 140 mM</div>
+          <div class="conc-item cl">Cl⁻: 10 mM</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="region-section">
+      <div class="region-title">Membrane Regions</div>
+      <div class="region-info">
+        <div class="region-item soma">
+          <strong>← SOMA (left)</strong><br>
+          Few voltage-gated channels
+        </div>
+        <div class="region-item hillock">
+          <strong>AXON HILLOCK (right) →</strong><br>
+          High Nav/Kv density<br>
+          AP initiation zone
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="legend draggable-panel" id="legend-panel">
+    <div class="panel-header">
+      <div class="legend-title">🎨 Legend</div>
+      <div class="panel-controls">
+        <button class="minimize-btn" onclick="togglePanel('legend-panel')">−</button>
+      </div>
+    </div>
+    <div class="panel-content">
+    <div class="legend-grid">
+      <div class="legend-item">
+        <div class="legend-color lipid"></div>
+        <span>Phospholipid</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color cholesterol"></div>
+        <span>Cholesterol</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color na-channel"></div>
+        <span>Nav Channel (closed)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color na-channel-open"></div>
+        <span>Nav Channel (open)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color k-channel"></div>
+        <span>Kv Channel (closed)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color k-channel-open"></div>
+        <span>Kv Channel (open)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color pump"></div>
+        <span>Na⁺/K⁺-ATPase</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color na-ion"></div>
+        <span>Na⁺ ion</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color k-ion"></div>
+        <span>K⁺ ion</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color atp"></div>
+        <span>ATP molecule</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color adp"></div>
+        <span>ADP (spent ATP)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color voltage-sensor"></div>
+        <span>S4 Voltage Sensor</span>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="click-hint">
+    🖱️ Drag to rotate membrane • Scroll to zoom • Click channels to toggle • Flip view to see intracellular side
+  </div>
+
+  <div class="controls-panel draggable-panel" id="controls-panel">
+    <div class="panel-header">
+      <h2>⚙️ Controls</h2>
+      <div class="panel-controls">
+        <button class="minimize-btn" onclick="togglePanel('controls-panel')">−</button>
+      </div>
+    </div>
+    <div class="panel-content">
+    
+    <div class="button-group">
+      <button id="btn-start" class="active">▶ Start</button>
+      <button id="btn-pause">⏸ Pause</button>
+      <button id="btn-reset">⟲ Reset</button>
+    </div>
+
+    <div class="button-group">
+      <button id="btn-flip">🔄 Flip Membrane</button>
+      <button id="btn-reset-cam">📷 Reset View</button>
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>⚡ Action Potential</h2>
+
+    <div class="button-group">
+      <button id="btn-depolarize" class="depol">⚡ Trigger AP</button>
+      <button id="btn-hyperpolarize" class="hyperpol">🛑 Hyperpolarize</button>
+    </div>
+
+    <div class="button-group">
+      <button id="btn-epsp" class="epsp">➕ EPSP</button>
+      <button id="btn-ipsp" class="ipsp">➖ IPSP</button>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Membrane Voltage</span>
+        <span class="control-value" id="voltage-val">-70 mV</span>
+      </div>
+      <input type="range" id="voltage-slider" min="-90" max="50" step="1" value="-70">
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>🧠 Synaptic Input</h2>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>E/I Balance</span>
+        <span class="control-value" id="ei-balance-val">1.0 (balanced)</span>
+      </div>
+      <input type="range" id="ei-balance-slider" min="0.2" max="3" step="0.1" value="1.0">
+      <div class="slider-hint">← More inhibition | More excitation →</div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Spontaneous EPSP Rate</span>
+        <span class="control-value" id="epsp-rate-val">5 Hz</span>
+      </div>
+      <input type="range" id="epsp-rate-slider" min="0" max="30" step="1" value="5">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Spontaneous IPSP Rate</span>
+        <span class="control-value" id="ipsp-rate-val">1 Hz</span>
+      </div>
+      <input type="range" id="ipsp-rate-slider" min="0" max="10" step="0.5" value="1">
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>📊 Recording Setup</h2>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Recording Mode</span>
+      </div>
+      <select id="recording-mode-select">
+        <option value="intracellular">🔍 Intracellular (Sharp Electrode)</option>
+        <option value="patch_clamp">🔬 Whole-Cell Patch Clamp</option>
+        <option value="extracellular">📡 Extracellular</option>
+        <option value="field">🌊 Local Field Potential</option>
+      </select>
+      <div class="recording-info" id="recording-info">
+        Sharp electrode pierces membrane to record intracellular voltage directly.
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Use Hodgkin-Huxley Model</span>
+        <input type="checkbox" id="hh-model-toggle" checked>
+      </div>
+      <div style="font-size: 9px; color: var(--muted); margin-top: 2px;">Full biophysical simulation</div>
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>🧬 Simulation Speed</h2>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Time Scale</span>
+        <span class="control-value" id="speed-val">1x (real-time)</span>
+      </div>
+      <input type="range" id="speed-slider" min="-2" max="3" step="0.5" value="0">
+      <div class="slider-hint">Slower ← → Faster (real molecular timescale: μs)</div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Brownian Motion Intensity</span>
+        <span class="control-value" id="brownian-val">100%</span>
+      </div>
+      <input type="range" id="brownian-slider" min="0" max="200" step="10" value="100">
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>🔬 Visualization</h2>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Show Lipid Tails</span>
+        <input type="checkbox" id="lipid-tails-toggle">
+      </div>
+      <div style="font-size: 9px; color: var(--muted); margin-top: 2px;">⚠️ Performance impact when enabled</div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Show Water Molecules</span>
+        <input type="checkbox" id="water-toggle">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Lipid Density</span>
+        <span class="control-value" id="lipid-density-val">100%</span>
+      </div>
+      <input type="range" id="lipid-density-slider" min="50" max="150" step="10" value="100">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Membrane Flexibility</span>
+        <span class="control-value" id="flexibility-val">70%</span>
+      </div>
+      <input type="range" id="flexibility-slider" min="0" max="100" step="5" value="70">
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>🧪 Channel Properties</h2>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Nav Activation Threshold</span>
+        <span class="control-value" id="nav-thresh-val">-55 mV</span>
+      </div>
+      <input type="range" id="nav-thresh-slider" min="-70" max="-40" step="1" value="-55">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Nav Inactivation Rate</span>
+        <span class="control-value" id="nav-inact-val">100%</span>
+      </div>
+      <input type="range" id="nav-inact-slider" min="50" max="200" step="10" value="100">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Kv Activation Delay</span>
+        <span class="control-value" id="kv-delay-val">1.0 ms</span>
+      </div>
+      <input type="range" id="kv-delay-slider" min="0.2" max="3" step="0.1" value="1.0">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Pump Rate (ATP/sec)</span>
+        <span class="control-value" id="pump-rate-val">100</span>
+      </div>
+      <input type="range" id="pump-rate-slider" min="10" max="500" step="10" value="100">
+    </div>
+
+    <div class="info-box">
+      <strong>Biophysical Model:</strong><br>
+      • Hodgkin-Huxley kinetics<br>
+      • Nernst/GHK equations<br>
+      • 3 compartments (soma→hillock→axon)<br>
+      • Local circuit current spread<br><br>
+      <strong>Equilibrium Potentials:</strong><br>
+      • E<sub>Na</sub> = <span id="e-na">+60</span> mV<br>
+      • E<sub>K</sub> = <span id="e-k">-90</span> mV<br><br>
+      <strong>Synaptic:</strong><br>
+      • EPSP → depolarization<br>
+      • IPSP → hyperpolarization<br>
+      • E/I balance controls firing rate
+    </div>
+
+    <div class="stats">
+      <div>FPS: <span id="fps">60</span></div>
+      <div>Lipid Count: <span id="lipid-count">0</span></div>
+      <div>Ion Count: <span id="ion-count">0</span></div>
+      <div>Sim Time: <span id="sim-time">0.00</span> ms</div>
+    </div>
+    </div>
+  </div>
+
+  <!-- Draggable panel JavaScript -->
+  <script>
+    // Panel minimize/maximize
+    function togglePanel(panelId) {
+      const panel = document.getElementById(panelId);
+      const content = panel.querySelector('.panel-content');
+      const btn = panel.querySelector('.minimize-btn');
+      
+      if (content.style.display === 'none') {
+        content.style.display = 'block';
+        btn.textContent = '−';
+        panel.classList.remove('minimized');
+      } else {
+        content.style.display = 'none';
+        btn.textContent = '+';
+        panel.classList.add('minimized');
+      }
+    }
+    
+    // Make panels draggable
+    document.addEventListener('DOMContentLoaded', () => {
+      const panels = document.querySelectorAll('.draggable-panel');
+      
+      panels.forEach(panel => {
+        const header = panel.querySelector('.panel-header');
+        if (!header) return;
+        
+        let isDragging = false;
+        let currentX, currentY, initialX, initialY;
+        let xOffset = 0, yOffset = 0;
+        
+        header.addEventListener('mousedown', dragStart);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', dragEnd);
+        
+        // Touch support
+        header.addEventListener('touchstart', dragStart, { passive: false });
+        document.addEventListener('touchmove', drag, { passive: false });
+        document.addEventListener('touchend', dragEnd);
+        
+        function dragStart(e) {
+          if (e.target.classList.contains('minimize-btn')) return;
+          
+          if (e.type === 'touchstart') {
+            initialX = e.touches[0].clientX - xOffset;
+            initialY = e.touches[0].clientY - yOffset;
+          } else {
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+          }
+          
+          isDragging = true;
+          panel.style.zIndex = 1000;
+          header.style.cursor = 'grabbing';
+        }
+        
+        function drag(e) {
+          if (!isDragging) return;
+          e.preventDefault();
+          
+          if (e.type === 'touchmove') {
+            currentX = e.touches[0].clientX - initialX;
+            currentY = e.touches[0].clientY - initialY;
+          } else {
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+          }
+          
+          xOffset = currentX;
+          yOffset = currentY;
+          
+          panel.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        }
+        
+        function dragEnd() {
+          isDragging = false;
+          header.style.cursor = 'grab';
+          // Reset z-index after a short delay
+          setTimeout(() => {
+            panel.style.zIndex = '';
+          }, 100);
+        }
+      });
+    });
+  </script>
+
+  <!-- Load the main module -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1387 @@
+/* Synaptic Transmission 3D - Styles
+ * Chemical synapse visualization with presynaptic terminal, cleft, and postsynaptic spine
+ */
+
+:root {
+  --bg: #040812;
+  --bg-2: #0a1220;
+  --bg-3: #101a2e;
+  --text: #e8f0f8;
+  --muted: #7a94a8;
+  --accent: #00e5ff;
+  --accent-2: #ff9f43;
+  --danger: #ff4757;
+  --success: #2ed573;
+  --warning: #ffa502;
+  --purple: #a55eea;
+  --pink: #ff6b9d;
+  
+  /* Presynaptic colors */
+  --pre-primary: #ff6b6b;
+  --pre-secondary: #ee5a5a;
+  --pre-glow: rgba(255, 107, 107, 0.4);
+  
+  /* Postsynaptic colors */
+  --post-primary: #4a9eff;
+  --post-secondary: #3a8eef;
+  --post-glow: rgba(74, 158, 255, 0.4);
+  
+  /* Molecular colors */
+  --vesicle: #2ed573;
+  --vesicle-fusing: #7bed9f;
+  --glutamate: #ff6b6b;
+  --gaba: #5f27cd;
+  --calcium: #ffffff;
+  --sodium: #ff4757;
+  --potassium: #ffd93d;
+  --chloride: #3867d6;
+  --endocannabinoid: #2ed573;
+  --astrocyte: #9980FA;
+  
+  /* Receptor colors */
+  --ampa: #ff9f43;
+  --nmda: #ee5a24;
+  --gabaa: #5f27cd;
+  --gabab: #833471;
+  --cb1: #009432;
+  --mglur: #ff6b9d;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', Monaco, monospace;
+  background: radial-gradient(ellipse at 50% 0%, #0d1525 0%, var(--bg) 50%, #020408 100%);
+  color: var(--text);
+  overflow: hidden;
+  height: 100vh;
+}
+
+#canvas-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  cursor: grab;
+}
+
+#canvas-container:active { cursor: grabbing; }
+
+/* ============================================================================
+   PANEL BASE STYLES
+   ============================================================================ */
+
+.info-panel {
+  position: absolute;
+  background: rgba(10, 18, 32, 0.95);
+  border-radius: 14px;
+  padding: 14px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  font-size: 11px;
+  z-index: 10;
+}
+
+.panel-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  text-shadow: 0 0 12px currentColor;
+}
+
+.panel-subtitle {
+  font-size: 9px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ============================================================================
+   PRESYNAPTIC PANEL (Top Left)
+   ============================================================================ */
+
+.presynaptic-panel {
+  top: 60px;
+  left: 20px;
+  width: 260px;
+  border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
+.presynaptic-panel .panel-title {
+  color: var(--pre-primary);
+}
+
+.voltage-section {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.voltage-label {
+  font-size: 9px;
+  color: var(--muted);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.voltage-display {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--pre-primary);
+  text-align: center;
+  text-shadow: 0 0 20px var(--pre-glow);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.voltage-display .unit {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.voltage-display.post {
+  color: var(--post-primary);
+  text-shadow: 0 0 20px var(--post-glow);
+}
+
+.voltage-bar {
+  height: 6px;
+  border-radius: 3px;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.voltage-bar.presynaptic {
+  background: linear-gradient(90deg, 
+    #3867d6 0%, 
+    #2ed573 25%, 
+    #ffd93d 50%, 
+    #ff6b6b 75%, 
+    #ff4757 100%
+  );
+}
+
+.voltage-bar.postsynaptic {
+  background: linear-gradient(90deg, 
+    #5f27cd 0%, 
+    #3867d6 25%, 
+    #4a9eff 50%, 
+    #ffd93d 75%, 
+    #ff4757 100%
+  );
+}
+
+.voltage-marker {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 14px;
+  background: white;
+  border-radius: 2px;
+  box-shadow: 0 0 8px white;
+  transition: left 0.08s ease;
+  left: 15%;
+}
+
+.phase-indicator {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--success);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stats-section {
+  margin-bottom: 10px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.stat-label { color: var(--muted); }
+.stat-value { color: var(--text); font-weight: 500; }
+
+/* Vesicle Pools */
+.vesicle-section {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.vesicle-title {
+  font-size: 9px;
+  color: var(--vesicle);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.vesicle-pool {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.pool-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pool-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.pool-fill.rrp { background: linear-gradient(90deg, #ff6b6b, #ff9f43); }
+.pool-fill.recycling { background: linear-gradient(90deg, #ffd93d, #2ed573); }
+.pool-fill.reserve { background: linear-gradient(90deg, #4a9eff, #a55eea); }
+
+.pool-label {
+  font-size: 9px;
+  color: var(--muted);
+  min-width: 60px;
+}
+
+/* SNARE Indicator */
+.snare-indicator {
+  background: rgba(46, 213, 115, 0.1);
+  border: 1px solid rgba(46, 213, 115, 0.3);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.snare-title {
+  font-size: 9px;
+  color: var(--vesicle);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.snare-status {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.snare-component {
+  flex: 1;
+  padding: 3px 4px;
+  font-size: 7px;
+  text-align: center;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.snare-component.synaptobrevin { color: #ff6b6b; }
+.snare-component.syntaxin { color: #ffd93d; }
+.snare-component.snap25 { color: #4a9eff; }
+
+.snare-component.active {
+  background: rgba(46, 213, 115, 0.4);
+  box-shadow: 0 0 8px rgba(46, 213, 115, 0.5);
+}
+
+.snare-state {
+  font-size: 9px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ============================================================================
+   POSTSYNAPTIC PANEL (Top Right - positioned left of controls)
+   ============================================================================ */
+
+.postsynaptic-panel {
+  top: 60px;
+  right: 340px;
+  width: 260px;
+  border: 1px solid rgba(74, 158, 255, 0.4);
+}
+
+.postsynaptic-panel .panel-title {
+  color: var(--post-primary);
+}
+
+/* PSP Indicators */
+.psp-indicator {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.psp-type {
+  flex: 1;
+  padding: 6px;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.psp-type.epsp {
+  background: rgba(255, 107, 107, 0.2);
+  color: var(--danger);
+  border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
+.psp-type.ipsp {
+  background: rgba(95, 39, 205, 0.2);
+  color: var(--gabaa);
+  border: 1px solid rgba(95, 39, 205, 0.4);
+}
+
+/* Receptor Sections */
+.receptor-section {
+  margin-bottom: 10px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.receptor-section.metabotropic {
+  background: rgba(165, 94, 234, 0.1);
+  border: 1px solid rgba(165, 94, 234, 0.2);
+}
+
+.receptor-title {
+  font-size: 9px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.receptor-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 9px;
+}
+
+.receptor-type {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.receptor-type.ampa { background: rgba(255, 159, 67, 0.3); color: var(--ampa); }
+.receptor-type.nmda { background: rgba(238, 90, 36, 0.3); color: var(--nmda); }
+.receptor-type.gabaa { background: rgba(95, 39, 205, 0.3); color: var(--gabaa); }
+.receptor-type.mglur { background: rgba(255, 107, 157, 0.3); color: var(--mglur); }
+.receptor-type.gabab { background: rgba(131, 52, 113, 0.3); color: var(--gabab); }
+
+.receptor-count {
+  color: var(--muted);
+}
+
+.gprotein-indicator {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 9px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+}
+
+/* Synaptic Plasticity Mini Section (in receptor panel) */
+.plasticity-section.plasticity-mini {
+  background: rgba(155, 89, 182, 0.1);
+  border: 1px solid rgba(155, 89, 182, 0.2);
+  border-radius: 6px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.plasticity-title {
+  font-size: 9px;
+  color: #a55eea;
+  margin-bottom: 6px;
+}
+
+.plasticity-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--muted);
+  padding: 2px 0;
+}
+
+/* ============================================================================
+   FLOATING PLASTICITY PANEL
+   ============================================================================ */
+.plasticity-panel {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  background: rgba(15, 22, 36, 0.95);
+  border: 2px solid #a55eea;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(165, 94, 234, 0.3);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.plasticity-panel-header {
+  background: linear-gradient(135deg, rgba(165, 94, 234, 0.3), rgba(155, 89, 182, 0.2));
+  padding: 10px 15px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #a55eea;
+  border-bottom: 1px solid rgba(165, 94, 234, 0.3);
+}
+
+.plasticity-content {
+  padding: 12px 15px;
+}
+
+.plasticity-meter {
+  margin-bottom: 12px;
+}
+
+.meter-label {
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.meter-bar-container {
+  height: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.meter-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.2s ease, background 0.3s ease;
+}
+
+.ca-bar {
+  background: linear-gradient(90deg, #3498db, #f1c40f, #e74c3c);
+  width: 0%;
+}
+
+.ampa-bar {
+  background: linear-gradient(90deg, #e74c3c, #f1c40f 50%, #2ecc71);
+  width: 50%;
+}
+
+.ampa-container {
+  background: linear-gradient(90deg, 
+    rgba(231, 76, 60, 0.2) 0%, 
+    rgba(0,0,0,0.4) 40%, 
+    rgba(0,0,0,0.4) 60%, 
+    rgba(46, 204, 113, 0.2) 100%
+  );
+}
+
+.meter-baseline {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: white;
+  opacity: 0.5;
+}
+
+.meter-threshold {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+}
+
+.ltp-threshold {
+  left: 60%;
+  background: #2ecc71;
+  box-shadow: 0 0 4px #2ecc71;
+}
+
+.ltd-threshold {
+  left: 30%;
+  background: #e74c3c;
+  box-shadow: 0 0 4px #e74c3c;
+}
+
+.meter-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: right;
+  margin-top: 2px;
+}
+
+.plasticity-status {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  padding: 3px 0;
+  color: var(--muted);
+}
+
+.status-value {
+  font-weight: 600;
+}
+
+.plasticity-hint {
+  font-size: 9px;
+  color: var(--muted);
+  background: rgba(165, 94, 234, 0.1);
+  border-radius: 4px;
+  padding: 8px;
+  line-height: 1.5;
+}
+
+.plasticity-hint strong {
+  color: #a55eea;
+}
+
+.pathway-section {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 6px 8px;
+  margin: 6px 0;
+  border-left: 2px solid #a55eea;
+}
+
+.pathway-title {
+  font-size: 9px;
+  color: #a55eea;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.highlight-row {
+  background: rgba(165, 94, 234, 0.15);
+  padding: 4px 6px;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+
+.highlight-row span:last-child {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.plasticity-graphs {
+  margin-top: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.plasticity-graph-title {
+  font-size: 9px;
+  color: var(--muted);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+#plasticity-graph {
+  width: 100%;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.plasticity-graph-legend {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.legend-item {
+  font-size: 8px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-color {
+  width: 10px;
+  height: 3px;
+  border-radius: 1px;
+}
+
+/* Endocannabinoid Section */
+.endocannabinoid-section {
+  background: rgba(46, 213, 115, 0.1);
+  border: 1px solid rgba(46, 213, 115, 0.2);
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.endo-title {
+  font-size: 9px;
+  color: var(--endocannabinoid);
+  margin-bottom: 6px;
+}
+
+.endo-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--muted);
+  padding: 2px 0;
+}
+
+/* ============================================================================
+   CLEFT PANEL (Bottom Left)
+   ============================================================================ */
+
+.cleft-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 240px;
+  background: rgba(10, 18, 32, 0.95);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: 12px;
+  padding: 12px;
+  backdrop-filter: blur(12px);
+  font-size: 10px;
+  z-index: 10;
+}
+
+.cleft-panel .panel-title {
+  color: var(--accent);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.cleft-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cleft-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+}
+
+.cleft-stat span:first-child { color: var(--muted); }
+.cleft-stat span:last-child { color: var(--text); }
+
+.clearance-section {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.clearance-title {
+  font-size: 8px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.clearance-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  padding: 2px 0;
+}
+
+.clearance-type { color: var(--muted); }
+.clearance-type.reuptake { color: #ffd93d; }
+.clearance-type.enzymatic { color: #ff6b6b; }
+.clearance-type.astrocyte { color: var(--astrocyte); }
+
+/* ============================================================================
+   LEGEND
+   ============================================================================ */
+
+.legend {
+  position: absolute;
+  bottom: 140px;
+  left: 20px;
+  background: rgba(10, 18, 32, 0.95);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+  backdrop-filter: blur(12px);
+  max-width: 240px;
+  z-index: 10;
+}
+
+.legend-title {
+  font-size: 9px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 8px;
+  color: var(--muted);
+}
+
+.legend-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.legend-color.vesicle { background: var(--vesicle); border-radius: 50%; }
+.legend-color.glutamate { background: var(--glutamate); border-radius: 50%; }
+.legend-color.gaba { background: var(--gaba); border-radius: 50%; }
+.legend-color.calcium { background: var(--calcium); border-radius: 50%; }
+.legend-color.sodium { background: var(--sodium); border-radius: 50%; }
+.legend-color.potassium { background: var(--potassium); border-radius: 50%; }
+.legend-color.chloride { background: var(--chloride); border-radius: 50%; }
+.legend-color.endocannabinoid { background: var(--endocannabinoid); }
+.legend-color.ampa-receptor { background: var(--ampa); }
+.legend-color.nmda-receptor { background: var(--nmda); }
+.legend-color.cb1-receptor { background: var(--cb1); }
+.legend-color.astrocyte { background: var(--astrocyte); opacity: 0.7; }
+
+/* ============================================================================
+   CONTROLS PANEL (Right Side)
+   ============================================================================ */
+
+.controls-panel {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 300px;
+  background: rgba(10, 18, 32, 0.95);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: 14px;
+  padding: 16px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  backdrop-filter: blur(12px);
+  font-size: 11px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+
+.controls-panel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.controls-panel::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.controls-panel::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.3);
+  border-radius: 3px;
+}
+
+h2 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+}
+
+.button-group {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+button {
+  flex: 1;
+  padding: 9px 8px;
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.12), rgba(0, 229, 255, 0.04));
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.22), rgba(0, 229, 255, 0.1));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 229, 255, 0.2);
+}
+
+button.active {
+  background: linear-gradient(135deg, var(--success), rgba(46, 213, 115, 0.8));
+  border-color: var(--success);
+  box-shadow: 0 0 12px rgba(46, 213, 115, 0.4);
+}
+
+button.action-btn {
+  background: linear-gradient(135deg, rgba(255, 71, 87, 0.2), rgba(255, 71, 87, 0.08));
+  border-color: var(--danger);
+}
+
+button.action-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 71, 87, 0.35), rgba(255, 71, 87, 0.15));
+}
+
+button.train-btn {
+  background: linear-gradient(135deg, rgba(255, 159, 67, 0.2), rgba(255, 159, 67, 0.08));
+  border-color: var(--accent-2);
+}
+
+button.nt-btn {
+  font-size: 9px;
+}
+
+#btn-reset-panels {
+  background: linear-gradient(135deg, rgba(165, 94, 234, 0.15), rgba(165, 94, 234, 0.05));
+  border-color: rgba(165, 94, 234, 0.5);
+}
+
+#btn-reset-panels:hover {
+  background: linear-gradient(135deg, rgba(165, 94, 234, 0.25), rgba(165, 94, 234, 0.12));
+}
+
+button.nt-btn.active {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.4), rgba(255, 107, 107, 0.2));
+  border-color: var(--glutamate);
+}
+
+.control-group {
+  margin: 12px 0;
+}
+
+.control-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+
+.control-value {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--bg-3), var(--accent));
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0, 229, 255, 0.5);
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+.slider-hint {
+  font-size: 8px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.25), transparent);
+  margin: 14px 0;
+}
+
+.visibility-hint {
+  font-size: 9px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  font-style: italic;
+  text-align: center;
+}
+
+.info-box {
+  background: rgba(255, 159, 67, 0.08);
+  border-left: 3px solid var(--accent-2);
+  padding: 10px;
+  margin: 12px 0;
+  border-radius: 4px;
+  font-size: 9px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.info-box strong {
+  color: var(--accent-2);
+}
+
+.stats {
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+.stats div { margin: 3px 0; }
+
+/* ============================================================================
+   GRAPHS PANEL (Bottom Center-Right)
+   ============================================================================ */
+
+.graphs-panel {
+  position: absolute;
+  bottom: 20px;
+  right: 340px;
+  width: 300px;
+  background: rgba(10, 18, 32, 0.95);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 12px;
+  padding: 12px;
+  backdrop-filter: blur(12px);
+  z-index: 10;
+}
+
+.graph-container {
+  margin-bottom: 10px;
+}
+
+.graph-container:last-child {
+  margin-bottom: 0;
+}
+
+.graph-title {
+  font-size: 9px;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.graph-container canvas {
+  width: 100%;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+.graph-legend {
+  display: flex;
+  gap: 12px;
+  margin-top: 3px;
+  font-size: 8px;
+}
+
+.graph-legend-item {
+  color: var(--muted);
+}
+
+.graph-legend-item.voltage { color: var(--pre-primary); }
+.graph-legend-item.calcium { color: #ffffff; }
+.graph-legend-item.psp { color: var(--post-primary); }
+.graph-legend-item.threshold { color: var(--warning); }
+.graph-legend-item.nt-conc { color: var(--glutamate); }
+.graph-legend-item.binding { color: var(--ampa); }
+
+/* Ion Flow Graph Legend */
+.graph-legend-item.ion-net { color: #00ff88; }  /* Net flow - green */
+.graph-legend-item.ion-na { color: #ff6b6b; }   /* Na+ influx - red/pink */
+.graph-legend-item.ion-k { color: #ffd93d; }    /* K+ efflux - yellow */
+.graph-legend-item.ion-cl { color: #4488ff; }   /* Cl- (GABA) - blue */
+
+/* ============================================================================
+   BACK LINK & HINTS
+   ============================================================================ */
+
+.back-link {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 20px;
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: 20px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.back-link:hover {
+  background: rgba(0, 229, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 229, 255, 0.2);
+}
+
+.click-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 18, 32, 0.9);
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 10px;
+  color: var(--muted);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  white-space: nowrap;
+  z-index: 5;
+}
+
+/* ============================================================================
+   DRAGGABLE PANEL SYSTEM
+   ============================================================================ */
+
+.draggable-panel {
+  position: absolute;
+  transition: box-shadow 0.2s ease;
+}
+
+.draggable-panel.dragging {
+  cursor: grabbing !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 0 2px var(--accent);
+  z-index: 1000 !important;
+  transition: none;
+}
+
+/* Panel Header Wrapper */
+.panel-header-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 4px 10px 4px;
+  margin: -4px -4px 10px -4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: grab;
+  user-select: none;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+}
+
+.panel-header-wrapper:active {
+  cursor: grabbing;
+}
+
+/* Drag Handle */
+.panel-drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 20px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: -2px;
+  opacity: 0.5;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.panel-header-wrapper:hover .panel-drag-handle {
+  opacity: 1;
+  color: var(--accent);
+}
+
+/* Title Container */
+.panel-title-container {
+  flex: 1;
+  min-width: 0;
+}
+
+.panel-title-container .panel-title {
+  margin-bottom: 0;
+}
+
+.panel-title-container .panel-subtitle {
+  margin-bottom: 0;
+}
+
+/* Minimize Button */
+.panel-minimize-btn {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.panel-minimize-btn:hover {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Minimized Panel State */
+.draggable-panel.minimized {
+  min-height: auto !important;
+  max-height: none !important;
+  height: auto !important;
+  overflow: hidden;
+}
+
+.draggable-panel.minimized > *:not(.panel-header-wrapper) {
+  display: none !important;
+}
+
+.draggable-panel.minimized .panel-header-wrapper {
+  margin-bottom: 0;
+  padding-bottom: 4px;
+  border-bottom: none;
+}
+
+.draggable-panel.minimized .panel-title-container .panel-subtitle {
+  display: none;
+}
+
+/* Specific panel minimized widths */
+.presynaptic-panel.minimized,
+.postsynaptic-panel.minimized {
+  width: auto;
+  min-width: 180px;
+}
+
+.cleft-panel.minimized,
+.legend.minimized {
+  width: auto;
+  min-width: 140px;
+}
+
+.controls-panel.minimized {
+  width: auto;
+  min-width: 120px;
+  max-height: none !important;
+}
+
+.graphs-panel.minimized {
+  width: auto;
+  min-width: 120px;
+}
+
+.plasticity-panel.minimized {
+  width: auto;
+  min-width: 200px;
+}
+
+/* Fix for plasticity panel - hide original content wrapper */
+.plasticity-panel.minimized .plasticity-content {
+  display: none !important;
+}
+
+/* Panel specific header colors */
+.presynaptic-panel .panel-header-wrapper {
+  background: linear-gradient(180deg, rgba(255, 107, 107, 0.1) 0%, transparent 100%);
+}
+
+.postsynaptic-panel .panel-header-wrapper {
+  background: linear-gradient(180deg, rgba(74, 158, 255, 0.1) 0%, transparent 100%);
+}
+
+.cleft-panel .panel-header-wrapper {
+  background: linear-gradient(180deg, rgba(0, 229, 255, 0.1) 0%, transparent 100%);
+}
+
+.legend .panel-header-wrapper {
+  background: linear-gradient(180deg, rgba(0, 229, 255, 0.08) 0%, transparent 100%);
+}
+
+.controls-panel .panel-header-wrapper {
+  background: linear-gradient(180deg, rgba(0, 229, 255, 0.1) 0%, transparent 100%);
+}
+
+.graphs-panel .panel-header-wrapper {
+  background: linear-gradient(180deg, rgba(0, 229, 255, 0.08) 0%, transparent 100%);
+}
+
+.plasticity-panel .panel-header-wrapper {
+  background: linear-gradient(180deg, rgba(165, 94, 234, 0.15) 0%, transparent 100%);
+}
+
+/* Hover effect for draggable panels */
+.draggable-panel:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Minimized panel hover shows expand hint */
+.draggable-panel.minimized:hover .panel-minimize-btn {
+  background: rgba(46, 213, 115, 0.2);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+/* Grid snap visual indicator (shows during drag) */
+.draggable-panel.dragging::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: 
+    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  z-index: -1;
+}
+
+/* ============================================================================
+   ANIMATIONS
+   ============================================================================ */
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 5px currentColor; }
+  50% { box-shadow: 0 0 15px currentColor, 0 0 25px currentColor; }
+}
+
+@keyframes fusion {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+.vesicle-fusing {
+  animation: fusion 0.3s ease-out forwards;
+}
+
+.channel-open {
+  animation: glow 0.4s ease-in-out infinite;
+}
+
+.ap-active {
+  animation: pulse 0.1s ease-in-out;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 1400px) {
+  .postsynaptic-panel {
+    right: 330px;
+    width: 240px;
+  }
+  .graphs-panel {
+    right: 330px;
+    width: 280px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .presynaptic-panel,
+  .postsynaptic-panel {
+    width: 220px;
+    font-size: 10px;
+  }
+  .controls-panel {
+    width: 260px;
+  }
+  .postsynaptic-panel {
+    right: 290px;
+  }
+  .graphs-panel {
+    display: none;
+  }
+}
+
+@media (max-width: 1000px) {
+  .presynaptic-panel {
+    top: auto;
+    bottom: 80px;
+    left: 10px;
+    width: 180px;
+  }
+  .postsynaptic-panel {
+    display: none;
+  }
+  .cleft-panel {
+    display: none;
+  }
+  .legend {
+    display: none;
+  }
+  .controls-panel {
+    width: 220px;
+    right: 10px;
+  }
+}

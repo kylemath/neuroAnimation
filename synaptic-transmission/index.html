@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D Synaptic Transmission - Chemical Synapse | Brains, Minds, and Machines</title>
+  <meta name="description" content="Interactive 3D visualization of synaptic transmission: vesicle release, SNARE machinery, neurotransmitter dynamics, receptor activation, and retrograde endocannabinoid signaling.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="../" class="back-link">← All animations</a>
+
+  <div id="canvas-container"></div>
+
+  <!-- Presynaptic Terminal Panel (Top Left) -->
+  <div class="info-panel presynaptic-panel">
+    <div class="panel-title">🔴 Presynaptic Terminal</div>
+    <div class="panel-subtitle">Axon Terminal Button</div>
+    
+    <div class="voltage-section">
+      <div class="voltage-label">Terminal Membrane Potential</div>
+      <div class="voltage-display" id="presynaptic-voltage">-70<span class="unit">mV</span></div>
+      <div class="voltage-bar presynaptic">
+        <div class="voltage-marker" id="pre-voltage-marker"></div>
+      </div>
+      <div class="phase-indicator" id="pre-phase">Resting</div>
+    </div>
+
+    <div class="stats-section">
+      <div class="stat-row">
+        <span class="stat-label">Ca²⁺ Channels</span>
+        <span class="stat-value" id="ca-channels">0 / 12 open</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Intracellular [Ca²⁺]</span>
+        <span class="stat-value" id="ca-concentration">100 nM</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">CB1 Receptors</span>
+        <span class="stat-value" id="cb1-status">Inactive</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Release Probability</span>
+        <span class="stat-value" id="release-prob">15%</span>
+      </div>
+    </div>
+
+    <div class="vesicle-section">
+      <div class="vesicle-title">Vesicle Pools</div>
+      <div class="vesicle-pool">
+        <div class="pool-bar">
+          <div class="pool-fill rrp" id="rrp-fill" style="width: 100%"></div>
+        </div>
+        <span class="pool-label">RRP: <span id="rrp-count">10</span></span>
+      </div>
+      <div class="vesicle-pool">
+        <div class="pool-bar">
+          <div class="pool-fill recycling" id="recycling-fill" style="width: 100%"></div>
+        </div>
+        <span class="pool-label">Recycling: <span id="recycling-count">50</span></span>
+      </div>
+      <div class="vesicle-pool">
+        <div class="pool-bar">
+          <div class="pool-fill reserve" id="reserve-fill" style="width: 100%"></div>
+        </div>
+        <span class="pool-label">Reserve: <span id="reserve-count">200</span></span>
+      </div>
+    </div>
+
+    <div class="snare-indicator">
+      <div class="snare-title">SNARE Complex Status</div>
+      <div class="snare-status" id="snare-status">
+        <span class="snare-component synaptobrevin">Synaptobrevin</span>
+        <span class="snare-component syntaxin">Syntaxin</span>
+        <span class="snare-component snap25">SNAP-25</span>
+      </div>
+      <div class="snare-state" id="snare-state">Primed - Awaiting Ca²⁺</div>
+    </div>
+  </div>
+
+  <!-- Postsynaptic Panel (Top Right) -->
+  <div class="info-panel postsynaptic-panel">
+    <div class="panel-title">🔵 Postsynaptic Spine</div>
+    <div class="panel-subtitle">Dendritic Spine</div>
+    
+    <div class="voltage-section">
+      <div class="voltage-label">Spine Membrane Potential</div>
+      <div class="voltage-display post" id="postsynaptic-voltage">-70<span class="unit">mV</span></div>
+      <div class="voltage-bar postsynaptic">
+        <div class="voltage-marker" id="post-voltage-marker"></div>
+      </div>
+      <div class="phase-indicator" id="post-phase">Resting</div>
+    </div>
+
+    <div class="psp-indicator">
+      <div class="psp-type epsp" id="epsp-indicator">EPSP: <span>0</span> mV</div>
+      <div class="psp-type ipsp" id="ipsp-indicator">IPSP: <span>0</span> mV</div>
+    </div>
+
+    <div class="receptor-section">
+      <div class="receptor-title">Ionotropic Receptors</div>
+      <div class="receptor-row">
+        <span class="receptor-type ampa">AMPA</span>
+        <span class="receptor-count" id="ampa-bound">0/8 bound</span>
+      </div>
+      <div class="receptor-row">
+        <span class="receptor-type nmda">NMDA</span>
+        <span class="receptor-count" id="nmda-bound">0/6 bound (Mg²⁺ block)</span>
+      </div>
+      <div class="receptor-row">
+        <span class="receptor-type gabaa">GABA-A</span>
+        <span class="receptor-count" id="gabaa-bound">0/4 bound</span>
+      </div>
+    </div>
+
+    <div class="receptor-section metabotropic">
+      <div class="receptor-title">Metabotropic Receptors</div>
+      <div class="receptor-row">
+        <span class="receptor-type mglur">mGluR</span>
+        <span class="receptor-count" id="mglur-status">Inactive</span>
+      </div>
+      <div class="receptor-row">
+        <span class="receptor-type gabab">GABA-B</span>
+        <span class="receptor-count" id="gabab-status">Inactive</span>
+      </div>
+      <div class="gprotein-indicator">
+        <span>G-protein cascade:</span>
+        <span id="gprotein-state">Idle</span>
+      </div>
+    </div>
+
+    <div class="plasticity-section plasticity-mini">
+      <div class="plasticity-title">🧠 Synaptic Plasticity</div>
+      <div class="plasticity-row">
+        <span>AMPA:</span>
+        <span id="ampa-plasticity-mini">100%</span>
+      </div>
+    </div>
+
+    <div class="endocannabinoid-section">
+      <div class="endo-title">🌿 Endocannabinoid System</div>
+      <div class="endo-row">
+        <span>2-AG synthesis:</span>
+        <span id="2ag-level">Low</span>
+      </div>
+      <div class="endo-row">
+        <span>Retrograde signal:</span>
+        <span id="retrograde-status">None</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Synaptic Cleft Panel (Bottom Left) -->
+  <div class="cleft-panel">
+    <div class="panel-title">⚡ Synaptic Cleft</div>
+    <div class="cleft-info">
+      <div class="cleft-stat">
+        <span>Width:</span>
+        <span>~15 nm</span>
+      </div>
+      <div class="cleft-stat">
+        <span>Glutamate:</span>
+        <span id="glu-cleft">0</span>
+      </div>
+      <div class="cleft-stat">
+        <span>GABA:</span>
+        <span id="gaba-cleft">0</span>
+      </div>
+      <div class="cleft-stat">
+        <span>Free ions:</span>
+        <span id="cleft-ions">Na⁺ K⁺ Cl⁻</span>
+      </div>
+    </div>
+    <div class="clearance-section">
+      <div class="clearance-title">Clearance Mechanisms</div>
+      <div class="clearance-row">
+        <span class="clearance-type reuptake">Reuptake (EAAT):</span>
+        <span id="reuptake-rate">Active</span>
+      </div>
+      <div class="clearance-row">
+        <span class="clearance-type enzymatic">Enzymatic:</span>
+        <span id="enzyme-rate">AChE ready</span>
+      </div>
+      <div class="clearance-row">
+        <span class="clearance-type astrocyte">Astrocyte uptake:</span>
+        <span id="astrocyte-rate">Active</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-title">Molecular Components</div>
+    <div class="legend-grid">
+      <div class="legend-item">
+        <div class="legend-color vesicle"></div>
+        <span>Synaptic Vesicle</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color glutamate"></div>
+        <span>Glutamate</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color gaba"></div>
+        <span>GABA</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color calcium"></div>
+        <span>Ca²⁺</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color sodium"></div>
+        <span>Na⁺</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color potassium"></div>
+        <span>K⁺</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color chloride"></div>
+        <span>Cl⁻</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color endocannabinoid"></div>
+        <span>2-AG / Anandamide</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color ampa-receptor"></div>
+        <span>AMPA Receptor</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color nmda-receptor"></div>
+        <span>NMDA Receptor</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color cb1-receptor"></div>
+        <span>CB1 Receptor</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color astrocyte"></div>
+        <span>Astrocyte End-feet</span>
+      </div>
+    </div>
+    <div class="legend-title" style="margin-top: 10px;">Structures</div>
+    <div class="legend-grid">
+      <div class="legend-item">
+        <div class="legend-color" style="background: #8899aa;"></div>
+        <span>Terminal Dome</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #ff8888;"></div>
+        <span>Pre Membrane (face)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #6688bb;"></div>
+        <span>Spine Dome</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #88aaff;"></div>
+        <span>Post Membrane (face)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #00ff88;"></div>
+        <span>Ca²⁺ Channel</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #ffdd44;"></div>
+        <span>Active Zone / PSD</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Click Hint -->
+  <div class="click-hint">
+    🖱️ Click terminal to trigger AP • Scroll to zoom • Drag to rotate • Drag panel headers to move • Click − to minimize
+  </div>
+
+  <!-- Main Controls Panel (Right Side) -->
+  <div class="controls-panel">
+    <h2>Synaptic Controls</h2>
+    
+    <div class="button-group">
+      <button id="btn-start" class="active">▶ Start</button>
+      <button id="btn-pause">⏸ Pause</button>
+      <button id="btn-reset">⟲ Reset</button>
+    </div>
+
+    <div class="button-group">
+      <button id="btn-ap" class="action-btn">⚡ Trigger AP</button>
+      <button id="btn-train" class="train-btn">🔄 AP Train</button>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>AP Frequency (Hz)</span>
+        <span class="control-value" id="ap-freq-val">10 Hz</span>
+      </div>
+      <input type="range" id="ap-freq-slider" min="1" max="100" step="1" value="10">
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>🧬 Neurotransmitter Type</h2>
+
+    <div class="button-group nt-select">
+      <button id="btn-glutamate" class="nt-btn active">Glutamate</button>
+      <button id="btn-gaba" class="nt-btn">GABA</button>
+      <button id="btn-mixed" class="nt-btn">Mixed</button>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Vesicle NT Content</span>
+        <span class="control-value" id="nt-content-val">~5000</span>
+      </div>
+      <input type="range" id="nt-content-slider" min="1000" max="10000" step="500" value="5000">
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>⚙️ Presynaptic Modulation</h2>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Ca²⁺ Channel Density</span>
+        <span class="control-value" id="ca-density-val">100%</span>
+      </div>
+      <input type="range" id="ca-density-slider" min="25" max="200" step="5" value="100">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Release Probability (Pr)</span>
+        <span class="control-value" id="pr-val">0.15</span>
+      </div>
+      <input type="range" id="pr-slider" min="0.01" max="0.5" step="0.01" value="0.15">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>CB1 Activation Level</span>
+        <span class="control-value" id="cb1-val">0%</span>
+      </div>
+      <input type="range" id="cb1-slider" min="0" max="100" step="5" value="0">
+      <div class="slider-hint">↑ Reduces release probability (DSI)</div>
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>🔬 Postsynaptic</h2>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>AMPA Receptor Density</span>
+        <span class="control-value" id="ampa-density-val">100%</span>
+      </div>
+      <input type="range" id="ampa-density-slider" min="25" max="200" step="5" value="100">
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>NMDA Mg²⁺ Block</span>
+        <span class="control-value" id="mg-block-val">100%</span>
+      </div>
+      <input type="range" id="mg-block-slider" min="0" max="100" step="5" value="100">
+      <div class="slider-hint">↓ Simulates depolarization relief</div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Endocannabinoid Synthesis</span>
+        <input type="checkbox" id="endo-toggle">
+      </div>
+      <div class="slider-hint">Enables retrograde signaling</div>
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>🌟 Visualization</h2>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Animation Speed</span>
+        <span class="control-value" id="speed-val">1.0x</span>
+      </div>
+      <input type="range" id="speed-slider" min="0.1" max="5" step="0.1" value="1.0">
+    </div>
+
+    <div class="button-group">
+      <button id="btn-reset-cam">📷 Reset Camera</button>
+      <button id="btn-flip-view">🔄 Flip View</button>
+    </div>
+
+    <div class="button-group">
+      <button id="btn-reset-panels">📐 Reset Panels</button>
+    </div>
+
+    <div class="section-divider"></div>
+    <h2>👁️ Structure Visibility</h2>
+    <div class="visibility-hint">Toggle to identify structures</div>
+
+    <div class="control-group" style="background: rgba(255,136,136,0.15); padding: 6px; border-radius: 4px; margin-bottom: 6px;">
+      <div class="control-label">
+        <span style="color: #ff8888; font-weight: bold;">🔴 ALL Presynaptic</span>
+        <input type="checkbox" id="toggle-all-presynaptic" checked>
+      </div>
+    </div>
+
+    <div class="control-group" style="background: rgba(136,170,255,0.15); padding: 6px; border-radius: 4px; margin-bottom: 6px;">
+      <div class="control-label">
+        <span style="color: #88aaff; font-weight: bold;">🔵 ALL Postsynaptic</span>
+        <input type="checkbox" id="toggle-all-postsynaptic" checked>
+      </div>
+    </div>
+
+    <div class="control-group" style="background: rgba(255,255,255,0.08); padding: 6px; border-radius: 4px; margin-bottom: 6px;">
+      <div class="control-label">
+        <span style="color: #ffdd66; font-weight: bold;">⭕ Membrane Only Mode</span>
+        <input type="checkbox" id="toggle-membrane-only">
+      </div>
+      <div class="slider-hint">Hides domes, shows only membrane faces</div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span style="color: #00ff88;">Ca²⁺ Channels</span>
+        <input type="checkbox" id="toggle-ca-channels" checked>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span style="color: #2ed573;">Vesicles</span>
+        <input type="checkbox" id="toggle-vesicles" checked>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span style="color: #cc99ff;">Astrocyte End-feet</span>
+        <input type="checkbox" id="astrocyte-toggle" checked>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="control-label">
+        <span>Ion Flow Particles</span>
+        <input type="checkbox" id="ion-flow-toggle" checked>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Synaptic Transmission:</strong><br>
+      • AP arrives → Ca²⁺ channels open<br>
+      • Ca²⁺ influx → synaptotagmin binding<br>
+      • SNARE zippering → vesicle fusion<br>
+      • NT release (exocytosis) → cleft<br>
+      • Receptor binding → ion flux<br>
+      • EPSP/IPSP → postsynaptic potential<br><br>
+      <strong>Retrograde Signaling:</strong><br>
+      • Strong activation → eCB synthesis<br>
+      • 2-AG → CB1 receptors (presynaptic)<br>
+      • ↓ Ca²⁺ influx → ↓ release (DSI/DSE)
+    </div>
+
+    <div class="stats">
+      <div>FPS: <span id="fps">60</span></div>
+      <div>Vesicles Released: <span id="vesicles-released">0</span></div>
+      <div>Total EPSPs: <span id="total-epsps">0</span></div>
+      <div>Sim Time: <span id="sim-time">0.00</span> ms</div>
+    </div>
+  </div>
+
+  <!-- Voltage Graphs Panel -->
+  <div class="graphs-panel">
+    <div class="graph-container">
+      <div class="graph-title">Presynaptic Voltage & Ca²⁺</div>
+      <canvas id="pre-graph" width="280" height="100"></canvas>
+      <div class="graph-legend">
+        <span class="graph-legend-item voltage">━ Vm</span>
+        <span class="graph-legend-item calcium">━ [Ca²⁺]</span>
+      </div>
+    </div>
+    <div class="graph-container">
+      <div class="graph-title">Postsynaptic Potential</div>
+      <canvas id="post-graph" width="280" height="100"></canvas>
+      <div class="graph-legend">
+        <span class="graph-legend-item psp">━ PSP</span>
+        <span class="graph-legend-item threshold">┄ Threshold</span>
+      </div>
+    </div>
+    <div class="graph-container">
+      <div class="graph-title">Cleft [NT] & Receptor Binding</div>
+      <canvas id="cleft-graph" width="280" height="100"></canvas>
+      <div class="graph-legend">
+        <span class="graph-legend-item nt-conc">━ [NT]</span>
+        <span class="graph-legend-item binding">━ Binding</span>
+      </div>
+    </div>
+    <div class="graph-container">
+      <div class="graph-title">Ion Flow (Influx/Efflux)</div>
+      <canvas id="ion-flow-graph" width="280" height="100"></canvas>
+      <div class="graph-legend">
+        <span class="graph-legend-item ion-net">━ Net</span>
+        <span class="graph-legend-item ion-na">━ Na⁺</span>
+        <span class="graph-legend-item ion-k">━ K⁺</span>
+        <span class="graph-legend-item ion-cl">━ Cl⁻</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Plasticity Panel -->
+  <div class="plasticity-panel">
+    <div class="plasticity-panel-header">
+      <span>🧠 Synaptic Plasticity (LTP/LTD)</span>
+    </div>
+    
+    <div class="plasticity-content">
+      <div class="plasticity-meter">
+        <div class="meter-label">Spine [Ca²⁺]</div>
+        <div class="meter-bar-container">
+          <div class="meter-bar ca-bar" id="ca-meter-bar"></div>
+          <div class="meter-threshold ltp-threshold" title="LTP threshold"></div>
+          <div class="meter-threshold ltd-threshold" title="LTD threshold"></div>
+        </div>
+        <div class="meter-value" id="spine-ca">0.00</div>
+      </div>
+      
+      <div class="plasticity-meter">
+        <div class="meter-label">AMPA Strength</div>
+        <div class="meter-bar-container ampa-container">
+          <div class="meter-bar ampa-bar" id="ampa-meter-bar"></div>
+          <div class="meter-baseline"></div>
+        </div>
+        <div class="meter-value" id="ampa-plasticity">100%</div>
+      </div>
+      
+      <div class="plasticity-status">
+        <div class="status-row">
+          <span>State:</span>
+          <span id="plasticity-state" class="status-value">Baseline</span>
+        </div>
+        <div class="pathway-section">
+          <div class="pathway-title">Signaling Cascade:</div>
+          <div class="status-row">
+            <span>Ca²⁺/CaM → <strong>CaMKII</strong>:</span>
+            <span id="camkii-level" class="status-value">0%</span>
+          </div>
+          <div class="status-row">
+            <span>Ca²⁺ → <strong>Calcineurin</strong>:</span>
+            <span id="calcineurin-level" class="status-value">0%</span>
+          </div>
+          <div class="status-row">
+            <span>AMPA trafficking:</span>
+            <span id="ampa-trafficking" class="status-value">0</span>
+          </div>
+        </div>
+        <div class="status-row highlight-row">
+          <span>Net AMPA density:</span>
+          <span id="ampa-density-result" class="status-value">100%</span>
+        </div>
+      </div>
+      
+      <div class="plasticity-graphs">
+        <div class="plasticity-graph-title">Plasticity Effect on Binding & Current</div>
+        <canvas id="plasticity-graph" width="350" height="80"></canvas>
+        <div class="plasticity-graph-legend">
+          <span class="legend-item"><span class="legend-color" style="background:#2ecc71"></span>AMPA density</span>
+          <span class="legend-item"><span class="legend-color" style="background:#f1c40f"></span>Binding</span>
+          <span class="legend-item"><span class="legend-color" style="background:#e74c3c"></span>Current</span>
+        </div>
+      </div>
+      
+      <div class="plasticity-hint">
+        <strong>LTP:</strong> High Ca²⁺ → CaMKII → ↑AMPA<br>
+        <strong>LTD:</strong> Mod Ca²⁺ → Calcineurin → ↓AMPA
+      </div>
+    </div>
+  </div>
+
+  <!-- Load the main module -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

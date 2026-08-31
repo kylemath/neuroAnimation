@@ -1,0 +1,347 @@
+/* Action Potential 3D - Styles
+ * Myelinated vs Unmyelinated Neuron Visualization
+ */
+
+:root {
+  --bg: #0b0f17;
+  --bg-2: #0f1624;
+  --bg-3: #141b2e;
+  --text: #e6edf3;
+  --muted: #9fb0c3;
+  --accent: #7ae1ff;
+  --accent-2: #ffb86b;
+  --danger: #ff6b6b;
+  --success: #51cf66;
+  --inhibit: #9b59b6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: radial-gradient(1200px 800px at 20% 10%, #0e1522 0%, var(--bg) 50%, #060a11 100%);
+  color: var(--text);
+  overflow: hidden;
+  height: 100vh;
+}
+
+#canvas-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  cursor: grab;
+}
+
+#canvas-container:active { cursor: grabbing; }
+
+.controls-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  background: rgba(15, 22, 36, 0.95);
+  border: 1px solid rgba(122, 225, 255, 0.3);
+  border-radius: 12px;
+  padding: 15px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
+  font-size: 12px;
+}
+
+.voltmeter {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(15, 22, 36, 0.95);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 15px;
+  min-width: 220px;
+  backdrop-filter: blur(10px);
+}
+
+.voltmeter-title {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.voltage-display {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  text-shadow: 0 0 20px rgba(122, 225, 255, 0.5);
+}
+
+.voltage-bar {
+  width: 100%;
+  height: 24px;
+  background: linear-gradient(90deg, var(--danger) 0%, var(--accent-2) 50%, var(--success) 100%);
+  border-radius: 4px;
+  position: relative;
+  margin-top: 8px;
+}
+
+.voltage-indicator {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 32px;
+  background: white;
+  box-shadow: 0 0 10px white;
+  transition: left 0.05s;
+}
+
+.phase-label {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--accent-2);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.refractory-indicator {
+  margin-top: 8px;
+  padding: 6px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.legend {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(15, 22, 36, 0.95);
+  border: 1px solid rgba(122, 225, 255, 0.3);
+  border-radius: 12px;
+  padding: 12px;
+  backdrop-filter: blur(10px);
+  font-size: 11px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+h2 {
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(122, 225, 255, 0.3);
+  padding-bottom: 8px;
+}
+
+.button-group {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+button {
+  flex: 1;
+  padding: 10px;
+  background: linear-gradient(135deg, rgba(122, 225, 255, 0.2), rgba(122, 225, 255, 0.1));
+  border: 1px solid rgba(122, 225, 255, 0.4);
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background: linear-gradient(135deg, rgba(122, 225, 255, 0.35), rgba(122, 225, 255, 0.2));
+  transform: translateY(-1px);
+}
+
+button.active {
+  background: linear-gradient(135deg, var(--success), rgba(81, 207, 102, 0.8));
+  border-color: var(--success);
+}
+
+button.excite {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(255, 107, 107, 0.15));
+  border-color: var(--danger);
+}
+
+button.inhibit {
+  background: linear-gradient(135deg, rgba(155, 89, 182, 0.3), rgba(155, 89, 182, 0.15));
+  border-color: var(--inhibit);
+}
+
+.control-group {
+  margin: 12px 0;
+}
+
+.control-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 11px;
+}
+
+.control-value {
+  color: var(--accent);
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--bg-3), var(--accent));
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(122, 225, 255, 0.5);
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.info-box {
+  background: rgba(255, 184, 107, 0.1);
+  border-left: 3px solid var(--accent-2);
+  padding: 8px;
+  margin: 12px 0;
+  border-radius: 4px;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.back-link {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background: rgba(122, 225, 255, 0.15);
+  border: 1px solid rgba(122, 225, 255, 0.3);
+  border-radius: 6px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 12px;
+  transition: all 0.2s;
+  z-index: 100;
+}
+
+.back-link:hover {
+  background: rgba(122, 225, 255, 0.25);
+}
+
+.stats {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(122, 225, 255, 0.2);
+}
+
+.stats div { margin: 4px 0; }
+
+.click-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 22, 36, 0.9);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid rgba(122, 225, 255, 0.2);
+}
+
+.section-divider {
+  height: 1px;
+  background: rgba(122, 225, 255, 0.2);
+  margin: 15px 0;
+}
+
+.comparison-panel {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  background: rgba(15, 22, 36, 0.95);
+  border: 1px solid rgba(122, 225, 255, 0.3);
+  border-radius: 12px;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+  font-size: 12px;
+}
+
+.comparison-panel h3 {
+  font-size: 13px;
+  color: var(--accent);
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(122, 225, 255, 0.3);
+  padding-bottom: 6px;
+}
+
+.neuron-label {
+  display: flex;
+  align-items: center;
+  margin: 6px 0;
+  font-size: 11px;
+}
+
+.neuron-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.myelin-legend {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(122, 225, 255, 0.2);
+}
+
+.myelin-legend-item {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+  font-size: 10px;
+}
+
+.myelin-color {
+  width: 20px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 2px;
+}

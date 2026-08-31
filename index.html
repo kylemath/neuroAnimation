@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>neuroAnimation — 3D mechanism demos</title>
+    <meta name="description" content="Interactive 3D visualizations of action potentials, membranes, and synapses.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Spectral:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #0b0f17;
+        --text: #e6edf3;
+        --muted: #9fb0c3;
+        --accent: #7ae1ff;
+        --green: #51cf66;
+        --amber: #ffb86b;
+        --red: #ff6b6b;
+      }
+      html, body { margin: 0; min-height: 100%; }
+      body {
+        font-family: Inter, system-ui, sans-serif;
+        color: var(--text);
+        background: radial-gradient(1000px 700px at 20% 10%, #0e1522 0%, var(--bg) 55%, #060a11 100%);
+      }
+      main {
+        max-width: 44rem;
+        margin: 0 auto;
+        padding: 48px 24px 64px;
+      }
+      .brand {
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 12px;
+      }
+      h1 {
+        font-family: Spectral, Georgia, serif;
+        font-size: clamp(28px, 5vw, 40px);
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 0 0 12px;
+      }
+      .lede {
+        color: var(--muted);
+        line-height: 1.6;
+        margin: 0 0 32px;
+      }
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+      a.card {
+        display: block;
+        padding: 18px 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid rgba(122, 225, 255, 0.2);
+        background: rgba(15, 22, 36, 0.7);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      a.card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      }
+      a.card strong { display: block; font-size: 16px; margin-bottom: 6px; }
+      a.card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+      .ap { border-color: rgba(81, 207, 102, 0.45); }
+      .ap strong { color: var(--green); }
+      .mm { border-color: rgba(255, 184, 107, 0.45); }
+      .mm strong { color: var(--amber); }
+      .st { border-color: rgba(255, 107, 107, 0.45); }
+      .st strong { color: var(--red); }
+      .foot {
+        margin-top: 36px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .foot a { color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="brand">neuroAnimation</p>
+      <h1>3D mechanism demos</h1>
+      <p class="lede">Open any demo in a new tab. Courses and the PSYCH 275 textbook link here; this site does not host the reading.</p>
+      <div class="grid">
+        <a class="card ap" href="./action-potential-3d/">
+          <strong>Action potential</strong>
+          <p>Propagation along myelinated vs unmyelinated axons, with ion flow and an electrode reading.</p>
+        </a>
+        <a class="card mm" href="./membrane-molecular/">
+          <strong>Molecular membrane</strong>
+          <p>Axon hillock at molecular scale: voltage-gated channels, pumps, and compartmental voltage.</p>
+        </a>
+        <a class="card st" href="./synaptic-transmission/">
+          <strong>Synaptic transmission</strong>
+          <p>Vesicle fusion, transmitter in the cleft, receptors, and retrograde endocannabinoid signaling.</p>
+        </a>
+      </div>
+      <p class="foot">
+        Used by <a href="https://kylemath.github.io/psych275-textbook/textbook/">Brains, Minds, and Machines</a>.
+        Source: <a href="https://github.com/kylemath/neuroAnimation">github.com/kylemath/neuroAnimation</a>.
+      </p>
+    </main>
+  </body>
+</html>
