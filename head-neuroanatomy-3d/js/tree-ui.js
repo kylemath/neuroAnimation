@@ -176,6 +176,7 @@ function renderNode(def, handlers) {
   name.className = 'tree-name';
   name.textContent = def.name;
   name.addEventListener('click', () => {
+    if (!isIdVisible(def.id, def)) setHidden(def.id, false);
     selectedRowId = def.id;
     highlightSelectedRow();
     if (handlers.onSelect) handlers.onSelect(def.id, false);

@@ -23,7 +23,7 @@
       "layer": "cortex",
       "defaultVisible": true,
       "renderOrder": 8,
-      "bytes": 3971680
+      "bytes": 4047928
     },
     {
       "id": "white-matter",
@@ -41,7 +41,7 @@
       "layer": "subcortical",
       "defaultVisible": true,
       "renderOrder": 18,
-      "bytes": 909956
+      "bytes": 826340
     },
     {
       "id": "cerebellum",
@@ -59,7 +59,7 @@
       "layer": "ventricles",
       "defaultVisible": true,
       "renderOrder": 22,
-      "bytes": 343024
+      "bytes": 342996
     },
     {
       "id": "vasculature",
@@ -1567,9 +1567,9 @@
       "meshNode": "putamen_lh",
       "colour": "#00b4d8",
       "centroid": [
-        -19.865941763768365,
-        44.760673644284864,
-        26.239150939658924
+        -29.06,
+        30.55,
+        7.28
       ],
       "function": "Lentiform striatum, heavily sensorimotor; with the caudate it forms the input stage of the basal ganglia.",
       "clinical": "Putaminal haemorrhage (hypertension) is a common deep ICH; lacunar infarcts cause lacunar syndromes.",
@@ -1597,9 +1597,9 @@
       "meshNode": "putamen_rh",
       "colour": "#00b4d8",
       "centroid": [
-        19.814571588710102,
-        44.10837883009257,
-        29.953263421908176
+        31.9,
+        29.55,
+        12.98
       ],
       "function": "Lentiform striatum, heavily sensorimotor; with the caudate it forms the input stage of the basal ganglia.",
       "clinical": "Putaminal haemorrhage (hypertension) is a common deep ICH; lacunar infarcts cause lacunar syndromes.",
@@ -2186,9 +2186,9 @@
       "meshNode": "lateral_ventricle_lh",
       "colour": "#4cc9f0",
       "centroid": [
-        -18.025351052273926,
-        21.017862896158697,
-        13.94441117517744
+        -22.11,
+        4.18,
+        19.26
       ],
       "function": "C-shaped CSF space (frontal, body, atrium, temporal and occipital horns) lined by ependyma and containing choroid plexus.",
       "clinical": "Enlarges in hydrocephalus and atrophy; temporal horns balloon early in obstructive hydrocephalus.",
@@ -2214,9 +2214,9 @@
       "meshNode": "lateral_ventricle_rh",
       "colour": "#4cc9f0",
       "centroid": [
-        19.51393768910382,
-        20.400707318503535,
-        17.4580948344183
+        21.33,
+        3.67,
+        22.69
       ],
       "function": "C-shaped CSF space (frontal, body, atrium, temporal and occipital horns) lined by ependyma and containing choroid plexus.",
       "clinical": "Enlarges in hydrocephalus and atrophy; temporal horns balloon early in obstructive hydrocephalus.",
@@ -5391,9 +5391,9 @@
       "colour": "#e9a8c9",
       "opacity": 0.92,
       "centroid": [
-        -10.339804037015977,
-        19.61459098212935,
-        35.37360149243113
+        -10.42,
+        32.57,
+        38.9
       ],
       "schematic": false,
       "defaultVisible": true,
@@ -5422,9 +5422,9 @@
       "colour": "#f0b4a8",
       "opacity": 0.92,
       "centroid": [
-        7.943922480553216,
-        19.313933498258038,
-        37.084985426987444
+        7.82,
+        31.88,
+        40.56
       ],
       "schematic": false,
       "defaultVisible": true,
@@ -5595,12 +5595,12 @@
     "aras.glb": 37616,
     "head.glb": 270600,
     "sensory.glb": 419820,
-    "core.glb": 3971680,
+    "core.glb": 4047928,
     "white-matter.glb": 1190392,
     "vasculature.glb": 337176,
-    "ventricles.glb": 343024,
+    "ventricles.glb": 342996,
     "cranial-nerves.glb": 694236,
-    "subcortical.glb": 909956,
+    "subcortical.glb": 826340,
     "cerebellum.glb": 848776,
     "slices.glb": 1235060,
     "venous.glb": 1246816

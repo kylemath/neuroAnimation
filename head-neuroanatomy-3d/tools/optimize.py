@@ -156,6 +156,109 @@ def node_face_target(node: str, face_count: int, group_budget: int, total_faces:
     return min(face_count, max(minimum, share))
 
 
+def _skew(v: np.ndarray) -> np.ndarray:
+    x, y, z = v
+    return np.array([[0.0, -z, y], [z, 0.0, -x], [-y, x, 0.0]], dtype=np.float64)
+
+
+def _rotate_align(src: np.ndarray, dst: np.ndarray) -> np.ndarray:
+    """Smallest rotation taking vector src onto dst."""
+    a = src / np.linalg.norm(src)
+    b = dst / np.linalg.norm(dst)
+    v = np.cross(a, b)
+    c = float(np.clip(np.dot(a, b), -1.0, 1.0))
+    s = float(np.linalg.norm(v))
+    if s < 1e-8:
+        if c > 0.0:
+            return np.eye(3)
+        ortho = np.array([1.0, 0.0, 0.0]) if abs(a[0]) < 0.9 else np.array([0.0, 1.0, 0.0])
+        axis = np.cross(a, ortho)
+        axis = axis / np.linalg.norm(axis)
+        k = _skew(axis)
+        return np.eye(3) + 2.0 * (k @ k)
+    k = _skew(v)
+    return np.eye(3) + k + (k @ k) * ((1.0 - c) / (s * s))
+
+
+def _axis_ends(vertices: np.ndarray, k: int = 40) -> Tuple[np.ndarray, np.ndarray]:
+    x = np.asarray(vertices, dtype=np.float64)
+    c = x.mean(axis=0)
+    xc = x - c
+    scale = float(np.linalg.norm(xc, axis=0).max())
+    if scale < 1e-8:
+        return c.copy(), c.copy()
+    _, _, vt = np.linalg.svd(xc / scale, full_matrices=False)
+    proj = xc @ vt[0]
+    k = max(8, min(k, len(vertices) // 5))
+    lo = vertices[np.argpartition(proj, k)[:k]].mean(axis=0)
+    hi = vertices[np.argpartition(proj, -k)[-k:]].mean(axis=0)
+    return lo, hi
+
+
+def _seat(vertices: np.ndarray, src_point: np.ndarray, src_dir: np.ndarray, dst_point: np.ndarray, dst_dir: np.ndarray) -> np.ndarray:
+    rot = _rotate_align(src_dir, dst_dir)
+    return (vertices - src_point) @ rot.T + dst_point
+
+
+def repair_lateral_ventricle(mesh: trimesh.Trimesh, side: str) -> trimesh.Trimesh:
+    """Seat the atrium and the occipital and temporal horns on the body.
+
+    In the Allen male GLB those three pieces are rigid and do not meet the
+    trigone: the atrium sits in front of the frontal horn, and the distal
+    horns are translated and turned away from the posterior end of the body.
+    Vertices are MNI millimetres. Anterior horn and body are left as they are.
+    """
+    parts = [p for p in mesh.split(only_watertight=False) if len(p.faces) >= 20]
+    if len(parts) < 5:
+        return mesh
+    cents = [p.vertices.mean(axis=0) for p in parts]
+    atrium_i = max(range(len(parts)), key=lambda i: cents[i][1])
+    post_i = min(range(len(parts)), key=lambda i: cents[i][1])
+    inf_i = min(range(len(parts)), key=lambda i: cents[i][2])
+    rest = [i for i in range(len(parts)) if i not in (atrium_i, post_i, inf_i)]
+    if len(rest) < 2:
+        return mesh
+    body_i = min(rest, key=lambda i: cents[i][1])
+    sign = -1.0 if side.upper().startswith("L") else 1.0
+
+    body_lo, body_hi = _axis_ends(parts[body_i].vertices)
+    body_post = body_lo if body_lo[1] < body_hi[1] else body_hi
+
+    def higher_y(vertices: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+        a, b = _axis_ends(vertices)
+        return (a, b) if a[1] > b[1] else (b, a)
+
+    a_hi, a_lo = higher_y(parts[atrium_i].vertices)
+    atrium_v = _seat(parts[atrium_i].vertices, a_hi, a_lo - a_hi, body_post, np.array([sign * 0.15, -1.0, -0.05]))
+    atr_hi, atr_lo = higher_y(atrium_v)
+    atrium_dist = atr_lo if atr_lo[1] < atr_hi[1] else atr_hi
+
+    p_hi, p_lo = higher_y(parts[post_i].vertices)
+    post_v = _seat(parts[post_i].vertices, p_hi, p_lo - p_hi, atrium_dist, np.array([sign * 0.12, -0.85, 0.45]))
+
+    i1, i2 = _axis_ends(parts[inf_i].vertices)
+    i_prox, i_dist = (i1, i2) if i1[2] > i2[2] else (i2, i1)
+    attach = body_post + np.array([sign * 1.5, -2.0, -4.0])
+    inf_v = _seat(parts[inf_i].vertices, i_prox, i_dist - i_prox, attach, np.array([sign * 0.4, 0.7, -0.85]))
+
+    rebuilt = {
+        atrium_i: atrium_v,
+        post_i: post_v,
+        inf_i: inf_v,
+    }
+    out = []
+    for i, part in enumerate(parts):
+        if i in rebuilt:
+            moved = part.copy()
+            moved.vertices = rebuilt[i]
+            out.append(moved)
+        else:
+            out.append(part)
+    joined = trimesh.util.concatenate(out)
+    print(f"  repaired lateral ventricle {side}: atrium, occipital horn, temporal horn seated on the trigone")
+    return joined
+
+
 def concat(meshes: List[trimesh.Trimesh]) -> Optional[trimesh.Trimesh]:
     meshes = [m for m in meshes if m is not None and hasattr(m, "faces") and len(m.faces)]
     if not meshes:
@@ -624,6 +727,10 @@ def main() -> int:
         mesh = concat(meshes)
         if mesh is None:
             continue
+        if node == "lateral_ventricle_lh":
+            mesh = repair_lateral_ventricle(mesh, "L")
+        elif node == "lateral_ventricle_rh":
+            mesh = repair_lateral_ventricle(mesh, "R")
         centroids[node] = np.asarray(mesh.vertices).mean(axis=0).tolist()
         grouped[node_group(node)][node] = mesh
 

@@ -15,6 +15,8 @@ export const state = {
   dimUnselected: true,
   solo: null,
   isolate: null,
+  // Structures the user turned on from the tree while a lesson filter is active.
+  userShown: new Set(),
   hidden: new Set(),
   opacityOverride: new Map(),
   layerHidden: new Set(),
@@ -56,6 +58,7 @@ export function resetAppearanceState() {
   state.dimUnselected = true;
   state.solo = null;
   state.isolate = null;
+  state.userShown.clear();
   state.hidden.clear();
   state.opacityOverride.clear();
   state.layerHidden.clear();
@@ -69,10 +72,21 @@ export function layerAllows(def) {
   return also.some((layer) => !state.layerHidden.has(layer));
 }
 
-export function isIdVisible(id, def) {
-  if (state.hidden.has(id)) return false;
+/** Lesson isolate / solo / layer filters, ignoring an explicit tree toggle. */
+export function passesViewFilter(id, def) {
   if (def && !layerAllows(def)) return false;
   if (state.solo) return id === state.solo || isDescendantOf(id, state.solo);
+  if (state.isolate) {
+    return state.isolate.has(id) || [...state.isolate].some((root) => isDescendantOf(id, root));
+  }
+  return true;
+}
+
+export function isIdVisible(id, def) {
+  if (state.hidden.has(id)) return false;
+  if (state.solo) return id === state.solo || isDescendantOf(id, state.solo);
+  if (state.userShown.has(id)) return true;
+  if (def && !layerAllows(def)) return false;
   if (state.isolate) {
     return state.isolate.has(id) || [...state.isolate].some((root) => isDescendantOf(id, root));
   }

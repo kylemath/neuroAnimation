@@ -25,8 +25,10 @@ ALLEN_EXACT = {
     "basal_forebrain_rh": r"basal_forebrain_r$",
     "caudate_lh": r"(head_of_caudate_l|body_of_caudate_l|tail_of_caudate_l)$",
     "caudate_rh": r"(head_of_caudate_r|body_of_caudate_r|tail_of_caudate_r)$",
-    "putamen_lh": r"(allen_putamen_l|posteroventral_putamen_l)$",
-    "putamen_rh": r"(allen_putamen_r|posteroventral_putamen_r)$",
+    # posteroventral_putamen in the Allen male GLB is not lentiform nucleus:
+    # it sits on the anterior superior cingulate and is mapped there instead.
+    "putamen_lh": r"allen_putamen_l$",
+    "putamen_rh": r"allen_putamen_r$",
     "gpe_lh": r"external_segment_of_globus_pallidus_l$",
     "gpe_rh": r"external_segment_of_globus_pallidus_r$",
     "gpi_lh": r"internal_segment_of_globus_pallidus_l$",
@@ -59,8 +61,9 @@ ALLEN_EXACT = {
     "optic_tract_rh": r"(optic_tract_r|optic_radiation_r)$",
     "optic_chiasm": r"optic_chiasm",
     # Cingulate gyrus (not paracingulate) is its own node so it can be toggled separately from cortex.
-    "cingulate_lh": r"(^|_)cingulate_gyrus_.*_l$",
-    "cingulate_rh": r"(^|_)cingulate_gyrus_.*_r$",
+    # posteroventral_putamen_* is included because that source mesh is the anterior superior cingulate sheet.
+    "cingulate_lh": r"((^|_)cingulate_gyrus_.*_l|posteroventral_putamen_l)$",
+    "cingulate_rh": r"((^|_)cingulate_gyrus_.*_r|posteroventral_putamen_r)$",
     "midbrain": r"(midbrain_tegmentum_|pretectal_region_)",
     "superior_colliculus": r"superior_colliculus_",
     "inferior_colliculus": r"inferior_colliculus_",

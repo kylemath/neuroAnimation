@@ -3,7 +3,9 @@
  */
 
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js';
-import { state, emit, descendantsOf, isIdVisible, resetAppearanceState } from './state.js';
+import {
+  state, emit, descendantsOf, structureById, passesViewFilter, isIdVisible, resetAppearanceState,
+} from './state.js';
 import { structureObjects } from './loader.js';
 
 export function effectiveOpacity(def) {
@@ -87,12 +89,19 @@ export function applyAppearance() {
 }
 
 export function setHidden(id, hidden) {
-  if (hidden) state.hidden.add(id);
-  else state.hidden.delete(id);
-  const kids = descendantsOf(id);
-  for (const k of kids) {
-    if (hidden) state.hidden.add(k.id);
-    else state.hidden.delete(k.id);
+  const ids = [id, ...descendantsOf(id).map((s) => s.id)];
+  for (const sid of ids) {
+    if (hidden) state.hidden.add(sid);
+    else state.hidden.delete(sid);
+    state.userShown.delete(sid);
+  }
+  // A Chapter 6 view hides everything outside its set. Checking a structure
+  // in the tree should still bring it in for reference.
+  if (!hidden) {
+    for (const sid of ids) {
+      const def = structureById(sid);
+      if (def && !passesViewFilter(sid, def)) state.userShown.add(sid);
+    }
   }
   applyAppearance();
   emit('visibility');
@@ -112,18 +121,25 @@ export function setGhost(value) {
 export function setSolo(id) {
   state.solo = id || null;
   state.isolate = null;
+  state.userShown.clear();
   applyAppearance();
   emit('visibility');
 }
 
 export function setIsolate(id) {
   state.solo = null;
-  if (!id) {
+  const roots = Array.isArray(id) ? id.filter(Boolean) : (id ? [id] : []);
+  if (!roots.length) {
     state.isolate = null;
   } else {
-    const ids = new Set([id, ...descendantsOf(id).map((s) => s.id)]);
+    const ids = new Set();
+    for (const root of roots) {
+      ids.add(root);
+      for (const s of descendantsOf(root)) ids.add(s.id);
+    }
     state.isolate = ids;
   }
+  state.userShown.clear();
   applyAppearance();
   emit('visibility');
 }
@@ -133,6 +149,7 @@ export function showAll() {
   state.layerHidden.clear();
   state.solo = null;
   state.isolate = null;
+  state.userShown.clear();
   applyAppearance();
   emit('visibility');
 }
@@ -144,6 +161,7 @@ export function hideAll() {
   }
   state.solo = null;
   state.isolate = null;
+  state.userShown.clear();
   applyAppearance();
   emit('visibility');
 }

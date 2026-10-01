@@ -98,7 +98,7 @@ export const PRESETS = [
     name: 'Diencephalon',
     view: 'oblique',
     layers: [...SUBCORTICAL_LAYERS, 'ventricles', 'white-matter'],
-    isolate: 'diencephalon',
+    isolate: ['diencephalon', 'thalamus'],
     select: 'thalamus-lh',
     ghost: 0.5,
     aras: false,
