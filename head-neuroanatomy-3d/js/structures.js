@@ -75,6 +75,13 @@ export function applyAppearance() {
       rec.material.emissive.copy(rec.material.color).multiplyScalar(glow);
     }
     rec.material.emissiveIntensity = 1;
+    // Slice-mode cut faces follow their structure so selection / hover reads the same on the cap.
+    rec.object.traverse((child) => {
+      if (child.userData && child.userData.isCap && child.material && child.material.emissive) {
+        child.material.color.copy(rec.material.color);
+        child.material.emissive.copy(rec.material.emissive);
+      }
+    });
   }
   emit('appearance');
 }
@@ -168,6 +175,7 @@ export function setClippingPlanes(planes) {
     rec.material.clippingPlanes = planes;
     rec.material.needsUpdate = true;
     rec.object && rec.object.traverse((child) => {
+      if (child.userData && child.userData.clipOwn) return; // stencil caps manage their own planes
       if (child.isMesh && child.material && child.material !== rec.material) {
         child.material.clippingPlanes = planes;
         child.material.needsUpdate = true;

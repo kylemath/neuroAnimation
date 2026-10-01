@@ -23,7 +23,7 @@
       "layer": "cortex",
       "defaultVisible": true,
       "renderOrder": 8,
-      "bytes": 3573572
+      "bytes": 3971680
     },
     {
       "id": "white-matter",
@@ -86,7 +86,7 @@
       "layer": "nerves",
       "defaultVisible": false,
       "renderOrder": 30,
-      "bytes": 575964
+      "bytes": 694236
     },
     {
       "id": "aras",
@@ -95,7 +95,7 @@
       "layer": "aras",
       "defaultVisible": true,
       "renderOrder": 32,
-      "bytes": 37000
+      "bytes": 37624
     },
     {
       "id": "sensory",
@@ -113,7 +113,7 @@
       "layer": "slices",
       "defaultVisible": false,
       "renderOrder": 24,
-      "bytes": 713412
+      "bytes": 1235060
     }
   ],
   "fiducials": [
@@ -367,9 +367,9 @@
       "meshNode": "cortex_lh",
       "colour": "#8eb4d4",
       "centroid": [
-        -37.95997198706454,
-        5.624287719558569,
-        25.71708045259768
+        -39.13174943785269,
+        5.030753244228194,
+        25.307405405436167
       ],
       "function": "Neocortex: six-layered sheet folded into gyri and sulci. It is the seat of perception, action, language and association.",
       "clinical": "Focal lesions produce highly local signs (aphasia, neglect, hemiparesis) that map onto Brodmann / gyral anatomy.",
@@ -396,9 +396,9 @@
       "meshNode": "cortex_rh",
       "colour": "#8eb4d4",
       "centroid": [
-        36.40512562043227,
-        4.401641341876203,
-        32.67764289636136
+        37.61258374023536,
+        3.7689917605986456,
+        32.49066269390101
       ],
       "function": "Neocortex: six-layered sheet folded into gyri and sulci. It is the seat of perception, action, language and association.",
       "clinical": "Focal lesions produce highly local signs (aphasia, neglect, hemiparesis) that map onto Brodmann / gyral anatomy.",
@@ -4640,9 +4640,9 @@
       "meshNode": "section_midbrain",
       "colour": "#e07a5f",
       "centroid": [
-        3.8778659282747667,
-        4.676752009660302,
-        -19.9250427287109
+        2.644674890264638,
+        2.47702368528268,
+        -4.3955618090964315
       ],
       "layer": "slices",
       "defaultVisible": false,
@@ -4668,9 +4668,9 @@
       "meshNode": "section_pons",
       "colour": "#c26d5a",
       "centroid": [
-        5.05826824706583,
-        1.7577359147993317,
-        -33.654809100791674
+        5.182636356521288,
+        0.37223612663060746,
+        -29.46656338241014
       ],
       "layer": "slices",
       "defaultVisible": false,
@@ -4696,9 +4696,9 @@
       "meshNode": "section_medulla_rostral",
       "colour": "#9b4d4d",
       "centroid": [
-        5.972801502751845,
-        -2.7654978343015135,
-        -44.650354037518426
+        6.352219373717415,
+        4.192318687141801,
+        -50.438477545102096
       ],
       "layer": "slices",
       "defaultVisible": false,
@@ -4726,9 +4726,9 @@
       "meshNode": "section_medulla_caudal",
       "colour": "#7f3b3b",
       "centroid": [
-        6.483234617102489,
-        -5.216849434662326,
-        -49.81852309310133
+        7.246291939951271,
+        -1.9299860442564125,
+        -59.01986865207822
       ],
       "layer": "slices",
       "defaultVisible": false,
@@ -4832,9 +4832,9 @@
       "colour": "#ffe075",
       "opacity": 0.95,
       "centroid": [
-        9.374377177254962,
-        16.476490112198604,
-        -70.80158470325512
+        5.4732770463019085,
+        -2.0714233847075643,
+        -37.89338959357169
       ],
       "schematic": false,
       "defaultVisible": true,
@@ -5399,17 +5399,17 @@
     "white_matter_rh"
   ],
   "assetBytes": {
-    "aras.glb": 37000,
+    "aras.glb": 37624,
     "head.glb": 270600,
     "sensory.glb": 419820,
-    "core.glb": 3573572,
+    "core.glb": 3971680,
     "white-matter.glb": 1190392,
     "vasculature.glb": 337176,
     "ventricles.glb": 343024,
-    "cranial-nerves.glb": 575964,
+    "cranial-nerves.glb": 694236,
     "subcortical.glb": 909956,
     "cerebellum.glb": 848776,
-    "slices.glb": 713412,
+    "slices.glb": 1235060,
     "venous.glb": 1246816
   }
 }

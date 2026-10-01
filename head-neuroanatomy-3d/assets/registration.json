@@ -214,22 +214,22 @@
       "name": "pitt-brainstem-family",
       "matrix": [
         [
-          -0.9948455597978849,
-          -0.04823970620472814,
-          -0.08919216835415089,
-          8.68426666172331
+          -0.8531702182194331,
+          -0.03691432444147587,
+          -0.06342082112966767,
+          4.869221189860127
         ],
         [
-          0.032095674691046475,
-          -0.9841700957414904,
-          0.17429598479113706,
-          9.158706113461985
+          0.0005704358948134126,
+          -0.743397080681005,
+          0.4250232278313595,
+          -6.284142227337013
         ],
         [
-          -0.09618825196748429,
-          0.17053490373957841,
-          0.9806455357518191,
-          -67.96226485327419
+          -0.07337944197540354,
+          0.42341752708682884,
+          0.7406870759027567,
+          -31.4433023140258
         ],
         [
           0.0,
@@ -238,10 +238,10 @@
           1.0
         ]
       ],
-      "method": "rigid Procrustes (Pitt axial centroids \u2192 Allen midbrain/pons/medulla)",
-      "residualMm": 10.846786494864828,
+      "method": "ICP with scale (Pitt brainstem body surface \u2192 rendered Allen brainstem), best of 4 proper-rotation inits",
+      "residualMm": 1.7,
       "unitScale": 1.0,
-      "notes": "landmarks=axial_midbrain.stl,axial_pons.stl,axial_caudal_medulla.stl; source=brainstem_cranial_nerves.stl",
+      "notes": "nerve parts touch brainstem: mean gap 0.5 mm (old fit: 20.6 mm)",
       "sceneFromMNI": [
         [
           1.0,
@@ -772,6 +772,222 @@
           103.56756029862254
         ]
       ]
+    },
+    "pitt-brainstem-family-previous": {
+      "name": "pitt-brainstem-family",
+      "matrix": [
+        [
+          -0.9948455597978849,
+          -0.04823970620472814,
+          -0.08919216835415089,
+          8.68426666172331
+        ],
+        [
+          0.032095674691046475,
+          -0.9841700957414904,
+          0.17429598479113706,
+          9.158706113461985
+        ],
+        [
+          -0.09618825196748429,
+          0.17053490373957841,
+          0.9806455357518191,
+          -67.96226485327419
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "method": "rigid Procrustes (Pitt axial centroids \u2192 Allen midbrain/pons/medulla)",
+      "residualMm": 10.846786494864828,
+      "unitScale": 1.0,
+      "notes": "previous landmark fit (nerves floated ~20 mm from the Allen brainstem); kept for reference",
+      "sceneFromMNI": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "fittedBBox": [
+        [
+          -20.097825114032474,
+          -9.729032396622529,
+          -112.22098803387439
+        ],
+        [
+          35.637111517453455,
+          36.98308983057259,
+          -25.477604076837615
+        ]
+      ],
+      "targetBBox": [
+        [
+          2.537376723741401,
+          -11.011922112371336,
+          -64.16904520349755
+        ],
+        [
+          7.6983911858838345,
+          7.267089755568769,
+          -5.8209255873872445
+        ]
+      ],
+      "qa": "/Users/fulkanjou/neuroAnimation/head-neuroanatomy-3d/tools/_cache/qa/pitt-brainstem-family.png"
+    },
+    "pitt-plate-midbrain": {
+      "name": "pitt-plate-midbrain",
+      "matrix": [
+        [
+          -1.3000000000000005,
+          -1.5920408388915598e-16,
+          0.0,
+          2.680263041793357
+        ],
+        [
+          1.5920408388915598e-16,
+          -1.3000000000000005,
+          0.0,
+          19.19260818481471
+        ],
+        [
+          0.0,
+          0.0,
+          1.3000000000000005,
+          -65.13689575195315
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "method": "fixed Rz180 orientation; scale+translation fitted to Allen brainstem side-walls at the plate level",
+      "residualMm": 2.0,
+      "unitScale": 1.0,
+      "notes": "Pitt axial plates are in their own frame; orientation is assumed (shape is near-symmetric), position/scale fitted"
+    },
+    "pitt-plate-pons": {
+      "name": "pitt-plate-pons",
+      "matrix": [
+        [
+          -1.4,
+          -1.7145055188062944e-16,
+          0.0,
+          5.241776354437843
+        ],
+        [
+          1.7145055188062944e-16,
+          -1.4,
+          0.0,
+          19.002273329650073
+        ],
+        [
+          0.0,
+          0.0,
+          1.4,
+          -75.35556640625002
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "method": "fixed Rz180 orientation; scale+translation fitted to Allen brainstem side-walls at the plate level",
+      "residualMm": 2.0,
+      "unitScale": 1.0,
+      "notes": "Pitt axial plates are in their own frame; orientation is assumed (shape is near-symmetric), position/scale fitted"
+    },
+    "pitt-plate-medulla-rostral": {
+      "name": "pitt-plate-medulla-rostral",
+      "matrix": [
+        [
+          -1.4,
+          -1.7145055188062944e-16,
+          0.0,
+          6.454913559971763
+        ],
+        [
+          1.7145055188062944e-16,
+          -1.4,
+          0.0,
+          26.293259748494712
+        ],
+        [
+          0.0,
+          0.0,
+          1.4,
+          -79.87645721435548
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "method": "fixed Rz180 orientation; scale+translation fitted to Allen brainstem side-walls at the plate level",
+      "residualMm": 2.0,
+      "unitScale": 1.0,
+      "notes": "Pitt axial plates are in their own frame; orientation is assumed (shape is near-symmetric), position/scale fitted"
+    },
+    "pitt-plate-medulla-caudal": {
+      "name": "pitt-plate-medulla-caudal",
+      "matrix": [
+        [
+          -1.4,
+          -1.7145055188062944e-16,
+          0.0,
+          7.2453976408574805
+        ],
+        [
+          1.7145055188062944e-16,
+          -1.4,
+          0.0,
+          22.36898297294041
+        ],
+        [
+          0.0,
+          0.0,
+          1.4,
+          -80.75433807373048
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "method": "fixed Rz180 orientation; scale+translation fitted to Allen brainstem side-walls at the plate level",
+      "residualMm": 2.0,
+      "unitScale": 1.0,
+      "notes": "Pitt axial plates are in their own frame; orientation is assumed (shape is near-symmetric), position/scale fitted"
     }
   }
 }

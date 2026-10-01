@@ -5,8 +5,8 @@
 
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js';
 import { scene } from './scene.js';
-import { state, emit } from './state.js';
-import { setClippingPlanes, applyAppearance } from './structures.js';
+import { state, emit, on } from './state.js';
+import { setClippingPlanes, applyAppearance, effectiveOpacity } from './structures.js';
 import { structureObjects } from './loader.js';
 import { mniToWorld } from './coords.js';
 
@@ -23,10 +23,30 @@ plateGroup.name = 'clip-plates';
 
 const sectionHome = new Map();
 
+// Stencil cross-section caps: objects added under structure meshes that fill the true cut shape.
+let stencilObjects = [];
+const closedCache = new WeakMap();
+// Layers whose meshes are solid, closed volumes (caps look right). Shells, vessels, nerves are skipped.
+const CAPPED_LAYERS = new Set([
+  'brainstem', 'subcortical', 'thalamus', 'basal-ganglia', 'hippocampus', 'amygdala',
+  'fornix', 'cingulate', 'cerebellum', 'ventricles', 'aras', 'cortex', 'white-matter',
+]);
+const CAP_MIN_OPACITY = 0.7;
+
 export function initClipping() {
   scene.add(capGroup);
   scene.add(plateGroup);
   bindUi();
+  // Caps are only built for visible structures, so refresh them when layers / structures are toggled.
+  let pending = false;
+  on('visibility', () => {
+    if (pending || !['sagittal', 'coronal', 'axial'].some((k) => state.clipping[k].enabled)) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      rebuildCaps();
+    });
+  });
   updateClipping();
 }
 
@@ -154,7 +174,16 @@ function syncPlanes() {
   }
 }
 
+function clearStencilCaps() {
+  for (const obj of stencilObjects) {
+    if (obj.parent) obj.parent.remove(obj);
+    if (obj.material) obj.material.dispose();
+  }
+  stencilObjects = [];
+}
+
 function rebuildCaps() {
+  clearStencilCaps();
   while (capGroup.children.length) {
     const child = capGroup.children[0];
     capGroup.remove(child);
@@ -171,7 +200,10 @@ function rebuildCaps() {
     if (!clip.enabled) continue;
     addGuidePlate(key, clip.value);
     addStructureCaps(key, clip.value);
+    addStencilCaps(key);
   }
+  // Sync cap colour / glow with their structures (selection, hover).
+  applyAppearance();
 }
 
 function addGuidePlate(axis, value) {
@@ -203,6 +235,7 @@ function addStructureCaps(axis, value) {
     if (def.kind === 'folder' || !def.centroid) continue;
     const rec = structureObjects.get(def.id);
     if (!rec || !rec.object || !rec.object.visible) continue;
+    if (canStencilCap(def, rec)) continue; // drawn as a true cross-section instead
     const [cx, cy, cz] = def.centroid;
     const ph = def.placeholder || {};
     const radii = ph.radii || [ph.radius || 8, ph.radius || 8, ph.radius || 8];
@@ -245,6 +278,149 @@ function addStructureCaps(axis, value) {
   }
 }
 
+/** True when every edge is shared by two faces (so the stencil trick fills the cut correctly). */
+function isClosedGeometry(geometry) {
+  if (closedCache.has(geometry)) return closedCache.get(geometry);
+  let closed = false;
+  const index = geometry.index;
+  const count = index ? index.count : 0;
+  if (count) {
+    const seen = new Map();
+    const n = geometry.attributes.position.count;
+    const add = (a, b) => {
+      const key = a < b ? a * n + b : b * n + a;
+      seen.set(key, (seen.get(key) || 0) + 1);
+    };
+    for (let i = 0; i < count; i += 3) {
+      const a = index.getX(i);
+      const b = index.getX(i + 1);
+      const c = index.getX(i + 2);
+      add(a, b);
+      add(b, c);
+      add(c, a);
+    }
+    let boundary = 0;
+    seen.forEach((v) => { if (v === 1) boundary++; });
+    closed = boundary / Math.max(seen.size, 1) < 0.01;
+  }
+  closedCache.set(geometry, closed);
+  return closed;
+}
+
+function meshesOf(object) {
+  const out = [];
+  object.traverse((child) => {
+    if (child.isMesh && !child.userData.clipOwn && child.geometry) out.push(child);
+  });
+  return out;
+}
+
+function canStencilCap(def, rec) {
+  if (!rec || !rec.object || !rec.fromAsset || def.kind !== 'mesh') return false;
+  if (!CAPPED_LAYERS.has(def.layer)) return false;
+  if (effectiveOpacity(def) < CAP_MIN_OPACITY) return false;
+  const meshes = meshesOf(rec.object);
+  return meshes.length > 0 && meshes.every((m) => isClosedGeometry(m.geometry));
+}
+
+function stencilMaterial(side, op, activePlanes) {
+  return new THREE.MeshBasicMaterial({
+    side,
+    colorWrite: false,
+    depthWrite: false,
+    depthTest: false,
+    clippingPlanes: activePlanes,
+    stencilWrite: true,
+    stencilFunc: THREE.AlwaysStencilFunc,
+    stencilFail: op,
+    stencilZFail: op,
+    stencilZPass: op,
+  });
+}
+
+/**
+ * Fill the cut face of every visible, solid, closed mesh with its real cross-section:
+ * back faces +1 / front faces -1 in the stencil buffer, then a plane quad drawn where the stencil is non-zero.
+ */
+function addStencilCaps(axis) {
+  if (!state.manifest) return;
+  const plane = planes[axis];
+  const activePlanes = ['sagittal', 'coronal', 'axial']
+    .filter((k) => state.clipping[k].enabled)
+    .map((k) => planes[k]);
+  const otherPlanes = activePlanes.filter((p) => p !== plane);
+  let order = 0;
+  const quadGeo = new THREE.PlaneGeometry(400, 400);
+  const target = new THREE.Vector3();
+  for (const def of state.manifest.structures) {
+    const rec = structureObjects.get(def.id);
+    if (!rec || !canStencilCap(def, rec) || !rec.object.visible) continue;
+    const meshes = meshesOf(rec.object);
+    // Skip structures the plane does not cut at all.
+    const cut = meshes.some((m) => {
+      if (!m.geometry.boundingBox) m.geometry.computeBoundingBox();
+      return cornersStraddle(m.geometry.boundingBox.clone().applyMatrix4(m.matrixWorld), plane);
+    });
+    if (!cut) continue;
+    const base = 100 + order * 2;
+    order++;
+    for (const mesh of meshes) {
+      const back = new THREE.Mesh(mesh.geometry, stencilMaterial(THREE.BackSide, THREE.IncrementWrapStencilOp, activePlanes));
+      const front = new THREE.Mesh(mesh.geometry, stencilMaterial(THREE.FrontSide, THREE.DecrementWrapStencilOp, activePlanes));
+      for (const m of [back, front]) {
+        m.userData.clipOwn = true;
+        m.renderOrder = base;
+        m.raycast = () => {};
+        mesh.add(m);
+        stencilObjects.push(m);
+      }
+    }
+    const colour = new THREE.Color(def.colour || '#88aacc');
+    const capMat = new THREE.MeshPhongMaterial({
+      color: colour,
+      emissive: colour.clone().multiplyScalar(0.18),
+      specular: new THREE.Color(0x222a33),
+      shininess: 10,
+      side: THREE.DoubleSide,
+      clippingPlanes: otherPlanes,
+      stencilWrite: true,
+      stencilRef: 0,
+      stencilFunc: THREE.NotEqualStencilFunc,
+      stencilFail: THREE.ZeroStencilOp,
+      stencilZFail: THREE.ZeroStencilOp,
+      stencilZPass: THREE.ZeroStencilOp,
+    });
+    const quad = new THREE.Mesh(quadGeo, capMat);
+    plane.coplanarPoint(quad.position);
+    quad.lookAt(target.copy(quad.position).add(plane.normal));
+    quad.renderOrder = base + 1;
+    quad.userData.clipOwn = true;
+    quad.userData.isCap = true;
+    quad.userData.structureId = def.id;
+    quad.raycast = () => {};
+    // Parent under the structure so hide / show / ghosting follow it; compensate the parent transform.
+    rec.object.updateWorldMatrix(true, false);
+    quad.applyMatrix4(new THREE.Matrix4().copy(rec.object.matrixWorld).invert());
+    rec.object.add(quad);
+    stencilObjects.push(quad);
+  }
+}
+
+function cornersStraddle(box, plane) {
+  let neg = false;
+  let pos = false;
+  for (let i = 0; i < 8; i++) {
+    const pt = new THREE.Vector3(
+      i & 1 ? box.max.x : box.min.x,
+      i & 2 ? box.max.y : box.min.y,
+      i & 4 ? box.max.z : box.min.z,
+    );
+    if (plane.distanceToPoint(pt) < 0) neg = true;
+    else pos = true;
+  }
+  return neg && pos;
+}
+
 export function syncClippingUi() {
   for (const axis of ['sagittal', 'coronal', 'axial']) {
     const clip = state.clipping[axis];
@@ -273,3 +449,4 @@ export function populateSliceButtons() {
     host.appendChild(btn);
   }
 }
+

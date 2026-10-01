@@ -25,11 +25,11 @@ FACE_BUDGET = {
     "cerebellum": 55000,
     "ventricles": 28000,
     "vasculature": 90000,
-    "cranial-nerves": 50000,
+    "cranial-nerves": 90000,
     "aras": 12000,
     "sensory": 28000,
     "head": 16000,
-    "slices": 56000,
+    "slices": 100000,
 }
 
 # Small named nuclei were starved when cortex took the proportional share.
@@ -51,14 +51,14 @@ MIN_NODE_FACES = {
     "inferior_olive_rh": 800,
     "red_nucleus_lh": 800,
     "red_nucleus_rh": 800,
-    "cranial_nerves": 45000,
+    "cranial_nerves": 80000,
     "cerebral_arteries": 25000,
     "cerebral_veins": 25000,
     "dural_sinuses": 25000,
-    "section_midbrain": 14000,
-    "section_pons": 14000,
-    "section_medulla_rostral": 12000,
-    "section_medulla_caudal": 12000,
+    "section_midbrain": 26000,
+    "section_pons": 26000,
+    "section_medulla_rostral": 20000,
+    "section_medulla_caudal": 20000,
     "white_matter_lh": 16000,
     "white_matter_rh": 16000,
     "scalp": 14000,
@@ -82,6 +82,35 @@ def decimate(mesh: trimesh.Trimesh, target: int) -> trimesh.Trimesh:
     except Exception:
         pass
     return _cluster_simplify(mesh, target)
+
+
+def smooth_mesh(mesh: trimesh.Trimesh, iterations: int = 12, lamb: float = 0.5, nu: float = -0.53) -> trimesh.Trimesh:
+    """Taubin smoothing on a sparse vertex adjacency (trimesh.smoothing diverges on these non-manifold plates).
+
+    Vertices are clamped to stay within 2 mm of where they started, so no outlier can fly away.
+    """
+    import scipy.sparse as sp
+
+    mesh = mesh.copy()
+    v0 = np.asarray(mesh.vertices, dtype=np.float64)
+    n = len(v0)
+    edges = mesh.edges_unique
+    rows = np.concatenate([edges[:, 0], edges[:, 1]])
+    cols = np.concatenate([edges[:, 1], edges[:, 0]])
+    adj = sp.csr_matrix((np.ones(len(rows)), (rows, cols)), shape=(n, n))
+    deg = np.asarray(adj.sum(axis=1)).ravel()
+    inv = np.where(deg > 0, 1.0 / np.maximum(deg, 1), 0.0)
+    v = v0.copy()
+    for _ in range(iterations):
+        for factor in (lamb, nu):
+            avg = (adj @ v) * inv[:, None]
+            step = np.where(deg[:, None] > 0, avg - v, 0.0)
+            v = v + factor * step
+    delta = v - v0
+    norm = np.linalg.norm(delta, axis=1, keepdims=True)
+    delta = np.where(norm > 2.0, delta * (2.0 / np.maximum(norm, 1e-9)), delta)
+    mesh.vertices = v0 + delta
+    return mesh
 
 
 def _cluster_simplify(mesh: trimesh.Trimesh, target: int, depth: int = 0) -> trimesh.Trimesh:
@@ -136,6 +165,25 @@ def concat(meshes: List[trimesh.Trimesh]) -> Optional[trimesh.Trimesh]:
     return trimesh.util.concatenate(meshes)
 
 
+# Allen brainstem structures arrive as very coarse meshes (hundreds to ~3k faces) and read as
+# faceted polygons once lit. One Loop subdivision + a light smooth gives a rounded, anatomical surface.
+SMOOTH_NODES = {
+    "midbrain", "pons", "medulla", "superior_colliculus", "inferior_colliculus",
+    "cerebral_peduncle_lh", "cerebral_peduncle_rh", "pyramid_lh", "pyramid_rh",
+    "inferior_olive_lh", "inferior_olive_rh", "red_nucleus_lh", "red_nucleus_rh",
+}
+
+
+def refine_coarse(mesh: trimesh.Trimesh, max_faces: int = 6000) -> trimesh.Trimesh:
+    if len(mesh.faces) > max_faces:
+        return mesh
+    try:
+        sub = mesh.subdivide_loop(iterations=1) if hasattr(mesh, "subdivide_loop") else mesh.subdivide()
+    except Exception:
+        sub = mesh.subdivide()
+    return smooth_mesh(sub, iterations=4)
+
+
 def bake(mesh: trimesh.Trimesh) -> trimesh.Trimesh:
     mesh = mesh.copy()
     mesh.vertices = apply_matrix(np.asarray(mesh.vertices, dtype=np.float64), MNI_TO_SCENE)
@@ -186,10 +234,10 @@ def add_pitt(buckets: Dict[str, List[trimesh.Trimesh]], reg: Dict) -> None:
         ("cerebral_arteries.stl", "pitt-arteries", "cerebral_arteries", whole),
         ("cerebral_veins.stl", "pitt-veins", "cerebral_veins", whole),
         ("dural_sinuses.stl", "pitt-sinuses", "dural_sinuses", whole),
-        ("axial_midbrain.stl", "pitt-brainstem-family", "section_midbrain", stem),
-        ("axial_pons.stl", "pitt-brainstem-family", "section_pons", stem),
-        ("axial_rostral_medulla.stl", "pitt-brainstem-family", "section_medulla_rostral", stem),
-        ("axial_caudal_medulla.stl", "pitt-brainstem-family", "section_medulla_caudal", stem),
+        ("axial_midbrain.stl", "pitt-plate-midbrain", "section_midbrain", stem),
+        ("axial_pons.stl", "pitt-plate-pons", "section_pons", stem),
+        ("axial_rostral_medulla.stl", "pitt-plate-medulla-rostral", "section_medulla_rostral", stem),
+        ("axial_caudal_medulla.stl", "pitt-plate-medulla-caudal", "section_medulla_caudal", stem),
     ]
     for fname, key, node, fallback in specs:
         path = CACHE / "pitt" / fname
@@ -201,22 +249,31 @@ def add_pitt(buckets: Dict[str, List[trimesh.Trimesh]], reg: Dict) -> None:
             matrix = fallback
         mesh = apply_tf(load_mesh(path), matrix)
         mesh = decimate(mesh, MIN_NODE_FACES.get(node, 14000))
+        if node.startswith("section_"):
+            # Vertex clustering leaves a faceted, blocky surface; smooth it so the plates read as anatomy.
+            try:
+                mesh = smooth_mesh(mesh)
+            except Exception:
+                pass
         buckets[node].append(mesh)
 
     cn_path = CACHE / "pitt" / "brainstem_cranial_nerves.stl"
     if cn_path.exists():
         print("  Pitt cranial nerves (combined)")
         matrix = transform_of(reg, "pitt-brainstem-family")
-        mesh = apply_tf(load_mesh(cn_path), matrix)
-        # Pre-decimate so split() is tractable, then drop the brainstem blob.
-        mesh = decimate(mesh, 160000)
-        try:
-            parts = sorted(mesh.split(only_watertight=False), key=lambda m: len(m.faces), reverse=True)
-        except Exception:
-            parts = [mesh]
-        nerves = parts[1:] if len(parts) > 1 else parts
-        if nerves:
-            buckets["cranial_nerves"].append(decimate(concat(nerves), MIN_NODE_FACES["cranial_nerves"]))
+        # Split the ORIGINAL mesh (not a pre-decimated one: vertex clustering shatters thin
+        # nerve roots into thousands of floating shards), drop the brainstem blob, decimate each
+        # nerve on its own, then discard the leftover dust components.
+        raw_parts = sorted(load_mesh(cn_path).split(only_watertight=False), key=lambda m: len(m.faces), reverse=True)
+        nerves = []
+        for part in raw_parts[1:]:
+            target = max(400, int(len(part.faces) * 0.07))
+            nerves.append(decimate(part, target) if len(part.faces) > target else part)
+        pieces = []
+        for m in nerves:
+            pieces.extend(c for c in m.split(only_watertight=False) if len(c.faces) >= 60)
+        if pieces:
+            buckets["cranial_nerves"].append(apply_tf(concat(pieces), matrix))
 
 
 def add_bp3d(buckets: Dict[str, List[trimesh.Trimesh]], reg: Dict) -> None:
@@ -578,6 +635,8 @@ def main() -> int:
         for node, mesh in nodes.items():
             share = node_face_target(node, len(mesh.faces), budget, total_faces)
             mesh = decimate(mesh, share)
+            if node in SMOOTH_NODES:
+                mesh = refine_coarse(mesh)
             mesh = bake(mesh)
             # Name the mesh object so three.js obj.name matches meshNode.
             mesh.metadata = dict(mesh.metadata or {})

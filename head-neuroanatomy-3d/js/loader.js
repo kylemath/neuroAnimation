@@ -358,7 +358,9 @@ export async function loadGroups(scene, onProgress) {
       const url = /^https?:/i.test(group.asset)
         ? group.asset
         : new URL(`../${group.asset}`, import.meta.url).href;
-      gltf = await tryLoadGlb(url);
+      // Asset size changes whenever a GLB is re-baked, so it doubles as a cache-buster.
+      const bust = group.bytes && !/^https?:/i.test(group.asset) ? `?b=${group.bytes}` : '';
+      gltf = await tryLoadGlb(url + bust);
       if (!gltf) {
         state.missingAssets.push(group.asset);
       } else {
