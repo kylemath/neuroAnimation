@@ -1,0 +1,11 @@
+{
+  "derivedAssets": "Group GLBs that include PittBrains3D or BodyParts3D meshes are CC BY-SA (share-alike). Allen-only and AAN-only meshes keep their original licences. Procedural schematics are CC BY 4.0.",
+  "sources": {
+    "allen-hra-brain-male-v1.4": "CC BY 4.0",
+    "pittbrains3d": "CC BY-SA 4.0",
+    "harvard-aan-v2": "CC0-1.0",
+    "bodyparts3d": "CC BY-SA 2.1 JP",
+    "graphcolouring-fsaverage": "FreeSurfer / MNE fsaverage",
+    "schematic": "CC BY 4.0"
+  }
+}

@@ -5,3 +5,10 @@
 *.swp
 .env
 .env.*
+
+# head-neuroanatomy-3d tooling
+head-neuroanatomy-3d/tools/_cache/
+head-neuroanatomy-3d/tools/.venv/
+head-neuroanatomy-3d/tools/node_modules/
+__pycache__/
+*.pyc

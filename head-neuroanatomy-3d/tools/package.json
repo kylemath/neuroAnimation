@@ -1,0 +1,11 @@
+{
+  "name": "head-neuroanatomy-3d-tools",
+  "private": true,
+  "description": "gltf-transform meshopt compression for head-neuroanatomy-3d group GLBs",
+  "scripts": {
+    "optimize-glb": "gltf-transform optimize --compress meshopt --no-instance"
+  },
+  "devDependencies": {
+    "@gltf-transform/cli": "^4.2.1"
+  }
+}

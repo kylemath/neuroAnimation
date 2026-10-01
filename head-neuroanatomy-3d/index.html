@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Head Neuroanatomy 3D | Brains, Minds, and Machines</title>
+  <meta name="description" content="Interactive MNI152 head and brain atlas: rotate, fade structures, click for info, clip slices, and watch a schematic ascending reticular activating system.">
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a href="../" class="back-link">← All animations</a>
+
+  <div id="canvas-container"></div>
+  <div id="hover-tooltip" hidden></div>
+
+  <div id="loading-overlay">
+    <div class="loading-card">
+      <div class="loading-kicker">neuroAnimation</div>
+      <h1>Head Neuroanatomy 3D</h1>
+      <p>MNI152 · RAS+ · millimetres · origin at the anterior commissure</p>
+      <div class="progress-track"><div id="progress-bar"></div></div>
+      <p id="progress-label">Starting…</p>
+    </div>
+  </div>
+
+  <div class="top-bar">
+    <div class="view-buttons" role="group" aria-label="Camera views">
+      <button type="button" id="btn-view-left">L</button>
+      <button type="button" id="btn-view-right">R</button>
+      <button type="button" id="btn-view-ant">A</button>
+      <button type="button" id="btn-view-post">P</button>
+      <button type="button" id="btn-view-sup">S</button>
+      <button type="button" id="btn-view-inf">I</button>
+      <button type="button" id="btn-view-oblique">3/4</button>
+    </div>
+    <div id="layer-chips" class="layer-chips"></div>
+  </div>
+
+  <aside id="tree-panel" class="panel tree-panel">
+    <div class="panel-head">
+      <h2>Structures</h2>
+      <button type="button" id="btn-close-tree" class="icon-btn mobile-only" aria-label="Close">✕</button>
+    </div>
+    <div class="button-group compact">
+      <button type="button" id="btn-show-all">Show all</button>
+      <button type="button" id="btn-hide-all">Hide all</button>
+      <button type="button" id="btn-reset-vis">Reset</button>
+    </div>
+    <div class="control-group">
+      <div class="control-label">
+        <span>Ghost</span>
+        <span class="control-value" id="ghost-val">100%</span>
+      </div>
+      <input type="range" id="ghost-slider" min="8" max="100" step="1" value="100">
+    </div>
+    <div class="control-group">
+      <div class="control-label">
+        <span>Dim unselected</span>
+        <input type="checkbox" id="dim-unselected">
+      </div>
+    </div>
+    <div id="structure-tree" class="structure-tree"></div>
+  </aside>
+
+  <aside id="tools-panel" class="panel tools-panel">
+    <div class="panel-head">
+      <h2>Guides</h2>
+      <button type="button" id="btn-close-tools" class="icon-btn mobile-only" aria-label="Close">✕</button>
+    </div>
+
+    <h3>Clipping</h3>
+    <div class="clip-row">
+      <label><input type="checkbox" id="clip-sagittal-on"> Sagittal X</label>
+      <span id="clip-sagittal-val" class="control-value">0 mm</span>
+    </div>
+    <input type="range" id="clip-sagittal" min="-80" max="80" step="1" value="0">
+    <label class="flip"><input type="checkbox" id="clip-sagittal-flip"> Flip</label>
+
+    <div class="clip-row">
+      <label><input type="checkbox" id="clip-coronal-on"> Coronal Y</label>
+      <span id="clip-coronal-val" class="control-value">0 mm</span>
+    </div>
+    <input type="range" id="clip-coronal" min="-100" max="80" step="1" value="0">
+    <label class="flip"><input type="checkbox" id="clip-coronal-flip"> Flip</label>
+
+    <div class="clip-row">
+      <label><input type="checkbox" id="clip-axial-on"> Axial Z</label>
+      <span id="clip-axial-val" class="control-value">0 mm</span>
+    </div>
+    <input type="range" id="clip-axial" min="-70" max="90" step="1" value="0">
+    <label class="flip"><input type="checkbox" id="clip-axial-flip"> Flip</label>
+
+    <div class="button-group">
+      <button type="button" id="btn-clips-off">Clear clips</button>
+    </div>
+    <div id="slice-presets" class="slice-presets"></div>
+    <div class="control-group">
+      <div class="control-label">
+        <span>Exploded brainstem plates</span>
+        <input type="checkbox" id="toggle-exploded">
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <h3>ARAS</h3>
+    <div class="control-group">
+      <div class="control-label">
+        <span>Show pathways</span>
+        <input type="checkbox" id="aras-toggle" checked>
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="control-label">
+        <span>Arousal</span>
+        <span class="control-value" id="arousal-val">Awake</span>
+      </div>
+      <input type="range" id="arousal-slider" min="0" max="100" step="1" value="55">
+      <div class="slider-hint">Sleep ← → Alert. Pulses speed up and cortex glows.</div>
+    </div>
+    <div class="tx-legend">
+      <span class="tx-badge tx-ACh">ACh PPT/LDT</span>
+      <span class="tx-badge tx-NE">NE LC</span>
+      <span class="tx-badge tx-5-HT">5-HT raphe</span>
+      <span class="tx-badge tx-histamine">HA TMN</span>
+      <span class="tx-badge tx-DA">DA VTA</span>
+    </div>
+
+    <div class="section-divider"></div>
+    <h3>Chapter 6 presets</h3>
+    <div id="preset-list" class="preset-list"></div>
+
+    <div class="section-divider"></div>
+    <div class="button-group">
+      <button type="button" id="btn-credits" class="credits-btn">Credits & licences</button>
+    </div>
+    <div class="stats">
+      <div>FPS: <span id="fps">—</span></div>
+      <div>Drag to orbit · scroll to zoom · right-drag / two-finger to pan</div>
+    </div>
+  </aside>
+
+  <div id="info-card" class="panel info-card"></div>
+
+  <div class="hud-bottom">
+    <div id="asset-banner" class="asset-banner" hidden></div>
+    <div class="hud-row">
+      <div id="mni-readout" class="mni-readout">MNI <span class="mni-empty">—</span></div>
+      <div id="scale-bar" class="scale-bar">
+        <div class="scale-bar-fill"></div>
+        <span>10 mm</span>
+      </div>
+    </div>
+    <div class="click-hint">Double-click a structure to fly to it · Shift-click to multi-select · Grid is 10 mm at the AC–PC plane</div>
+  </div>
+
+  <div class="mobile-dock">
+    <button type="button" id="btn-toggle-tree">Tree</button>
+    <button type="button" id="btn-toggle-tools">Guides</button>
+  </div>
+
+  <div id="credits-overlay" class="modal" hidden>
+    <div class="modal-card">
+      <div class="panel-head">
+        <h2>Credits & licences</h2>
+        <button type="button" id="btn-close-credits" class="icon-btn" aria-label="Close">✕</button>
+      </div>
+      <div id="credits-body"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

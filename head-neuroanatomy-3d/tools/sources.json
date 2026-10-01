@@ -1,0 +1,242 @@
+{
+  "masterSpace": {
+    "name": "MNI152",
+    "units": "mm",
+    "axes": "RAS+",
+    "origin": "near anterior commissure",
+    "sceneMapping": "three.js world = (x, z, -y)"
+  },
+  "groups": [
+    "core",
+    "white-matter",
+    "subcortical",
+    "cerebellum",
+    "ventricles",
+    "vasculature",
+    "cranial-nerves",
+    "aras",
+    "sensory",
+    "head"
+  ],
+  "sources": {
+    "allen-hra-brain-male-v1.4": {
+      "name": "Allen Human Reference Atlas 3D via Human Reference Atlas brain-male v1.4",
+      "licence": "CC BY 4.0",
+      "url": "https://cdn.humanatlas.io/digital-objects/ref-organ/brain-male/v1.4/assets/3d-allen-m-brain.glb",
+      "homepage": "https://humanatlas.io/3d-reference-library?version=1.4.",
+      "doi": "https://doi.org/10.48539/HBM538.NKCT.649",
+      "attribution": "Browne, Schlehlein, Börner; Ding et al. 2016; HuBMAP / Human Reference Atlas"
+    },
+    "pittbrains3d": {
+      "name": "PittBrains3D Digital 3D Models for Neuroanatomy Instruction",
+      "licence": "CC BY-SA 4.0",
+      "homepage": "https://github.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction",
+      "attribution": "Erika Fanselow and Gage Laporta, University of Pittsburgh, 2024"
+    },
+    "harvard-aan-v2": {
+      "name": "Harvard Ascending Arousal Network Atlas v2.0",
+      "licence": "CC0-1.0",
+      "homepage": "https://datadryad.org/dataset/doi:10.5061/dryad.zw3r228d2",
+      "doi": "https://doi.org/10.5061/dryad.zw3r228d2",
+      "dryadVersion": 245119,
+      "fallback": "https://github.com/canlab/Neuroimaging_Pattern_Masks/tree/master/Atlases_and_parcellations/2023_harvard_aan_brainstem_atlas",
+      "attribution": "Edlow, Brian; Kinney, Hannah (2023)"
+    },
+    "bodyparts3d": {
+      "name": "BodyParts3D",
+      "licence": "CC BY-SA 2.1 JP",
+      "homepage": "https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html",
+      "attribution": "Database Center for Life Science (DBCLS), BodyParts3D"
+    },
+    "graphcolouring-fsaverage": {
+      "name": "GraphColouring fsaverage head and 10-20 positions (MNE/FreeSurfer fsaverage)",
+      "licence": "FreeSurfer / MNE licence (fsaverage); positions derived from MNE standard_1020",
+      "localDir": "/Users/fulkanjou/GraphColouring/docs",
+      "attribution": "FreeSurfer fsaverage; MNE-Python; GraphColouring/NOMAD export"
+    },
+    "schematic": {
+      "name": "Procedural schematic geometry (this pipeline)",
+      "licence": "CC BY 4.0",
+      "attribution": "neuroAnimation build pipeline; labelled schematic, not a subject-specific mesh"
+    }
+  },
+  "downloads": [
+    {
+      "id": "allen-glb",
+      "source": "allen-hra-brain-male-v1.4",
+      "url": "https://cdn.humanatlas.io/digital-objects/ref-organ/brain-male/v1.4/assets/3d-allen-m-brain.glb",
+      "dest": "allen/3d-allen-m-brain.glb",
+      "required": true
+    },
+    {
+      "id": "pitt-license",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/LICENSE.md",
+      "dest": "pitt/LICENSE.md",
+      "required": true
+    },
+    {
+      "id": "pitt-whole-brain",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Whole_brain_and_hemisected_brain/Whole%20brain.stl",
+      "dest": "pitt/whole_brain.stl",
+      "family": "pitt-whole",
+      "role": "mni-reference",
+      "required": true
+    },
+    {
+      "id": "pitt-whole-brain-readme",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Whole_brain_and_hemisected_brain/README_Whole_brain.md",
+      "dest": "pitt/README_Whole_brain.md"
+    },
+    {
+      "id": "pitt-brainstem-cn",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Brainstem/Brainstem%20%2B%20cranial%20nerves.stl",
+      "dest": "pitt/brainstem_cranial_nerves.stl",
+      "family": "pitt-brainstem",
+      "role": "cranial-nerves",
+      "required": true
+    },
+    {
+      "id": "pitt-brainstem-cn-readme",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Brainstem/README_Brainstem_with_cranial_nerves.md",
+      "dest": "pitt/README_Brainstem_with_cranial_nerves.md"
+    },
+    {
+      "id": "pitt-arteries",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Vasculature_sinuses_dural_reflections/Cerebral%20arteries.stl",
+      "dest": "pitt/cerebral_arteries.stl",
+      "family": "pitt-whole",
+      "role": "arteries",
+      "required": true
+    },
+    {
+      "id": "pitt-veins",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Vasculature_sinuses_dural_reflections/Cerebral%20veins.stl",
+      "dest": "pitt/cerebral_veins.stl",
+      "family": "pitt-whole",
+      "role": "veins",
+      "required": true
+    },
+    {
+      "id": "pitt-sinuses",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Vasculature_sinuses_dural_reflections/Dural%20sinuses%20and%20reflections.stl",
+      "dest": "pitt/dural_sinuses.stl",
+      "family": "pitt-whole",
+      "role": "sinuses",
+      "required": true
+    },
+    {
+      "id": "pitt-thalami",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Subcortical_forebrain_structures/Thalami.stl",
+      "dest": "pitt/thalami.stl",
+      "family": "pitt-subcortical",
+      "role": "thalamus-reference"
+    },
+    {
+      "id": "pitt-thalami-readme",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Subcortical_forebrain_structures/README_Thalami.md",
+      "dest": "pitt/README_Thalami.md"
+    },
+    {
+      "id": "pitt-axial-midbrain",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Brainstem/Brainstem%20axial%20cross%20sections/Brainstem%20axial%20sections%20midbrain.stl",
+      "dest": "pitt/axial_midbrain.stl",
+      "family": "pitt-brainstem",
+      "role": "axial-midbrain"
+    },
+    {
+      "id": "pitt-axial-pons",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Brainstem/Brainstem%20axial%20cross%20sections/Brainstem%20axial%20sections%20pons_1.stl",
+      "dest": "pitt/axial_pons.stl",
+      "family": "pitt-brainstem",
+      "role": "axial-pons"
+    },
+    {
+      "id": "pitt-axial-rostral-medulla",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Brainstem/Brainstem%20axial%20cross%20sections/Brainstem%20axial%20sections%20rostral%20medulla.stl",
+      "dest": "pitt/axial_rostral_medulla.stl",
+      "family": "pitt-brainstem",
+      "role": "axial-rostral-medulla"
+    },
+    {
+      "id": "pitt-axial-caudal-medulla",
+      "source": "pittbrains3d",
+      "url": "https://raw.githubusercontent.com/PittBrains3D/PittBrains3D---Digital-3D-Models-for-Neuroanatomy-Instruction/main/Brainstem/Brainstem%20axial%20cross%20sections/Brainstem%20axial%20sections%20caudal%20medulla.stl",
+      "dest": "pitt/axial_caudal_medulla.stl",
+      "family": "pitt-brainstem",
+      "role": "axial-caudal-medulla"
+    },
+    {
+      "id": "bp3d-isa-list",
+      "source": "bodyparts3d",
+      "url": "https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/isa_parts_list_e.txt",
+      "dest": "bodyparts3d/isa_parts_list_e.txt",
+      "required": true
+    },
+    {
+      "id": "bp3d-partof-list",
+      "source": "bodyparts3d",
+      "url": "https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/partof_parts_list_e.txt",
+      "dest": "bodyparts3d/partof_parts_list_e.txt",
+      "required": true
+    },
+    {
+      "id": "bp3d-partof-elements",
+      "source": "bodyparts3d",
+      "url": "https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/partof_element_parts.txt",
+      "dest": "bodyparts3d/partof_element_parts.txt"
+    },
+    {
+      "id": "bp3d-partof-obj99",
+      "source": "bodyparts3d",
+      "url": "https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/partof_BP3D_4.0_obj_99.zip",
+      "dest": "bodyparts3d/partof_BP3D_4.0_obj_99.zip",
+      "afterAudit": true
+    }
+  ],
+  "aanFiles": [
+    {"id": "AAN_LC", "path": "AAN_LC_MNI152_1mm_v2p0.nii", "fileId": 2419144, "name": "Locus coeruleus", "side": "bilateral", "transmitter": "NE"},
+    {"id": "AAN_DR", "path": "AAN_DR_MNI152_1mm_v2p0.nii", "fileId": 2419143, "name": "Dorsal raphe", "side": "midline", "transmitter": "5-HT"},
+    {"id": "AAN_MnR", "path": "AAN_MnR_MNI152_1mm_v2p0.nii", "fileId": 2419150, "name": "Median raphe", "side": "midline", "transmitter": "5-HT"},
+    {"id": "AAN_PAG", "path": "AAN_PAG_MNI152_1mm_v2p0.nii", "fileId": 2419153, "name": "Periaqueductal gray", "side": "midline", "transmitter": null},
+    {"id": "AAN_PBC", "path": "AAN_PBC_MNI152_1mm_v2p0.nii", "fileId": 2419158, "name": "Parabrachial complex", "side": "bilateral", "transmitter": null},
+    {"id": "AAN_PTg", "path": "AAN_PTg_MNI152_1mm_v2p0.nii", "fileId": 2419161, "name": "Pedunculotegmental nucleus (PPN/PTg)", "side": "bilateral", "transmitter": "ACh"},
+    {"id": "AAN_LDTg", "path": "AAN_LDTg_MNI152_1mm_v2p0.nii", "fileId": 2419148, "name": "Laterodorsal tegmental nucleus", "side": "bilateral", "transmitter": "ACh"},
+    {"id": "AAN_mRt", "path": "AAN_mRt_MNI152_1mm_v2p0.nii", "fileId": 2419151, "name": "Mesencephalic reticular formation", "side": "bilateral", "transmitter": null},
+    {"id": "AAN_PnO", "path": "AAN_PnO_MNI152_1mm_v2p0.nii", "fileId": 2419156, "name": "Nucleus pontis oralis", "side": "bilateral", "transmitter": null},
+    {"id": "AAN_VTA", "path": "AAN_VTA_MNI152_1mm_v2p0.nii", "fileId": 2419163, "name": "Ventral tegmental area", "side": "midline", "transmitter": "DA"},
+    {"id": "AAN_Brainstem", "path": "AAN_Brainstem_MNI152_1mm_v2p0.nii", "fileId": 2419166, "name": "AAN brainstem mask", "side": "midline", "role": "registration-reference"},
+    {"id": "AAN_LUT", "path": "AAN_Brainstem_v2p0_Color_LUT_FreeSurfer.txt", "fileId": 2419165},
+    {"id": "AAN_README", "path": "README.md", "fileId": 2419168}
+  ],
+  "graphcolouring": [
+    {"id": "fsaverage-head", "src": "fsaverage_head.glb", "dest": "graphcolouring/fsaverage_head.glb"},
+    {"id": "fsaverage-brain", "src": "fsaverage_brain.glb", "dest": "graphcolouring/fsaverage_brain.glb"},
+    {"id": "10-20-positions", "src": "10_20_positions.json", "dest": "graphcolouring/10_20_positions.json"},
+    {"id": "mne-anatomy", "src": "mne_anatomy.json", "dest": "graphcolouring/mne_anatomy.json"}
+  ],
+  "bp3dWanted": [
+    {"id": "bp3d-rh-eyeball", "fma": "FMA12514", "representation": "BP7094", "elements": ["FJ1336", "FJ1337", "FJ1340", "FJ1348", "FJ1356", "FJ1368", "FJ1371", "FJ1382"], "name": "Right eyeball", "group": "sensory", "side": "right"},
+    {"id": "bp3d-lh-eyeball", "fma": "FMA12515", "representation": "BP7110", "elements": ["FJ1282", "FJ1285", "FJ1286", "FJ1289", "FJ1297", "FJ1305", "FJ1317", "FJ1320", "FJ1331"], "name": "Left eyeball", "group": "sensory", "side": "left"},
+    {"id": "bp3d-rh-lens", "fma": "FMA58242", "representation": "BP7104", "elements": ["FJ1356"], "name": "Right lens", "group": "sensory", "side": "right"},
+    {"id": "bp3d-lh-lens", "fma": "FMA58243", "representation": "BP7120", "elements": ["FJ1305"], "name": "Left lens", "group": "sensory", "side": "left"},
+    {"id": "bp3d-tongue", "fma": "FMA54640", "representation": "BP10138", "elements": ["FJ2761"], "name": "Tongue", "group": "sensory", "side": "midline"},
+    {"id": "bp3d-pituitary", "fma": "FMA13889", "representation": "BP6711", "elements": ["FJ1796"], "name": "Pituitary gland", "group": "subcortical", "side": "midline"},
+    {"id": "bp3d-pineal", "fma": "FMA62033", "representation": "BP6698", "elements": ["FJ1795"], "name": "Pineal body", "group": "subcortical", "side": "midline"},
+    {"id": "bp3d-rh-inferior-colliculus", "fma": "FMA73434", "representation": "BP10495", "elements": ["FJ1810"], "name": "Right inferior colliculus", "group": "core", "side": "right"},
+    {"id": "bp3d-lh-inferior-colliculus", "fma": "FMA73435", "representation": "BP10551", "elements": ["FJ1762"], "name": "Left inferior colliculus", "group": "core", "side": "left"},
+    {"id": "bp3d-midbrain-tectum", "fma": "FMA83902", "representation": "BP10494", "elements": ["FJ1762", "FJ1779", "FJ1810", "FJ1826"], "name": "Midbrain tectum", "group": "core", "side": "midline"}
+  ]
+}

@@ -1,0 +1,5209 @@
+{
+  "version": 1,
+  "space": "MNI152",
+  "units": "mm",
+  "axes": "RAS+",
+  "sceneMapping": "three.js world = (x, z, -y)",
+  "origin": "anterior commissure",
+  "placeholder": false,
+  "groups": [
+    {
+      "id": "head",
+      "name": "Head and scalp",
+      "asset": "assets/head.glb",
+      "layer": "head",
+      "defaultVisible": true,
+      "renderOrder": 8,
+      "bytes": 270600
+    },
+    {
+      "id": "core",
+      "name": "Cortex and brainstem",
+      "asset": "assets/core.glb",
+      "layer": "cortex",
+      "defaultVisible": true,
+      "renderOrder": 8,
+      "bytes": 3546884
+    },
+    {
+      "id": "white-matter",
+      "name": "White matter",
+      "asset": "assets/white-matter.glb",
+      "layer": "white-matter",
+      "defaultVisible": true,
+      "renderOrder": 12,
+      "bytes": 1190392
+    },
+    {
+      "id": "subcortical",
+      "name": "Subcortical nuclei",
+      "asset": "assets/subcortical.glb",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "renderOrder": 18,
+      "bytes": 909956
+    },
+    {
+      "id": "cerebellum",
+      "name": "Cerebellum",
+      "asset": "assets/cerebellum.glb",
+      "layer": "cerebellum",
+      "defaultVisible": true,
+      "renderOrder": 10,
+      "bytes": 848776
+    },
+    {
+      "id": "ventricles",
+      "name": "Ventricles",
+      "asset": "assets/ventricles.glb",
+      "layer": "ventricles",
+      "defaultVisible": true,
+      "renderOrder": 22,
+      "bytes": 343024
+    },
+    {
+      "id": "vasculature",
+      "name": "Vasculature",
+      "asset": "assets/vasculature.glb",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "renderOrder": 28,
+      "bytes": 1255832
+    },
+    {
+      "id": "cranial-nerves",
+      "name": "Cranial nerves",
+      "asset": "assets/cranial-nerves.glb",
+      "layer": "nerves",
+      "defaultVisible": false,
+      "renderOrder": 30,
+      "bytes": 575964
+    },
+    {
+      "id": "aras",
+      "name": "Ascending arousal network",
+      "asset": "assets/aras.glb",
+      "layer": "aras",
+      "defaultVisible": true,
+      "renderOrder": 32,
+      "bytes": 37000
+    },
+    {
+      "id": "sensory",
+      "name": "Sensory organs",
+      "asset": "assets/sensory.glb",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "renderOrder": 26,
+      "bytes": 419820
+    },
+    {
+      "id": "slices",
+      "name": "Brainstem axial sections",
+      "asset": "assets/slices.glb",
+      "layer": "slices",
+      "defaultVisible": false,
+      "renderOrder": 24,
+      "bytes": 713412
+    }
+  ],
+  "fiducials": [
+    {
+      "id": "nasion",
+      "name": "Nasion",
+      "mni": [
+        0,
+        85,
+        -30
+      ]
+    },
+    {
+      "id": "lpa",
+      "name": "Left pre-auricular (LPA)",
+      "mni": [
+        -80,
+        0,
+        -30
+      ]
+    },
+    {
+      "id": "rpa",
+      "name": "Right pre-auricular (RPA)",
+      "mni": [
+        80,
+        0,
+        -30
+      ]
+    },
+    {
+      "id": "cz",
+      "name": "Cz",
+      "mni": [
+        0,
+        -20,
+        95
+      ]
+    }
+  ],
+  "slicePresets": [
+    {
+      "id": "midbrain-sc",
+      "name": "Midbrain \u00b7 superior colliculus",
+      "plane": "axial",
+      "value": -2
+    },
+    {
+      "id": "midbrain-ic",
+      "name": "Midbrain \u00b7 inferior colliculus",
+      "plane": "axial",
+      "value": -8
+    },
+    {
+      "id": "pons",
+      "name": "Pons",
+      "plane": "axial",
+      "value": -24
+    },
+    {
+      "id": "medulla-rostral",
+      "name": "Rostral medulla",
+      "plane": "axial",
+      "value": -38
+    },
+    {
+      "id": "medulla-caudal",
+      "name": "Caudal medulla",
+      "plane": "axial",
+      "value": -48
+    },
+    {
+      "id": "ac-pc",
+      "name": "AC\u2013PC (axial 0)",
+      "plane": "axial",
+      "value": 0
+    },
+    {
+      "id": "mid-sagittal",
+      "name": "Midsagittal",
+      "plane": "sagittal",
+      "value": 0
+    }
+  ],
+  "structures": [
+    {
+      "kind": "folder",
+      "side": "mid",
+      "opacity": 1,
+      "connected": [],
+      "links": [],
+      "id": "cortex",
+      "name": "Cerebral cortex",
+      "group": "core",
+      "parent": null,
+      "layer": "cortex",
+      "meshNode": null,
+      "colour": "#9fb0c3",
+      "centroid": [
+        0,
+        0,
+        0
+      ],
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "folder",
+      "side": "mid",
+      "opacity": 1,
+      "connected": [],
+      "links": [],
+      "id": "brainstem",
+      "name": "Brainstem",
+      "group": "core",
+      "parent": null,
+      "layer": "brainstem",
+      "meshNode": null,
+      "colour": "#9fb0c3",
+      "centroid": [
+        0,
+        0,
+        0
+      ],
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "folder",
+      "side": "mid",
+      "opacity": 1,
+      "connected": [],
+      "links": [],
+      "id": "thalamus",
+      "name": "Thalamus",
+      "group": "subcortical",
+      "parent": null,
+      "layer": "subcortical",
+      "meshNode": null,
+      "colour": "#9fb0c3",
+      "centroid": [
+        0,
+        0,
+        0
+      ],
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "folder",
+      "side": "mid",
+      "opacity": 1,
+      "connected": [],
+      "links": [],
+      "id": "basal-ganglia",
+      "name": "Basal ganglia",
+      "group": "subcortical",
+      "parent": null,
+      "layer": "subcortical",
+      "meshNode": null,
+      "colour": "#9fb0c3",
+      "centroid": [
+        0,
+        0,
+        0
+      ],
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "folder",
+      "side": "mid",
+      "opacity": 1,
+      "connected": [],
+      "links": [],
+      "id": "limbic",
+      "name": "Limbic system",
+      "group": "subcortical",
+      "parent": null,
+      "layer": "subcortical",
+      "meshNode": null,
+      "colour": "#9fb0c3",
+      "centroid": [
+        0,
+        0,
+        0
+      ],
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "folder",
+      "side": "mid",
+      "opacity": 1,
+      "connected": [],
+      "links": [],
+      "id": "diencephalon",
+      "name": "Diencephalon",
+      "group": "subcortical",
+      "parent": null,
+      "layer": "subcortical",
+      "meshNode": null,
+      "colour": "#9fb0c3",
+      "centroid": [
+        0,
+        0,
+        0
+      ],
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.07,
+      "connected": [],
+      "links": [],
+      "id": "scalp",
+      "name": "Scalp / head surface",
+      "group": "head",
+      "parent": null,
+      "meshNode": "scalp",
+      "colour": "#d4b8a0",
+      "centroid": [
+        1.1913820046617605,
+        -1.0818855461917025,
+        14.120221963917528
+      ],
+      "layer": "head",
+      "source": "graphcolouring-fsaverage",
+      "licence": "FreeSurfer / MNE fsaverage",
+      "function": "Translucent scalp for spatial context. Fiducials (nasion, LPA, RPA, Cz) sit on this surface in the 10\u201320 frame.",
+      "clinical": "Used here as an orientation shell, not as a surgical scalp model.",
+      "chapter6": "cortex",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.22,
+      "connected": [
+        "wm-lh",
+        "thalamus-lh"
+      ],
+      "links": [],
+      "id": "cortex-lh",
+      "name": "Left cerebral cortex",
+      "group": "core",
+      "parent": "cortex",
+      "meshNode": "cortex_lh",
+      "colour": "#8eb4d4",
+      "centroid": [
+        -37.95997198706454,
+        5.624287719558569,
+        25.71708045259768
+      ],
+      "function": "Neocortex: six-layered sheet folded into gyri and sulci. It is the seat of perception, action, language and association.",
+      "clinical": "Focal lesions produce highly local signs (aphasia, neglect, hemiparesis) that map onto Brodmann / gyral anatomy.",
+      "chapter6": "cortex",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "cortex",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.22,
+      "connected": [
+        "wm-rh",
+        "thalamus-rh"
+      ],
+      "links": [],
+      "id": "cortex-rh",
+      "name": "Right cerebral cortex",
+      "group": "core",
+      "parent": "cortex",
+      "meshNode": "cortex_rh",
+      "colour": "#8eb4d4",
+      "centroid": [
+        36.40512562043227,
+        4.401641341876203,
+        32.67764289636136
+      ],
+      "function": "Neocortex: six-layered sheet folded into gyri and sulci. It is the seat of perception, action, language and association.",
+      "clinical": "Focal lesions produce highly local signs (aphasia, neglect, hemiparesis) that map onto Brodmann / gyral anatomy.",
+      "chapter6": "cortex",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "cortex",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.85,
+      "connected": [
+        "pons",
+        "thalamus-lh",
+        "thalamus-rh",
+        "pag",
+        "vta"
+      ],
+      "links": [],
+      "id": "midbrain",
+      "name": "Midbrain (mesencephalon)",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "midbrain",
+      "colour": "#e07a5f",
+      "centroid": [
+        2.470959676931823,
+        6.576486534303325,
+        -5.232582763545366
+      ],
+      "layer": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Rostral brainstem: tectum (colliculi), tegmentum (red nucleus, SN, reticular formation) and cerebral peduncles. Cranial nerves III\u2013IV exit here.",
+      "clinical": "Midbrain strokes (Weber, Benedikt, Parinaud) combine oculomotor signs with corticospinal or cerebellar findings.",
+      "chapter6": "brainstem",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.95,
+      "connected": [
+        "inferior-colliculus",
+        "midbrain"
+      ],
+      "links": [],
+      "id": "superior-colliculus",
+      "name": "Superior colliculus",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "superior_colliculus",
+      "colour": "#f2cc8f",
+      "centroid": [
+        1.7444742386531544,
+        -6.822705540958783,
+        0.17594493459344404
+      ],
+      "layer": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Paired tectal hillocks for visuomotor orienting and the vertical gaze pathways (posterior commissure / riMLF).",
+      "clinical": "Compression at the tectal plate (pineal mass) yields Parinaud syndrome: upgaze palsy and light-near dissociation.",
+      "chapter6": "midbrain",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.95,
+      "connected": [
+        "superior-colliculus",
+        "mgn-lh",
+        "mgn-rh"
+      ],
+      "links": [],
+      "id": "inferior-colliculus",
+      "name": "Inferior colliculus",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "inferior_colliculus",
+      "colour": "#f4a261",
+      "centroid": [
+        2.3370087839754516,
+        -9.24084448906477,
+        -6.580206581030587
+      ],
+      "layer": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY-SA 2.1 JP",
+      "function": "Auditory midbrain nucleus: almost all ascending brainstem auditory fibres synapse here before the MGN.",
+      "clinical": "Lesions can impair sound localisation and, rarely, cause auditory hallucinations or palatal myoclonus circuits nearby.",
+      "chapter6": "midbrain",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.85,
+      "connected": [
+        "midbrain",
+        "medulla",
+        "cn5-lh",
+        "cn5-rh"
+      ],
+      "links": [],
+      "id": "pons",
+      "name": "Pons",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "pons",
+      "colour": "#c26d5a",
+      "centroid": [
+        4.893207103186023,
+        -0.12041474180092425,
+        -32.287428495598014
+      ],
+      "layer": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Basilar pons carries corticospinal and corticopontine fibres; the tegmentum holds CN V\u2013VIII nuclei, the locus coeruleus and pontine reticular formation.",
+      "clinical": "Pontine infarcts (locked-in, Millard\u2013Gubler) and central pontine myelinolysis are classic clinical correlates.",
+      "chapter6": "brainstem",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.88,
+      "connected": [
+        "pons",
+        "pyramid-lh",
+        "pyramid-rh",
+        "cn10-lh",
+        "cn10-rh"
+      ],
+      "links": [],
+      "id": "medulla",
+      "name": "Medulla oblongata",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "medulla",
+      "colour": "#9b4d4d",
+      "centroid": [
+        7.366419781760527,
+        -12.872874635865985,
+        -60.9496244776125
+      ],
+      "layer": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Caudal brainstem: pyramids, olives, and the vital cardiorespiratory reticular networks. CN IX\u2013XII nuclei live here.",
+      "clinical": "Lateral medullary (Wallenberg) and medial medullary syndromes are teaching staples; medullary compression is life-threatening.",
+      "chapter6": "brainstem",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.9,
+      "connected": [
+        "midbrain",
+        "internal-capsule-lh"
+      ],
+      "links": [],
+      "id": "cerebral-peduncle-lh",
+      "name": "Left cerebral peduncle",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "cerebral_peduncle_lh",
+      "colour": "#e9c46a",
+      "centroid": [
+        -11.470195432580908,
+        10.84451831850417,
+        -12.239632333665929
+      ],
+      "function": "Crus cerebri: compact corticospinal and corticobulbar fibres on the ventral midbrain.",
+      "clinical": "Weber syndrome: ipsilateral III palsy plus contralateral hemiparesis from a peduncular infarct.",
+      "chapter6": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "brainstem",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.9,
+      "connected": [
+        "midbrain",
+        "internal-capsule-rh"
+      ],
+      "links": [],
+      "id": "cerebral-peduncle-rh",
+      "name": "Right cerebral peduncle",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "cerebral_peduncle_rh",
+      "colour": "#e9c46a",
+      "centroid": [
+        17.60161204140269,
+        10.366564138484112,
+        -9.518401554425115
+      ],
+      "function": "Crus cerebri: compact corticospinal and corticobulbar fibres on the ventral midbrain.",
+      "clinical": "Weber syndrome: ipsilateral III palsy plus contralateral hemiparesis from a peduncular infarct.",
+      "chapter6": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "brainstem",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.92,
+      "connected": [
+        "medulla",
+        "cerebral-peduncle-lh"
+      ],
+      "links": [],
+      "id": "pyramid-lh",
+      "name": "Left medullary pyramid",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "pyramid_lh",
+      "colour": "#f4d35e",
+      "centroid": [
+        3.6910095382319477,
+        -3.010489945146405,
+        -61.23963086683808
+      ],
+      "function": "Corticospinal tract on the ventral medulla; ~90% of fibres decussate at the pyramidal decussation to form the lateral CST.",
+      "clinical": "Medial medullary (Dejerine) syndrome hits the pyramid, medial lemniscus and hypoglossal nerve.",
+      "chapter6": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "brainstem",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.92,
+      "connected": [
+        "medulla",
+        "cerebral-peduncle-rh"
+      ],
+      "links": [],
+      "id": "pyramid-rh",
+      "name": "Right medullary pyramid",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "pyramid_rh",
+      "colour": "#f4d35e",
+      "centroid": [
+        11.35120283599559,
+        -3.136603174770537,
+        -60.52243070304654
+      ],
+      "function": "Corticospinal tract on the ventral medulla; ~90% of fibres decussate at the pyramidal decussation to form the lateral CST.",
+      "clinical": "Medial medullary (Dejerine) syndrome hits the pyramid, medial lemniscus and hypoglossal nerve.",
+      "chapter6": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "brainstem",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "medulla",
+        "dentate-lh"
+      ],
+      "links": [],
+      "id": "inferior-olive-lh",
+      "name": "Left inferior olivary nucleus",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "inferior_olive_lh",
+      "colour": "#b08968",
+      "centroid": [
+        -1.4744401944862324,
+        -6.373972130840416,
+        -59.32768036866326
+      ],
+      "function": "Climbing-fibre source to cerebellar Purkinje cells; central to motor timing and learning.",
+      "clinical": "Olivary hypertrophy after central tegmental-tract lesions is linked to palatal (and sometimes ocular) myoclonus.",
+      "chapter6": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "brainstem",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "medulla",
+        "dentate-rh"
+      ],
+      "links": [],
+      "id": "inferior-olive-rh",
+      "name": "Right inferior olivary nucleus",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "inferior_olive_rh",
+      "colour": "#b08968",
+      "centroid": [
+        15.959659261697038,
+        -6.660686484696859,
+        -57.69577812770461
+      ],
+      "function": "Climbing-fibre source to cerebellar Purkinje cells; central to motor timing and learning.",
+      "clinical": "Olivary hypertrophy after central tegmental-tract lesions is linked to palatal (and sometimes ocular) myoclonus.",
+      "chapter6": "brainstem",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "brainstem",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "midbrain",
+        "dentate-lh"
+      ],
+      "links": [],
+      "id": "red-nucleus-lh",
+      "name": "Left red nucleus",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "red_nucleus_lh",
+      "colour": "#c1121f",
+      "centroid": [
+        -4.168902447526512,
+        8.123422563040883,
+        -5.032782440876086
+      ],
+      "function": "Midbrain tegmental nucleus on the dentatorubrothalamic and rubrospinal paths. Drawn as a labelled schematic ellipsoid \u2014 it is not in the open mesh sets.",
+      "clinical": "Claude and Benedikt syndromes involve the red nucleus with cerebellar tremor and oculomotor palsy.",
+      "chapter6": "midbrain",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "brainstem",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "midbrain",
+        "dentate-rh"
+      ],
+      "links": [],
+      "id": "red-nucleus-rh",
+      "name": "Right red nucleus",
+      "group": "core",
+      "parent": "brainstem",
+      "meshNode": "red_nucleus_rh",
+      "colour": "#c1121f",
+      "centroid": [
+        9.005285525988095,
+        7.906843595636142,
+        -3.799717818305052
+      ],
+      "function": "Midbrain tegmental nucleus on the dentatorubrothalamic and rubrospinal paths. Drawn as a labelled schematic ellipsoid \u2014 it is not in the open mesh sets.",
+      "clinical": "Claude and Benedikt syndromes involve the red nucleus with cerebellar tremor and oculomotor palsy.",
+      "chapter6": "midbrain",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "brainstem",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.4,
+      "connected": [
+        "cortex-lh",
+        "corpus-callosum",
+        "internal-capsule-lh"
+      ],
+      "links": [],
+      "id": "wm-lh",
+      "name": "Left cerebral white matter",
+      "group": "white-matter",
+      "parent": null,
+      "meshNode": "white_matter_lh",
+      "colour": "#f0e6d8",
+      "centroid": [
+        -27.91870984269457,
+        -1.5753739416980979,
+        3.3507309362897537
+      ],
+      "function": "Myelinated association, commissural and projection axons that wire cortex to cortex and to subcortex.",
+      "clinical": "Leukoaraiosis, MS plaques and watershed infarcts preferentially hit this compartment.",
+      "chapter6": "white-matter",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "white-matter",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.4,
+      "connected": [
+        "cortex-rh",
+        "corpus-callosum",
+        "internal-capsule-rh"
+      ],
+      "links": [],
+      "id": "wm-rh",
+      "name": "Right cerebral white matter",
+      "group": "white-matter",
+      "parent": null,
+      "meshNode": "white_matter_rh",
+      "colour": "#f0e6d8",
+      "centroid": [
+        30.458956822108703,
+        -2.535158490140389,
+        8.814880604453808
+      ],
+      "function": "Myelinated association, commissural and projection axons that wire cortex to cortex and to subcortex.",
+      "clinical": "Leukoaraiosis, MS plaques and watershed infarcts preferentially hit this compartment.",
+      "chapter6": "white-matter",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "white-matter",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.8,
+      "connected": [
+        "wm-lh",
+        "wm-rh",
+        "cortex-lh",
+        "cortex-rh"
+      ],
+      "links": [],
+      "id": "corpus-callosum",
+      "name": "Corpus callosum",
+      "group": "white-matter",
+      "parent": null,
+      "meshNode": "corpus_callosum",
+      "colour": "#fff3e0",
+      "centroid": [
+        -0.46808854849504106,
+        22.386118182121745,
+        28.94485703843681
+      ],
+      "layer": "white-matter",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "The great commissure: genu, body, splenium (and rostrum) interconnecting homologous cortical fields.",
+      "clinical": "Callosal disconnection (alien-hand, left anomia for objects in the left hand) and agenesis are classic teaching cases.",
+      "chapter6": "white-matter",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.9,
+      "connected": [
+        "hippocampus-lh",
+        "hippocampus-rh",
+        "hypothalamus"
+      ],
+      "links": [],
+      "id": "fornix",
+      "name": "Fornix",
+      "group": "white-matter",
+      "parent": null,
+      "meshNode": "fornix",
+      "colour": "#ffe8a3",
+      "centroid": [
+        0.18700183737735254,
+        10.887895110896972,
+        19.92688803022826
+      ],
+      "layer": "white-matter",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Main hippocampal output arching under the corpus callosum to the mammillary bodies (Papez circuit).",
+      "clinical": "Fornix damage (colloid cyst surgery, trauma) can produce severe anterograde amnesia.",
+      "chapter6": "limbic",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.75,
+      "connected": [
+        "thalamus-lh",
+        "caudate-lh",
+        "putamen-lh",
+        "cortex-lh"
+      ],
+      "links": [],
+      "id": "internal-capsule-lh",
+      "name": "Left internal capsule",
+      "group": "white-matter",
+      "parent": null,
+      "meshNode": "internal_capsule_lh",
+      "colour": "#f6e7c1",
+      "centroid": [
+        -18,
+        -6,
+        8
+      ],
+      "function": "Compact projection bundle (anterior limb, genu, posterior limb) between caudate/thalamus and lentiform nucleus.",
+      "clinical": "A small lacunar infarct in the posterior limb can cause a dense contralateral hemiparesis.",
+      "chapter6": "white-matter",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "white-matter",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.75,
+      "connected": [
+        "thalamus-rh",
+        "caudate-rh",
+        "putamen-rh",
+        "cortex-rh"
+      ],
+      "links": [],
+      "id": "internal-capsule-rh",
+      "name": "Right internal capsule",
+      "group": "white-matter",
+      "parent": null,
+      "meshNode": "internal_capsule_rh",
+      "colour": "#f6e7c1",
+      "centroid": [
+        18,
+        -6,
+        8
+      ],
+      "function": "Compact projection bundle (anterior limb, genu, posterior limb) between caudate/thalamus and lentiform nucleus.",
+      "clinical": "A small lacunar infarct in the posterior limb can cause a dense contralateral hemiparesis.",
+      "chapter6": "white-matter",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "white-matter",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "cn2-lh",
+        "lgn-lh"
+      ],
+      "links": [],
+      "id": "optic-tract-lh",
+      "name": "Left optic tract",
+      "group": "white-matter",
+      "parent": null,
+      "meshNode": "optic_tract_lh",
+      "colour": "#f4d35e",
+      "centroid": [
+        -18.332169205602305,
+        23.401242473665967,
+        -8.04642094380523
+      ],
+      "function": "Post-chiasmatic retinal axons heading for the lateral geniculate nucleus.",
+      "clinical": "A tract lesion yields contralateral homonymous hemianopia.",
+      "chapter6": "cranial-nerves",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "white-matter",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "cn2-rh",
+        "lgn-rh"
+      ],
+      "links": [],
+      "id": "optic-tract-rh",
+      "name": "Right optic tract",
+      "group": "white-matter",
+      "parent": null,
+      "meshNode": "optic_tract_rh",
+      "colour": "#f4d35e",
+      "centroid": [
+        23.972892594175256,
+        22.705673123986877,
+        -4.0866400201185655
+      ],
+      "function": "Post-chiasmatic retinal axons heading for the lateral geniculate nucleus.",
+      "clinical": "A tract lesion yields contralateral homonymous hemianopia.",
+      "chapter6": "cranial-nerves",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "white-matter",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.88,
+      "connected": [
+        "cortex-lh",
+        "iln-lh",
+        "hypothalamus"
+      ],
+      "links": [],
+      "id": "thalamus-lh",
+      "name": "Left thalamus",
+      "group": "subcortical",
+      "parent": "thalamus",
+      "meshNode": "thalamus_lh",
+      "colour": "#80b918",
+      "centroid": [
+        -12.71111165240907,
+        7.30706081081473,
+        13.175424060634738
+      ],
+      "function": "Relay and association nuclei that gate almost every subcortical input to cortex (except olfaction).",
+      "clinical": "Thalamic strokes produce hemisensory loss, pain (D\u00e9jerine\u2013Roussy), aphasia or neglect depending on the territory.",
+      "chapter6": "diencephalon",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.88,
+      "connected": [
+        "cortex-rh",
+        "iln-rh",
+        "hypothalamus"
+      ],
+      "links": [],
+      "id": "thalamus-rh",
+      "name": "Right thalamus",
+      "group": "subcortical",
+      "parent": "thalamus",
+      "meshNode": "thalamus_rh",
+      "colour": "#80b918",
+      "centroid": [
+        13.990194926621966,
+        6.868046194839739,
+        15.67466053680482
+      ],
+      "function": "Relay and association nuclei that gate almost every subcortical input to cortex (except olfaction).",
+      "clinical": "Thalamic strokes produce hemisensory loss, pain (D\u00e9jerine\u2013Roussy), aphasia or neglect depending on the territory.",
+      "chapter6": "diencephalon",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "thalamus-lh",
+        "pag",
+        "ppn-lh"
+      ],
+      "links": [],
+      "id": "iln-lh",
+      "name": "Left intralaminar thalamus (CM/Pf)",
+      "group": "subcortical",
+      "parent": "thalamus",
+      "meshNode": "intralaminar_thalamus_lh",
+      "colour": "#a7c957",
+      "centroid": [
+        -8.577210632493108,
+        7.521461924423661,
+        7.8125983074297904
+      ],
+      "function": "Centromedian / parafascicular complex \u2014 the thalamic target of the dorsal ARAS route, projecting widely to cortex and striatum.",
+      "clinical": "Intralaminar lesions and DBS targets are discussed in disorders of consciousness and Tourette syndrome.",
+      "chapter6": "aras",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "thalamus-rh",
+        "pag",
+        "ppn-rh"
+      ],
+      "links": [],
+      "id": "iln-rh",
+      "name": "Right intralaminar thalamus (CM/Pf)",
+      "group": "subcortical",
+      "parent": "thalamus",
+      "meshNode": "intralaminar_thalamus_rh",
+      "colour": "#a7c957",
+      "centroid": [
+        10.931873482606797,
+        7.200717007618716,
+        9.63869824517053
+      ],
+      "function": "Centromedian / parafascicular complex \u2014 the thalamic target of the dorsal ARAS route, projecting widely to cortex and striatum.",
+      "clinical": "Intralaminar lesions and DBS targets are discussed in disorders of consciousness and Tourette syndrome.",
+      "chapter6": "aras",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.92,
+      "connected": [
+        "thalamus-lh",
+        "cortex-lh"
+      ],
+      "links": [],
+      "id": "pulvinar-lh",
+      "name": "Left pulvinar",
+      "group": "subcortical",
+      "parent": "thalamus",
+      "meshNode": "pulvinar_lh",
+      "colour": "#90a955",
+      "centroid": [
+        -17.358668128317984,
+        -3.9376291224868756,
+        8.500697961393799
+      ],
+      "function": "Large posterior association nucleus linking visual and attentional cortical networks.",
+      "clinical": "Pulvinar damage is associated with spatial neglect and visual-attention deficits.",
+      "chapter6": "diencephalon",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.92,
+      "connected": [
+        "thalamus-rh",
+        "cortex-rh"
+      ],
+      "links": [],
+      "id": "pulvinar-rh",
+      "name": "Right pulvinar",
+      "group": "subcortical",
+      "parent": "thalamus",
+      "meshNode": "pulvinar_rh",
+      "colour": "#90a955",
+      "centroid": [
+        19.055667687660133,
+        -4.536262474170572,
+        11.909065061252353
+      ],
+      "function": "Large posterior association nucleus linking visual and attentional cortical networks.",
+      "clinical": "Pulvinar damage is associated with spatial neglect and visual-attention deficits.",
+      "chapter6": "diencephalon",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "optic-tract-lh",
+        "cortex-lh"
+      ],
+      "links": [],
+      "id": "lgn-lh",
+      "name": "Left lateral geniculate nucleus",
+      "group": "subcortical",
+      "parent": "thalamus",
+      "meshNode": "lgn_lh",
+      "colour": "#bfd200",
+      "centroid": [
+        -24.672870448332038,
+        2.3956455045757092,
+        -4.047200161789581
+      ],
+      "function": "Thalamic visual relay: magno- and parvocellular laminae project via optic radiations to V1.",
+      "clinical": "LGN lesions cause incongruous homonymous field cuts.",
+      "chapter6": "diencephalon",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "optic-tract-rh",
+        "cortex-rh"
+      ],
+      "links": [],
+      "id": "lgn-rh",
+      "name": "Right lateral geniculate nucleus",
+      "group": "subcortical",
+      "parent": "thalamus",
+      "meshNode": "lgn_rh",
+      "colour": "#bfd200",
+      "centroid": [
+        28.77453096346653,
+        1.5169040055350977,
+        0.9553154718671951
+      ],
+      "function": "Thalamic visual relay: magno- and parvocellular laminae project via optic radiations to V1.",
+      "clinical": "LGN lesions cause incongruous homonymous field cuts.",
+      "chapter6": "diencephalon",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "inferior-colliculus",
+        "cortex-lh"
+      ],
+      "links": [],
+      "id": "mgn-lh",
+      "name": "Left medial geniculate nucleus",
+      "group": "subcortical",
+      "parent": "thalamus",
+      "meshNode": "mgn_lh",
+      "colour": "#d4d700",
+      "centroid": [
+        -17.12953779516157,
+        -0.28781265966104796,
+        -2.025354435090595
+      ],
+      "function": "Thalamic auditory relay to Heschl\u2019s gyrus.",
+      "clinical": "Rare isolated lesions can impair auditory discrimination.",
+      "chapter6": "diencephalon",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "inferior-colliculus",
+        "cortex-rh"
+      ],
+      "links": [],
+      "id": "mgn-rh",
+      "name": "Right medial geniculate nucleus",
+      "group": "subcortical",
+      "parent": "thalamus",
+      "meshNode": "mgn_rh",
+      "colour": "#d4d700",
+      "centroid": [
+        20.90188879799225,
+        -0.9131417938983188,
+        1.5343977474688018
+      ],
+      "function": "Thalamic auditory relay to Heschl\u2019s gyrus.",
+      "clinical": "Rare isolated lesions can impair auditory discrimination.",
+      "chapter6": "diencephalon",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.92,
+      "connected": [
+        "tmn",
+        "pituitary",
+        "fornix",
+        "basal-forebrain"
+      ],
+      "links": [],
+      "id": "hypothalamus",
+      "name": "Hypothalamus",
+      "group": "subcortical",
+      "parent": "diencephalon",
+      "meshNode": "hypothalamus",
+      "colour": "#f77f00",
+      "centroid": [
+        2.628648404772065,
+        17.83967912661834,
+        -4.937517981032428
+      ],
+      "layer": "subcortical",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Homeostatic and endocrine brain: autonomic, circadian, thermoregulatory, appetitive and pituitary-control nuclei. The ventral ARAS route traverses here.",
+      "clinical": "Hypothalamic lesions disturb sleep, temperature, appetite, water balance and endocrine axes.",
+      "chapter6": "diencephalon",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.95,
+      "connected": [
+        "hypothalamus",
+        "basal-forebrain",
+        "vta"
+      ],
+      "links": [],
+      "id": "tmn",
+      "name": "Tuberomammillary nucleus (histamine)",
+      "group": "subcortical",
+      "parent": "diencephalon",
+      "meshNode": "tmn",
+      "colour": "#ffb703",
+      "centroid": [
+        2.817106369296466,
+        27.973552825841264,
+        -5.171649353830817
+      ],
+      "layer": "subcortical",
+      "transmitter": "histamine",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Sole neuronal histamine source. A key waking node on the ventral ARAS path; antihistamines that cross the BBB cause drowsiness here.",
+      "clinical": "TMN inhibition is a target of some hypnotics; narcolepsy circuits interact with this wake-promoting cell group.",
+      "chapter6": "aras",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.95,
+      "connected": [
+        "hypothalamus"
+      ],
+      "links": [],
+      "id": "pituitary",
+      "name": "Pituitary gland",
+      "group": "subcortical",
+      "parent": "diencephalon",
+      "meshNode": "pituitary",
+      "colour": "#e56b6f",
+      "centroid": [
+        -0.04298623462613633,
+        11.661727282091105,
+        -19.16068576642297
+      ],
+      "layer": "subcortical",
+      "source": "bodyparts3d",
+      "licence": "CC BY-SA 2.1 JP",
+      "function": "Adenohypophysis and neurohypophysis in the sella, under hypothalamic releasing-hormone and ADH/oxytocin control.",
+      "clinical": "Adenomas cause endocrine syndromes and bitemporal hemianopia from chiasmal compression.",
+      "chapter6": "diencephalon",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.95,
+      "connected": [
+        "superior-colliculus"
+      ],
+      "links": [],
+      "id": "pineal",
+      "name": "Pineal gland",
+      "group": "subcortical",
+      "parent": "diencephalon",
+      "meshNode": "pineal",
+      "colour": "#d62828",
+      "centroid": [
+        -0.014206547727753033,
+        -35.507229886015196,
+        2.4513822072438063
+      ],
+      "layer": "subcortical",
+      "source": "bodyparts3d",
+      "licence": "CC BY-SA 2.1 JP",
+      "function": "Epithalamic endocrine gland secreting melatonin; sits above the tectal plate in the quadrigeminal cistern.",
+      "clinical": "Pineal masses obstruct the aqueduct (hydrocephalus) and compress the superior colliculi (Parinaud).",
+      "chapter6": "diencephalon",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.9,
+      "connected": [
+        "hypothalamus",
+        "cortex-lh",
+        "cortex-rh",
+        "tmn"
+      ],
+      "links": [],
+      "id": "basal-forebrain",
+      "name": "Basal forebrain (incl. nucleus basalis)",
+      "group": "subcortical",
+      "parent": "limbic",
+      "meshNode": "basal_forebrain",
+      "colour": "#ff9f1c",
+      "centroid": [
+        2.5197409392797154,
+        34.09726791240458,
+        -0.9170820873603315
+      ],
+      "layer": "subcortical",
+      "transmitter": "ACh",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Cholinergic waking and memory node (nucleus basalis of Meynert, medial septum, diagonal band) \u2014 the cortical end of the ventral ARAS route.",
+      "clinical": "Degenerates early in Alzheimer disease; anticholinergic burden impairs attention and memory.",
+      "chapter6": "aras",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.9,
+      "connected": [
+        "putamen-lh",
+        "gpe-lh",
+        "thalamus-lh"
+      ],
+      "links": [],
+      "id": "caudate-lh",
+      "name": "Left caudate nucleus",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "caudate_lh",
+      "colour": "#48cae4",
+      "centroid": [
+        -18.713918666173726,
+        30.812901191142025,
+        19.436640859534453
+      ],
+      "function": "Striatal nucleus hugging the lateral ventricle; associative and oculomotor loops dominate in the head of caudate.",
+      "clinical": "Atrophies in Huntington disease; caudate infarcts can cause abulia or choreiform movements.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.9,
+      "connected": [
+        "putamen-rh",
+        "gpe-rh",
+        "thalamus-rh"
+      ],
+      "links": [],
+      "id": "caudate-rh",
+      "name": "Right caudate nucleus",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "caudate_rh",
+      "colour": "#48cae4",
+      "centroid": [
+        19.49018823341677,
+        30.1847852884831,
+        23.012527138666293
+      ],
+      "function": "Striatal nucleus hugging the lateral ventricle; associative and oculomotor loops dominate in the head of caudate.",
+      "clinical": "Atrophies in Huntington disease; caudate infarcts can cause abulia or choreiform movements.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.9,
+      "connected": [
+        "caudate-lh",
+        "gpe-lh",
+        "gpi-lh"
+      ],
+      "links": [],
+      "id": "putamen-lh",
+      "name": "Left putamen",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "putamen_lh",
+      "colour": "#00b4d8",
+      "centroid": [
+        -19.865941763768365,
+        44.760673644284864,
+        26.239150939658924
+      ],
+      "function": "Lentiform striatum, heavily sensorimotor; with the caudate it forms the input stage of the basal ganglia.",
+      "clinical": "Putaminal haemorrhage (hypertension) is a common deep ICH; lacunar infarcts cause lacunar syndromes.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.9,
+      "connected": [
+        "caudate-rh",
+        "gpe-rh",
+        "gpi-rh"
+      ],
+      "links": [],
+      "id": "putamen-rh",
+      "name": "Right putamen",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "putamen_rh",
+      "colour": "#00b4d8",
+      "centroid": [
+        19.814571588710102,
+        44.10837883009257,
+        29.953263421908176
+      ],
+      "function": "Lentiform striatum, heavily sensorimotor; with the caudate it forms the input stage of the basal ganglia.",
+      "clinical": "Putaminal haemorrhage (hypertension) is a common deep ICH; lacunar infarcts cause lacunar syndromes.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.92,
+      "connected": [
+        "putamen-lh",
+        "stn-lh",
+        "gpi-lh"
+      ],
+      "links": [],
+      "id": "gpe-lh",
+      "name": "Left globus pallidus externa",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "gpe_lh",
+      "colour": "#0096c7",
+      "centroid": [
+        -21.564396972224007,
+        27.143329599879955,
+        6.564711551498414
+      ],
+      "function": "Indirect-pathway node: GABAergic projection to STN. Shapes the brake on movement.",
+      "clinical": "Pallidal lesions and DBS alter dystonia and dyskinesia circuits.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.92,
+      "connected": [
+        "putamen-rh",
+        "stn-rh",
+        "gpi-rh"
+      ],
+      "links": [],
+      "id": "gpe-rh",
+      "name": "Right globus pallidus externa",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "gpe_rh",
+      "colour": "#0096c7",
+      "centroid": [
+        24.558754910252183,
+        26.384905625201828,
+        10.881826523908616
+      ],
+      "function": "Indirect-pathway node: GABAergic projection to STN. Shapes the brake on movement.",
+      "clinical": "Pallidal lesions and DBS alter dystonia and dyskinesia circuits.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "gpe-lh",
+        "stn-lh",
+        "thalamus-lh"
+      ],
+      "links": [],
+      "id": "gpi-lh",
+      "name": "Left globus pallidus interna",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "gpi_lh",
+      "colour": "#0077b6",
+      "centroid": [
+        -19.079607120648195,
+        24.838707803579176,
+        3.0252077629494636
+      ],
+      "function": "Major basal-ganglia output to motor thalamus (and brainstem). High tonic inhibition is paused to release a selected action.",
+      "clinical": "GPi DBS is a standard treatment for dystonia and a Parkinson option.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "gpe-rh",
+        "stn-rh",
+        "thalamus-rh"
+      ],
+      "links": [],
+      "id": "gpi-rh",
+      "name": "Right globus pallidus interna",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "gpi_rh",
+      "colour": "#0077b6",
+      "centroid": [
+        22.699632010646503,
+        24.15180745988468,
+        6.935662055685282
+      ],
+      "function": "Major basal-ganglia output to motor thalamus (and brainstem). High tonic inhibition is paused to release a selected action.",
+      "clinical": "GPi DBS is a standard treatment for dystonia and a Parkinson option.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.92,
+      "connected": [
+        "putamen-lh",
+        "vta",
+        "basal-forebrain"
+      ],
+      "links": [],
+      "id": "nac-lh",
+      "name": "Left nucleus accumbens",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "nucleus_accumbens_lh",
+      "colour": "#90e0ef",
+      "centroid": [
+        -9.604139522260736,
+        42.989328364865855,
+        -0.39606292576016744
+      ],
+      "function": "Ventral striatum: reward, motivation and Pavlovian\u2013instrumental interface, heavily innervated by VTA dopamine.",
+      "clinical": "Implicated in addiction, depression and apathy; a target in experimental DBS.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.92,
+      "connected": [
+        "putamen-rh",
+        "vta",
+        "basal-forebrain"
+      ],
+      "links": [],
+      "id": "nac-rh",
+      "name": "Right nucleus accumbens",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "nucleus_accumbens_rh",
+      "colour": "#90e0ef",
+      "centroid": [
+        14.619351594765003,
+        42.59122755163728,
+        1.8711915217914978
+      ],
+      "function": "Ventral striatum: reward, motivation and Pavlovian\u2013instrumental interface, heavily innervated by VTA dopamine.",
+      "clinical": "Implicated in addiction, depression and apathy; a target in experimental DBS.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "gpe-lh",
+        "gpi-lh",
+        "sn-lh"
+      ],
+      "links": [],
+      "id": "stn-lh",
+      "name": "Left subthalamic nucleus",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "stn_lh",
+      "colour": "#48cae4",
+      "centroid": [
+        -9.734438718723757,
+        17.65125818118309,
+        -2.4979640712856
+      ],
+      "function": "Glutamatergic pacemaker of the indirect pathway, sitting on the midbrain\u2013diencephalon border.",
+      "clinical": "STN lesions cause hemiballismus; STN DBS is a mainstay for Parkinson motor fluctuations.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "gpe-rh",
+        "gpi-rh",
+        "sn-rh"
+      ],
+      "links": [],
+      "id": "stn-rh",
+      "name": "Right subthalamic nucleus",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "stn_rh",
+      "colour": "#48cae4",
+      "centroid": [
+        14.311126704861842,
+        17.25595898616053,
+        -0.24726961700429806
+      ],
+      "function": "Glutamatergic pacemaker of the indirect pathway, sitting on the midbrain\u2013diencephalon border.",
+      "clinical": "STN lesions cause hemiballismus; STN DBS is a mainstay for Parkinson motor fluctuations.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "stn-lh",
+        "putamen-lh",
+        "vta"
+      ],
+      "links": [],
+      "id": "sn-lh",
+      "name": "Left substantia nigra",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "substantia_nigra_lh",
+      "colour": "#3d348b",
+      "centroid": [
+        -8.94308281402284,
+        11.438747228591522,
+        -9.629230582762975
+      ],
+      "function": "SNc dopaminergic neurons pigmented with neuromelanin; SNr is a GABAergic output nucleus akin to GPi.",
+      "clinical": "SNc degeneration is the core pathology of Parkinson disease.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "stn-rh",
+        "putamen-rh",
+        "vta"
+      ],
+      "links": [],
+      "id": "sn-rh",
+      "name": "Right substantia nigra",
+      "group": "subcortical",
+      "parent": "basal-ganglia",
+      "meshNode": "substantia_nigra_rh",
+      "colour": "#3d348b",
+      "centroid": [
+        14.654791681603644,
+        11.050784779895436,
+        -7.4205112610380475
+      ],
+      "function": "SNc dopaminergic neurons pigmented with neuromelanin; SNr is a GABAergic output nucleus akin to GPi.",
+      "clinical": "SNc degeneration is the core pathology of Parkinson disease.",
+      "chapter6": "basal-ganglia",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.92,
+      "connected": [
+        "hippocampus-lh",
+        "hypothalamus"
+      ],
+      "links": [],
+      "id": "amygdala-lh",
+      "name": "Left amygdala",
+      "group": "subcortical",
+      "parent": "limbic",
+      "meshNode": "amygdala_lh",
+      "colour": "#ff6b6b",
+      "centroid": [
+        -24.835500765454103,
+        27.58704764304842,
+        -14.17151225300128
+      ],
+      "function": "Basolateral and central nuclei for threat detection, Pavlovian fear and the autonomic emotional response.",
+      "clinical": "Kl\u00fcver\u2013Bucy (bilateral) and Urbach\u2013Wiethe (basolateral calcification) are classic human lesions.",
+      "chapter6": "limbic",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.92,
+      "connected": [
+        "hippocampus-rh",
+        "hypothalamus"
+      ],
+      "links": [],
+      "id": "amygdala-rh",
+      "name": "Right amygdala",
+      "group": "subcortical",
+      "parent": "limbic",
+      "meshNode": "amygdala_rh",
+      "colour": "#ff6b6b",
+      "centroid": [
+        31.63344830825687,
+        26.65861179277089,
+        -8.886094861267875
+      ],
+      "function": "Basolateral and central nuclei for threat detection, Pavlovian fear and the autonomic emotional response.",
+      "clinical": "Kl\u00fcver\u2013Bucy (bilateral) and Urbach\u2013Wiethe (basolateral calcification) are classic human lesions.",
+      "chapter6": "limbic",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.9,
+      "connected": [
+        "fornix",
+        "amygdala-lh"
+      ],
+      "links": [],
+      "id": "hippocampus-lh",
+      "name": "Left hippocampus",
+      "group": "subcortical",
+      "parent": "limbic",
+      "meshNode": "hippocampus_lh",
+      "colour": "#ff8fa3",
+      "centroid": [
+        -25.232969793123875,
+        2.4950795960156533,
+        -10.459728575728048
+      ],
+      "function": "Allocortical memory engine (CA fields, dentate, subiculum) essential for episodic encoding and spatial maps.",
+      "clinical": "Mesial temporal sclerosis \u2192 temporal-lobe epilepsy; early atrophy is a hallmark of Alzheimer disease.",
+      "chapter6": "limbic",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.9,
+      "connected": [
+        "fornix",
+        "amygdala-rh"
+      ],
+      "links": [],
+      "id": "hippocampus-rh",
+      "name": "Right hippocampus",
+      "group": "subcortical",
+      "parent": "limbic",
+      "meshNode": "hippocampus_rh",
+      "colour": "#ff8fa3",
+      "centroid": [
+        30.517189631699008,
+        1.578496403330349,
+        -5.2414908349275
+      ],
+      "function": "Allocortical memory engine (CA fields, dentate, subiculum) essential for episodic encoding and spatial maps.",
+      "clinical": "Mesial temporal sclerosis \u2192 temporal-lobe epilepsy; early atrophy is a hallmark of Alzheimer disease.",
+      "chapter6": "limbic",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "subcortical",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.5,
+      "connected": [
+        "vermis",
+        "dentate-lh"
+      ],
+      "links": [],
+      "id": "cerebellum-h-lh",
+      "name": "Left cerebellar hemisphere",
+      "group": "cerebellum",
+      "parent": null,
+      "meshNode": "cerebellar_hemisphere_lh",
+      "colour": "#c77dff",
+      "centroid": [
+        -26.79053060588817,
+        -38.72478077297127,
+        -44.59684770487325
+      ],
+      "function": "Cerebrocerebellum: planning, timing and coordination of skilled movement via dentate \u2192 VL thalamus \u2192 cortex.",
+      "clinical": "Hemispheric lesions cause ipsilateral limb dysmetria, intention tremor and dysdiadochokinesia.",
+      "chapter6": "cerebellum",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "cerebellum",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.5,
+      "connected": [
+        "vermis",
+        "dentate-rh"
+      ],
+      "links": [],
+      "id": "cerebellum-h-rh",
+      "name": "Right cerebellar hemisphere",
+      "group": "cerebellum",
+      "parent": null,
+      "meshNode": "cerebellar_hemisphere_rh",
+      "colour": "#c77dff",
+      "centroid": [
+        37.03585119551978,
+        -39.77414574231905,
+        -38.62268941905232
+      ],
+      "function": "Cerebrocerebellum: planning, timing and coordination of skilled movement via dentate \u2192 VL thalamus \u2192 cortex.",
+      "clinical": "Hemispheric lesions cause ipsilateral limb dysmetria, intention tremor and dysdiadochokinesia.",
+      "chapter6": "cerebellum",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "cerebellum",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.7,
+      "connected": [
+        "cerebellum-h-lh",
+        "cerebellum-h-rh"
+      ],
+      "links": [],
+      "id": "vermis",
+      "name": "Cerebellar vermis",
+      "group": "cerebellum",
+      "parent": null,
+      "meshNode": "vermis",
+      "colour": "#e0aaff",
+      "centroid": [
+        3.8441869119899152,
+        -41.0940049353017,
+        -28.276772426216578
+      ],
+      "layer": "cerebellum",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Midline cerebellum for axial and gait coordination and some vestibulo-oculomotor control.",
+      "clinical": "Vermian lesions (medulloblastoma, alcohol) produce truncal ataxia and titubation.",
+      "chapter6": "cerebellum",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "cerebellum-h-lh",
+        "red-nucleus-lh"
+      ],
+      "links": [],
+      "id": "dentate-lh",
+      "name": "Left dentate nucleus",
+      "group": "cerebellum",
+      "parent": null,
+      "meshNode": "dentate_lh",
+      "colour": "#9d4edd",
+      "centroid": [
+        -9.250928699269968,
+        -30.690848085640663,
+        -35.58869570105562
+      ],
+      "function": "Largest deep cerebellar nucleus; output of the cerebellar hemispheres.",
+      "clinical": "Dentate involvement appears in some degenerative ataxias and in cerebellar outflow tremor.",
+      "chapter6": "cerebellum",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "cerebellum",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "cerebellum-h-rh",
+        "red-nucleus-rh"
+      ],
+      "links": [],
+      "id": "dentate-rh",
+      "name": "Right dentate nucleus",
+      "group": "cerebellum",
+      "parent": null,
+      "meshNode": "dentate_rh",
+      "colour": "#9d4edd",
+      "centroid": [
+        18.40039723237935,
+        -31.145558726851082,
+        -33.000508955236015
+      ],
+      "function": "Largest deep cerebellar nucleus; output of the cerebellar hemispheres.",
+      "clinical": "Dentate involvement appears in some degenerative ataxias and in cerebellar outflow tremor.",
+      "chapter6": "cerebellum",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "cerebellum",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.5,
+      "connected": [
+        "third-ventricle"
+      ],
+      "links": [],
+      "id": "lat-vent-lh",
+      "name": "Left lateral ventricle",
+      "group": "ventricles",
+      "parent": null,
+      "meshNode": "lateral_ventricle_lh",
+      "colour": "#4cc9f0",
+      "centroid": [
+        -18.025351052273926,
+        21.017862896158697,
+        13.94441117517744
+      ],
+      "function": "C-shaped CSF space (frontal, body, atrium, temporal and occipital horns) lined by ependyma and containing choroid plexus.",
+      "clinical": "Enlarges in hydrocephalus and atrophy; temporal horns balloon early in obstructive hydrocephalus.",
+      "chapter6": "ventricles",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "ventricles",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.5,
+      "connected": [
+        "third-ventricle"
+      ],
+      "links": [],
+      "id": "lat-vent-rh",
+      "name": "Right lateral ventricle",
+      "group": "ventricles",
+      "parent": null,
+      "meshNode": "lateral_ventricle_rh",
+      "colour": "#4cc9f0",
+      "centroid": [
+        19.51393768910382,
+        20.400707318503535,
+        17.4580948344183
+      ],
+      "function": "C-shaped CSF space (frontal, body, atrium, temporal and occipital horns) lined by ependyma and containing choroid plexus.",
+      "clinical": "Enlarges in hydrocephalus and atrophy; temporal horns balloon early in obstructive hydrocephalus.",
+      "chapter6": "ventricles",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "layer": "ventricles",
+      "defaultVisible": true,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.55,
+      "connected": [
+        "lat-vent-lh",
+        "lat-vent-rh",
+        "aqueduct"
+      ],
+      "links": [],
+      "id": "third-ventricle",
+      "name": "Third ventricle",
+      "group": "ventricles",
+      "parent": null,
+      "meshNode": "third_ventricle",
+      "colour": "#48bfe3",
+      "centroid": [
+        1.9436318778027148,
+        20.406902083660654,
+        2.8318495138033106
+      ],
+      "layer": "ventricles",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Midline slit between the thalami, with choroid in the roof and the hypothalamic recesses on the floor.",
+      "clinical": "Colloid cysts at the foramen of Monro can cause sudden obstructive hydrocephalus.",
+      "chapter6": "ventricles",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.7,
+      "connected": [
+        "third-ventricle",
+        "fourth-ventricle"
+      ],
+      "links": [],
+      "id": "aqueduct",
+      "name": "Cerebral aqueduct",
+      "group": "ventricles",
+      "parent": null,
+      "meshNode": "cerebral_aqueduct",
+      "colour": "#56cfe1",
+      "centroid": [
+        2.451506183122121,
+        -6.564940043431216,
+        -7.331777691198846
+      ],
+      "layer": "ventricles",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Sylvius\u2019 aqueduct through the midbrain, linking third and fourth ventricles.",
+      "clinical": "Aqueductal stenosis is a classic cause of triventricular hydrocephalus.",
+      "chapter6": "ventricles",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.55,
+      "connected": [
+        "aqueduct"
+      ],
+      "links": [],
+      "id": "fourth-ventricle",
+      "name": "Fourth ventricle",
+      "group": "ventricles",
+      "parent": null,
+      "meshNode": "fourth_ventricle",
+      "colour": "#64dfdf",
+      "centroid": [
+        5.319889986993436,
+        -19.689284127294336,
+        -40.28182259743913
+      ],
+      "layer": "ventricles",
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "function": "Diamond-shaped CSF space between pons/medulla (floor) and cerebellum (roof); outlets are the foramina of Luschka and Magendie.",
+      "clinical": "Floor lesions produce cranial-nerve and gaze findings; obstruction \u2192 hydrocephalus.",
+      "chapter6": "ventricles",
+      "schematic": false,
+      "defaultVisible": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "mca-lh",
+        "aca-lh"
+      ],
+      "links": [],
+      "id": "ica-lh",
+      "name": "Left internal carotid artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#e63946",
+      "centroid": [
+        -12,
+        16,
+        -22
+      ],
+      "function": "Terminal ICA in the subarachnoid space, giving rise to MCA, ACA and the posterior communicating artery.",
+      "clinical": "ICA stenosis and terminus aneurysms are major stroke and SAH sources.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -12,
+          16,
+          -22
+        ],
+        "tubeRadius": 1.5,
+        "points": [
+          [
+            -12,
+            18,
+            -36
+          ],
+          [
+            -12,
+            16,
+            -24
+          ],
+          [
+            -12,
+            10,
+            -12
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "mca-rh",
+        "aca-rh"
+      ],
+      "links": [],
+      "id": "ica-rh",
+      "name": "Right internal carotid artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#e63946",
+      "centroid": [
+        12,
+        16,
+        -22
+      ],
+      "function": "Terminal ICA in the subarachnoid space, giving rise to MCA, ACA and the posterior communicating artery.",
+      "clinical": "ICA stenosis and terminus aneurysms are major stroke and SAH sources.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          12,
+          16,
+          -22
+        ],
+        "tubeRadius": 1.5,
+        "points": [
+          [
+            12,
+            18,
+            -36
+          ],
+          [
+            12,
+            16,
+            -24
+          ],
+          [
+            12,
+            10,
+            -12
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "ica-lh"
+      ],
+      "links": [],
+      "id": "mca-lh",
+      "name": "Left middle cerebral artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ff4d6d",
+      "centroid": [
+        -28,
+        8,
+        4
+      ],
+      "function": "Sylvian artery supplying lateral convexity, basal ganglia (lenticulostriates) and the sensorimotor face/arm territories.",
+      "clinical": "The most common large-vessel ischaemic stroke territory.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -28,
+          8,
+          4
+        ],
+        "tubeRadius": 1.3,
+        "points": [
+          [
+            -12,
+            10,
+            -12
+          ],
+          [
+            -22,
+            8,
+            -4
+          ],
+          [
+            -40,
+            6,
+            8
+          ],
+          [
+            -52,
+            0,
+            16
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "ica-rh"
+      ],
+      "links": [],
+      "id": "mca-rh",
+      "name": "Right middle cerebral artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ff4d6d",
+      "centroid": [
+        28,
+        8,
+        4
+      ],
+      "function": "Sylvian artery supplying lateral convexity, basal ganglia (lenticulostriates) and the sensorimotor face/arm territories.",
+      "clinical": "The most common large-vessel ischaemic stroke territory.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          28,
+          8,
+          4
+        ],
+        "tubeRadius": 1.3,
+        "points": [
+          [
+            12,
+            10,
+            -12
+          ],
+          [
+            22,
+            8,
+            -4
+          ],
+          [
+            40,
+            6,
+            8
+          ],
+          [
+            52,
+            0,
+            16
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "ica-lh",
+        "acom"
+      ],
+      "links": [],
+      "id": "aca-lh",
+      "name": "Left anterior cerebral artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#c9184a",
+      "centroid": [
+        -6,
+        20,
+        10
+      ],
+      "function": "Runs in the interhemispheric fissure, supplying medial frontal and parietal cortex including the leg area of homunculus.",
+      "clinical": "ACA stroke: contralateral leg weakness, abulia and grasp phenomena.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -6,
+          20,
+          10
+        ],
+        "tubeRadius": 1.15,
+        "points": [
+          [
+            -8,
+            12,
+            -10
+          ],
+          [
+            -6,
+            22,
+            0
+          ],
+          [
+            -6,
+            28,
+            18
+          ],
+          [
+            -8,
+            8,
+            32
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "ica-rh",
+        "acom"
+      ],
+      "links": [],
+      "id": "aca-rh",
+      "name": "Right anterior cerebral artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#c9184a",
+      "centroid": [
+        6,
+        20,
+        10
+      ],
+      "function": "Runs in the interhemispheric fissure, supplying medial frontal and parietal cortex including the leg area of homunculus.",
+      "clinical": "ACA stroke: contralateral leg weakness, abulia and grasp phenomena.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          6,
+          20,
+          10
+        ],
+        "tubeRadius": 1.15,
+        "points": [
+          [
+            8,
+            12,
+            -10
+          ],
+          [
+            6,
+            22,
+            0
+          ],
+          [
+            6,
+            28,
+            18
+          ],
+          [
+            8,
+            8,
+            32
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "mid",
+      "opacity": 0.95,
+      "connected": [
+        "aca-lh",
+        "aca-rh"
+      ],
+      "links": [],
+      "id": "acom",
+      "name": "Anterior communicating artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ff758f",
+      "centroid": [
+        0,
+        18,
+        -6
+      ],
+      "layer": "vessels",
+      "defaultVisible": false,
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "function": "Short link between the two ACAs that completes the anterior Circle of Willis.",
+      "clinical": "The single most common site of saccular aneurysm.",
+      "chapter6": "blood-supply",
+      "placeholder": {
+        "type": "tube",
+        "tubeRadius": 1.05,
+        "points": [
+          [
+            -6,
+            18,
+            -6
+          ],
+          [
+            6,
+            18,
+            -6
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "basilar",
+        "pcom-lh"
+      ],
+      "links": [],
+      "id": "pca-lh",
+      "name": "Left posterior cerebral artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#d00000",
+      "centroid": [
+        -16,
+        -24,
+        0
+      ],
+      "function": "Terminal basilar branches to occipital lobe, medial temporal lobe and (via perforators) thalamus and midbrain.",
+      "clinical": "PCA stroke: contralateral hemianopia, and alexia without agraphia if the splenium is included on the left.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -16,
+          -24,
+          0
+        ],
+        "tubeRadius": 1.2,
+        "points": [
+          [
+            -4,
+            -18,
+            -12
+          ],
+          [
+            -12,
+            -22,
+            -6
+          ],
+          [
+            -24,
+            -36,
+            4
+          ],
+          [
+            -28,
+            -48,
+            12
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "basilar",
+        "pcom-rh"
+      ],
+      "links": [],
+      "id": "pca-rh",
+      "name": "Right posterior cerebral artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#d00000",
+      "centroid": [
+        16,
+        -24,
+        0
+      ],
+      "function": "Terminal basilar branches to occipital lobe, medial temporal lobe and (via perforators) thalamus and midbrain.",
+      "clinical": "PCA stroke: contralateral hemianopia, and alexia without agraphia if the splenium is included on the left.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          16,
+          -24,
+          0
+        ],
+        "tubeRadius": 1.2,
+        "points": [
+          [
+            4,
+            -18,
+            -12
+          ],
+          [
+            12,
+            -22,
+            -6
+          ],
+          [
+            24,
+            -36,
+            4
+          ],
+          [
+            28,
+            -48,
+            12
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "ica-lh",
+        "pca-lh"
+      ],
+      "links": [],
+      "id": "pcom-lh",
+      "name": "Left posterior communicating artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ff8fa3",
+      "centroid": [
+        -12,
+        0,
+        -10
+      ],
+      "function": "Links ICA to PCA and can fetalise the posterior circulation when large.",
+      "clinical": "PCom aneurysms classically present with ipsilateral III palsy.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -12,
+          0,
+          -10
+        ],
+        "tubeRadius": 0.95,
+        "points": [
+          [
+            -12,
+            8,
+            -12
+          ],
+          [
+            -10,
+            -8,
+            -10
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "ica-rh",
+        "pca-rh"
+      ],
+      "links": [],
+      "id": "pcom-rh",
+      "name": "Right posterior communicating artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ff8fa3",
+      "centroid": [
+        12,
+        0,
+        -10
+      ],
+      "function": "Links ICA to PCA and can fetalise the posterior circulation when large.",
+      "clinical": "PCom aneurysms classically present with ipsilateral III palsy.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          12,
+          0,
+          -10
+        ],
+        "tubeRadius": 0.95,
+        "points": [
+          [
+            12,
+            8,
+            -12
+          ],
+          [
+            10,
+            -8,
+            -10
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "mid",
+      "opacity": 0.95,
+      "connected": [
+        "vertebral-lh",
+        "vertebral-rh",
+        "pca-lh",
+        "pca-rh"
+      ],
+      "links": [],
+      "id": "basilar",
+      "name": "Basilar artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#9d0208",
+      "centroid": [
+        0,
+        -24,
+        -28
+      ],
+      "layer": "vessels",
+      "defaultVisible": false,
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "function": "Midline vessel formed by the vertebrals, running along the clivus/pons to bifurcate into the PCAs.",
+      "clinical": "Basilar occlusion can produce locked-in syndrome or coma from ARAS and corticospinal destruction.",
+      "chapter6": "blood-supply",
+      "placeholder": {
+        "type": "tube",
+        "tubeRadius": 1.6,
+        "points": [
+          [
+            0,
+            -28,
+            -46
+          ],
+          [
+            0,
+            -26,
+            -30
+          ],
+          [
+            0,
+            -22,
+            -16
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "basilar"
+      ],
+      "links": [],
+      "id": "vertebral-lh",
+      "name": "Left vertebral artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#6a040f",
+      "centroid": [
+        -6,
+        -38,
+        -56
+      ],
+      "function": "Paired arteries that enter the foramen magnum and join to form the basilar; they give PICA.",
+      "clinical": "Vertebral dissection and PICA infarcts (including Wallenberg) are common posterior-circulation events.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -6,
+          -38,
+          -56
+        ],
+        "tubeRadius": 1.25,
+        "points": [
+          [
+            -8,
+            -42,
+            -68
+          ],
+          [
+            -6,
+            -38,
+            -54
+          ],
+          [
+            -2,
+            -30,
+            -44
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "basilar"
+      ],
+      "links": [],
+      "id": "vertebral-rh",
+      "name": "Right vertebral artery",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#6a040f",
+      "centroid": [
+        6,
+        -38,
+        -56
+      ],
+      "function": "Paired arteries that enter the foramen magnum and join to form the basilar; they give PICA.",
+      "clinical": "Vertebral dissection and PICA infarcts (including Wallenberg) are common posterior-circulation events.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          6,
+          -38,
+          -56
+        ],
+        "tubeRadius": 1.25,
+        "points": [
+          [
+            8,
+            -42,
+            -68
+          ],
+          [
+            6,
+            -38,
+            -54
+          ],
+          [
+            2,
+            -30,
+            -44
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "mid",
+      "opacity": 0.85,
+      "connected": [
+        "transverse-lh",
+        "transverse-rh"
+      ],
+      "links": [],
+      "id": "sss",
+      "name": "Superior sagittal sinus",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#4361ee",
+      "centroid": [
+        0,
+        -10,
+        68
+      ],
+      "layer": "vessels",
+      "defaultVisible": false,
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "function": "Unpaired dural venous sinus in the attached edge of falx cerebri, draining convexity veins to the confluence of sinuses.",
+      "clinical": "CVT here causes headache, papilloedema and sometimes bilateral parasagittal infarcts or haemorrhage.",
+      "chapter6": "blood-supply",
+      "placeholder": {
+        "type": "tube",
+        "tubeRadius": 1.8,
+        "points": [
+          [
+            0,
+            50,
+            40
+          ],
+          [
+            0,
+            20,
+            72
+          ],
+          [
+            0,
+            -20,
+            78
+          ],
+          [
+            0,
+            -60,
+            50
+          ],
+          [
+            0,
+            -72,
+            22
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.85,
+      "connected": [
+        "sss"
+      ],
+      "links": [],
+      "id": "transverse-lh",
+      "name": "Left transverse sinus",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#4895ef",
+      "centroid": [
+        -28,
+        -68,
+        12
+      ],
+      "function": "Runs in the tentorium to the sigmoid sinus and jugular bulb.",
+      "clinical": "Often asymmetric (right-dominant); thrombosis mimics chronic headache and raised ICP.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -28,
+          -68,
+          12
+        ],
+        "tubeRadius": 1.6,
+        "points": [
+          [
+            -4,
+            -72,
+            20
+          ],
+          [
+            -28,
+            -68,
+            12
+          ],
+          [
+            -44,
+            -58,
+            4
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.85,
+      "connected": [
+        "sss"
+      ],
+      "links": [],
+      "id": "transverse-rh",
+      "name": "Right transverse sinus",
+      "group": "vasculature",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#4895ef",
+      "centroid": [
+        28,
+        -68,
+        12
+      ],
+      "function": "Runs in the tentorium to the sigmoid sinus and jugular bulb.",
+      "clinical": "Often asymmetric (right-dominant); thrombosis mimics chronic headache and raised ICP.",
+      "chapter6": "blood-supply",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "vessels",
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          28,
+          -68,
+          12
+        ],
+        "tubeRadius": 1.6,
+        "points": [
+          [
+            4,
+            -72,
+            20
+          ],
+          [
+            28,
+            -68,
+            12
+          ],
+          [
+            44,
+            -58,
+            4
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "olf-epithelium-lh"
+      ],
+      "links": [],
+      "id": "cn1-lh",
+      "name": "Left olfactory nerve (I)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#adb5bd",
+      "centroid": [
+        -6,
+        42,
+        -20
+      ],
+      "function": "Fila olfactoria through the cribriform plate to the olfactory bulb and tract. Special visceral afferent for smell.",
+      "clinical": "Anosmia after trauma or meningioma of the olfactory groove; uncinate seizures produce olfactory auras.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 1,
+        "name": "Olfactory",
+        "nucleus": "Olfactory bulb (telencephalic, not a true brainstem nerve)"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -6,
+          42,
+          -20
+        ],
+        "tubeRadius": 0.9,
+        "points": [
+          [
+            -8,
+            52,
+            -18
+          ],
+          [
+            -6,
+            40,
+            -22
+          ],
+          [
+            -8,
+            28,
+            -18
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "olf-epithelium-rh"
+      ],
+      "links": [],
+      "id": "cn1-rh",
+      "name": "Right olfactory nerve (I)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#adb5bd",
+      "centroid": [
+        6,
+        42,
+        -20
+      ],
+      "function": "Fila olfactoria through the cribriform plate to the olfactory bulb and tract. Special visceral afferent for smell.",
+      "clinical": "Anosmia after trauma or meningioma of the olfactory groove; uncinate seizures produce olfactory auras.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 1,
+        "name": "Olfactory",
+        "nucleus": "Olfactory bulb (telencephalic, not a true brainstem nerve)"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          6,
+          42,
+          -20
+        ],
+        "tubeRadius": 0.9,
+        "points": [
+          [
+            8,
+            52,
+            -18
+          ],
+          [
+            6,
+            40,
+            -22
+          ],
+          [
+            8,
+            28,
+            -18
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "eye-lh",
+        "optic-tract-lh",
+        "lgn-lh"
+      ],
+      "links": [],
+      "id": "cn2-lh",
+      "name": "Left optic nerve (II)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ffd166",
+      "centroid": [
+        -18,
+        40,
+        -12
+      ],
+      "function": "CNS tract from globe through the optic canal to the chiasm. Myelinated by oligodendrocytes.",
+      "clinical": "Papilloedema, optic neuritis and field cuts are localised by the classic chiasmal rules.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 2,
+        "name": "Optic",
+        "nucleus": "Retinal ganglion cells \u2192 LGN (not a brainstem nucleus)"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -18,
+          40,
+          -12
+        ],
+        "tubeRadius": 1.35,
+        "points": [
+          [
+            -32,
+            62,
+            -8
+          ],
+          [
+            -18,
+            40,
+            -14
+          ],
+          [
+            -4,
+            22,
+            -16
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "eye-rh",
+        "optic-tract-rh",
+        "lgn-rh"
+      ],
+      "links": [],
+      "id": "cn2-rh",
+      "name": "Right optic nerve (II)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ffd166",
+      "centroid": [
+        18,
+        40,
+        -12
+      ],
+      "function": "CNS tract from globe through the optic canal to the chiasm. Myelinated by oligodendrocytes.",
+      "clinical": "Papilloedema, optic neuritis and field cuts are localised by the classic chiasmal rules.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 2,
+        "name": "Optic",
+        "nucleus": "Retinal ganglion cells \u2192 LGN (not a brainstem nucleus)"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          18,
+          40,
+          -12
+        ],
+        "tubeRadius": 1.35,
+        "points": [
+          [
+            32,
+            62,
+            -8
+          ],
+          [
+            18,
+            40,
+            -14
+          ],
+          [
+            4,
+            22,
+            -16
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "midbrain",
+        "eye-lh"
+      ],
+      "links": [],
+      "id": "cn3-lh",
+      "name": "Left oculomotor nerve (III)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#f4a261",
+      "centroid": [
+        -6,
+        20,
+        -14
+      ],
+      "function": "Innervates MR, SR, IR, IO and levator; parasympathetic pupilloconstrictor fibres ride on its surface.",
+      "clinical": "A \u201cdown and out\u201d eye with ptosis and a blown pupil suggests a compressive III (PCom aneurysm, herniation).",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 3,
+        "name": "Oculomotor",
+        "nucleus": "Oculomotor nucleus and Edinger\u2013Westphal, midbrain tegmentum"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -6,
+          20,
+          -14
+        ],
+        "tubeRadius": 0.85,
+        "points": [
+          [
+            -4,
+            -16,
+            -10
+          ],
+          [
+            -8,
+            8,
+            -16
+          ],
+          [
+            -22,
+            48,
+            -10
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "midbrain",
+        "eye-rh"
+      ],
+      "links": [],
+      "id": "cn3-rh",
+      "name": "Right oculomotor nerve (III)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#f4a261",
+      "centroid": [
+        6,
+        20,
+        -14
+      ],
+      "function": "Innervates MR, SR, IR, IO and levator; parasympathetic pupilloconstrictor fibres ride on its surface.",
+      "clinical": "A \u201cdown and out\u201d eye with ptosis and a blown pupil suggests a compressive III (PCom aneurysm, herniation).",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 3,
+        "name": "Oculomotor",
+        "nucleus": "Oculomotor nucleus and Edinger\u2013Westphal, midbrain tegmentum"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          6,
+          20,
+          -14
+        ],
+        "tubeRadius": 0.85,
+        "points": [
+          [
+            4,
+            -16,
+            -10
+          ],
+          [
+            8,
+            8,
+            -16
+          ],
+          [
+            22,
+            48,
+            -10
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "pons"
+      ],
+      "links": [],
+      "id": "cn5-lh",
+      "name": "Left trigeminal nerve (V)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#e9c46a",
+      "centroid": [
+        -18,
+        -10,
+        -22
+      ],
+      "function": "Great sensory nerve of the face plus muscles of mastication. Three divisions: V1, V2, V3.",
+      "clinical": "Trigeminal neuralgia (often vascular compression at the REZ) and herpes zoster ophthalmicus are common.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 5,
+        "name": "Trigeminal",
+        "nucleus": "Principal, mesencephalic, spinal V and motor V nuclei"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -18,
+          -10,
+          -22
+        ],
+        "tubeRadius": 1.2,
+        "points": [
+          [
+            -8,
+            -26,
+            -24
+          ],
+          [
+            -18,
+            -12,
+            -22
+          ],
+          [
+            -36,
+            8,
+            -18
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "pons"
+      ],
+      "links": [],
+      "id": "cn5-rh",
+      "name": "Right trigeminal nerve (V)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#e9c46a",
+      "centroid": [
+        18,
+        -10,
+        -22
+      ],
+      "function": "Great sensory nerve of the face plus muscles of mastication. Three divisions: V1, V2, V3.",
+      "clinical": "Trigeminal neuralgia (often vascular compression at the REZ) and herpes zoster ophthalmicus are common.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 5,
+        "name": "Trigeminal",
+        "nucleus": "Principal, mesencephalic, spinal V and motor V nuclei"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          18,
+          -10,
+          -22
+        ],
+        "tubeRadius": 1.2,
+        "points": [
+          [
+            8,
+            -26,
+            -24
+          ],
+          [
+            18,
+            -12,
+            -22
+          ],
+          [
+            36,
+            8,
+            -18
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "pons"
+      ],
+      "links": [],
+      "id": "cn7-lh",
+      "name": "Left facial nerve (VII)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#f4d35e",
+      "centroid": [
+        -20,
+        -22,
+        -28
+      ],
+      "function": "Muscles of facial expression, taste from the anterior two-thirds of the tongue, and several parasympathetic secretomotor fibres.",
+      "clinical": "LMN VII (Bell) vs UMN (forehead sparing) is a core localisation drill. CPA tumours can involve VII with VIII.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 7,
+        "name": "Facial",
+        "nucleus": "Facial nucleus (pontine tegmentum) and superior salivatory nucleus"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -20,
+          -22,
+          -28
+        ],
+        "tubeRadius": 0.8,
+        "points": [
+          [
+            -10,
+            -30,
+            -28
+          ],
+          [
+            -20,
+            -22,
+            -30
+          ],
+          [
+            -36,
+            -8,
+            -26
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "pons"
+      ],
+      "links": [],
+      "id": "cn7-rh",
+      "name": "Right facial nerve (VII)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#f4d35e",
+      "centroid": [
+        20,
+        -22,
+        -28
+      ],
+      "function": "Muscles of facial expression, taste from the anterior two-thirds of the tongue, and several parasympathetic secretomotor fibres.",
+      "clinical": "LMN VII (Bell) vs UMN (forehead sparing) is a core localisation drill. CPA tumours can involve VII with VIII.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 7,
+        "name": "Facial",
+        "nucleus": "Facial nucleus (pontine tegmentum) and superior salivatory nucleus"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          20,
+          -22,
+          -28
+        ],
+        "tubeRadius": 0.8,
+        "points": [
+          [
+            10,
+            -30,
+            -28
+          ],
+          [
+            20,
+            -22,
+            -30
+          ],
+          [
+            36,
+            -8,
+            -26
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "pons",
+        "cochlea-lh"
+      ],
+      "links": [],
+      "id": "cn8-lh",
+      "name": "Left vestibulocochlear nerve (VIII)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ee9b00",
+      "centroid": [
+        -22,
+        -26,
+        -30
+      ],
+      "function": "Special somatic afferent for hearing and balance, from cochlea and labyrinth through the IAM to the CPA.",
+      "clinical": "Vestibular schwannoma: progressive unilateral hearing loss, tinnitus and later V/VII involvement.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 8,
+        "name": "Vestibulocochlear",
+        "nucleus": "Cochlear and vestibular nuclei at the pontomedullary junction"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -22,
+          -26,
+          -30
+        ],
+        "tubeRadius": 0.85,
+        "points": [
+          [
+            -12,
+            -30,
+            -28
+          ],
+          [
+            -24,
+            -24,
+            -32
+          ],
+          [
+            -44,
+            -20,
+            -32
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "pons",
+        "cochlea-rh"
+      ],
+      "links": [],
+      "id": "cn8-rh",
+      "name": "Right vestibulocochlear nerve (VIII)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ee9b00",
+      "centroid": [
+        22,
+        -26,
+        -30
+      ],
+      "function": "Special somatic afferent for hearing and balance, from cochlea and labyrinth through the IAM to the CPA.",
+      "clinical": "Vestibular schwannoma: progressive unilateral hearing loss, tinnitus and later V/VII involvement.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 8,
+        "name": "Vestibulocochlear",
+        "nucleus": "Cochlear and vestibular nuclei at the pontomedullary junction"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          22,
+          -26,
+          -30
+        ],
+        "tubeRadius": 0.85,
+        "points": [
+          [
+            12,
+            -30,
+            -28
+          ],
+          [
+            24,
+            -24,
+            -32
+          ],
+          [
+            44,
+            -20,
+            -32
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "medulla"
+      ],
+      "links": [],
+      "id": "cn10-lh",
+      "name": "Left vagus nerve (X)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ca6702",
+      "centroid": [
+        -8,
+        -36,
+        -52
+      ],
+      "function": "The wanderer: palate, pharynx, larynx, and parasympathetic supply to thoracic and abdominal viscera.",
+      "clinical": "Unilateral X: hoarseness and palatal droop; bilateral lesions threaten the airway and autonomic control.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 10,
+        "name": "Vagus",
+        "nucleus": "Nucleus ambiguus and dorsal motor nucleus of X, medulla"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -8,
+          -36,
+          -52
+        ],
+        "tubeRadius": 0.8,
+        "points": [
+          [
+            -6,
+            -38,
+            -46
+          ],
+          [
+            -8,
+            -40,
+            -58
+          ],
+          [
+            -10,
+            -36,
+            -78
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "folder",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "medulla"
+      ],
+      "links": [],
+      "id": "cn10-rh",
+      "name": "Right vagus nerve (X)",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#ca6702",
+      "centroid": [
+        8,
+        -36,
+        -52
+      ],
+      "function": "The wanderer: palate, pharynx, larynx, and parasympathetic supply to thoracic and abdominal viscera.",
+      "clinical": "Unilateral X: hoarseness and palatal droop; bilateral lesions threaten the airway and autonomic control.",
+      "chapter6": "cranial-nerves",
+      "source": "PittBrains3D \u00b7 schematic placeholder",
+      "licence": "CC BY-SA 4.0",
+      "layer": "nerves",
+      "cn": {
+        "number": 10,
+        "name": "Vagus",
+        "nucleus": "Nucleus ambiguus and dorsal motor nucleus of X, medulla"
+      },
+      "defaultVisible": false,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          8,
+          -36,
+          -52
+        ],
+        "tubeRadius": 0.8,
+        "points": [
+          [
+            6,
+            -38,
+            -46
+          ],
+          [
+            8,
+            -40,
+            -58
+          ],
+          [
+            10,
+            -36,
+            -78
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "pno",
+        "iln-lh",
+        "iln-rh"
+      ],
+      "links": [],
+      "id": "lc-lh",
+      "name": "Left locus coeruleus (NE)",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "locus_coeruleus_lh",
+      "colour": "#3a86ff",
+      "centroid": [
+        -4.2,
+        -37.49999999999999,
+        -26.0
+      ],
+      "function": "Pontine noradrenergic nucleus that broadcasts novelty, stress and gain control across cortex and thalamus.",
+      "clinical": "LC degeneration is early in Alzheimer and Parkinson disease and is linked to arousal and autonomic instability.",
+      "chapter6": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "layer": "aras",
+      "transmitter": "NE",
+      "defaultVisible": true,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "pno",
+        "iln-lh",
+        "iln-rh"
+      ],
+      "links": [],
+      "id": "lc-rh",
+      "name": "Right locus coeruleus (NE)",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "locus_coeruleus_rh",
+      "colour": "#3a86ff",
+      "centroid": [
+        4.200000000000001,
+        -37.49999999999999,
+        -26.0
+      ],
+      "function": "Pontine noradrenergic nucleus that broadcasts novelty, stress and gain control across cortex and thalamus.",
+      "clinical": "LC degeneration is early in Alzheimer and Parkinson disease and is linked to arousal and autonomic instability.",
+      "chapter6": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "layer": "aras",
+      "transmitter": "NE",
+      "defaultVisible": true,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.95,
+      "connected": [
+        "mr",
+        "pag"
+      ],
+      "links": [],
+      "id": "dr",
+      "name": "Dorsal raphe (5-HT)",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "dorsal_raphe",
+      "colour": "#8338ec",
+      "centroid": [
+        -7.127357688951622e-17,
+        -32.0,
+        -16.000000000000004
+      ],
+      "layer": "aras",
+      "transmitter": "5-HT",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "function": "Midline serotonergic cell group in the ventral PAG / dorsal midbrain, modulating mood, sleep and pain.",
+      "clinical": "A target of SSRIs; midbrain haemorrhage can injure this cluster with the PAG.",
+      "chapter6": "aras",
+      "schematic": true,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.95,
+      "connected": [
+        "dr",
+        "pno"
+      ],
+      "links": [],
+      "id": "mr",
+      "name": "Median raphe (5-HT)",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "median_raphe",
+      "colour": "#9b5de5",
+      "centroid": [
+        -1.644774851296528e-17,
+        -36.0,
+        -23.999999999999996
+      ],
+      "layer": "aras",
+      "transmitter": "5-HT",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "function": "More caudal serotonergic raphe projecting heavily to hippocampus and cortex; part of the ventral arousal stream.",
+      "clinical": "Together with the dorsal raphe it sets a serotonergic tone implicated in anxiety and sleep architecture.",
+      "chapter6": "aras",
+      "schematic": true,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.88,
+      "connected": [
+        "dr",
+        "ppn-lh",
+        "ppn-rh",
+        "iln-lh",
+        "iln-rh"
+      ],
+      "links": [],
+      "id": "pag",
+      "name": "Periaqueductal grey",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "pag",
+      "colour": "#fb5607",
+      "centroid": [
+        9.320390824013659e-17,
+        -28.0,
+        -8.000000000000004
+      ],
+      "layer": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "function": "Grey matter around the aqueduct: defensive behaviour, descending pain control, and a hub of the dorsal arousal path.",
+      "clinical": "PAG lesions (and stimulation) alter pain, autonomic state and, in some reports, consciousness.",
+      "chapter6": "aras",
+      "schematic": true,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "lc-lh",
+        "pno"
+      ],
+      "links": [],
+      "id": "pbn-lh",
+      "name": "Left parabrachial complex",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "parabrachial_lh",
+      "colour": "#ff006e",
+      "centroid": [
+        -7.5,
+        -36.0,
+        -32.00000000000001
+      ],
+      "function": "Pontine relay for visceral, taste and interoceptive afferents; a recently emphasised node for arousal and affective state.",
+      "clinical": "PBN injury is discussed in coma and in the affective dimension of pain.",
+      "chapter6": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "layer": "aras",
+      "defaultVisible": true,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "lc-rh",
+        "pno"
+      ],
+      "links": [],
+      "id": "pbn-rh",
+      "name": "Right parabrachial complex",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "parabrachial_rh",
+      "colour": "#ff006e",
+      "centroid": [
+        7.5,
+        -36.0,
+        -32.00000000000001
+      ],
+      "function": "Pontine relay for visceral, taste and interoceptive afferents; a recently emphasised node for arousal and affective state.",
+      "clinical": "PBN injury is discussed in coma and in the affective dimension of pain.",
+      "chapter6": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "layer": "aras",
+      "defaultVisible": true,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "ldtg-lh",
+        "pag",
+        "iln-lh"
+      ],
+      "links": [],
+      "id": "ppn-lh",
+      "name": "Left pedunculopontine tegmental nucleus (ACh)",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "ppn_lh",
+      "colour": "#06d6a0",
+      "centroid": [
+        -7.50000000000001,
+        -28.0,
+        -11.999999999999998
+      ],
+      "function": "Cholinergic mesopontine nucleus (PPT / PTg) projecting to thalamus \u2014 a pillar of the dorsal ARAS route and of gait/locomotor pattern generation.",
+      "clinical": "PPN DBS has been tried for Parkinsonian gait freezing; degeneration occurs in progressive supranuclear palsy.",
+      "chapter6": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "layer": "aras",
+      "transmitter": "ACh",
+      "defaultVisible": true,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "ldtg-rh",
+        "pag",
+        "iln-rh"
+      ],
+      "links": [],
+      "id": "ppn-rh",
+      "name": "Right pedunculopontine tegmental nucleus (ACh)",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "ppn_rh",
+      "colour": "#06d6a0",
+      "centroid": [
+        7.499999999999993,
+        -28.0,
+        -11.999999999999998
+      ],
+      "function": "Cholinergic mesopontine nucleus (PPT / PTg) projecting to thalamus \u2014 a pillar of the dorsal ARAS route and of gait/locomotor pattern generation.",
+      "clinical": "PPN DBS has been tried for Parkinsonian gait freezing; degeneration occurs in progressive supranuclear palsy.",
+      "chapter6": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "layer": "aras",
+      "transmitter": "ACh",
+      "defaultVisible": true,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "ppn-lh",
+        "pno"
+      ],
+      "links": [],
+      "id": "ldtg-lh",
+      "name": "Left laterodorsal tegmental nucleus (ACh)",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "ldtg_lh",
+      "colour": "#0ead69",
+      "centroid": [
+        -3.8000000000000003,
+        -36.0,
+        -27.999999999999982
+      ],
+      "function": "Sister cholinergic cell group to PPN, contributing ACh to thalamus and to REM-on networks.",
+      "clinical": "Part of the mesopontine cholinergic system that fragments in synucleinopathies.",
+      "chapter6": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "layer": "aras",
+      "transmitter": "ACh",
+      "defaultVisible": true,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "ppn-rh",
+        "pno"
+      ],
+      "links": [],
+      "id": "ldtg-rh",
+      "name": "Right laterodorsal tegmental nucleus (ACh)",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "ldtg_rh",
+      "colour": "#0ead69",
+      "centroid": [
+        3.7999999999999967,
+        -36.0,
+        -27.999999999999982
+      ],
+      "function": "Sister cholinergic cell group to PPN, contributing ACh to thalamus and to REM-on networks.",
+      "clinical": "Part of the mesopontine cholinergic system that fragments in synucleinopathies.",
+      "chapter6": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "layer": "aras",
+      "transmitter": "ACh",
+      "defaultVisible": true,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.85,
+      "connected": [
+        "pag",
+        "pno",
+        "vta"
+      ],
+      "links": [],
+      "id": "mrf",
+      "name": "Mesencephalic reticular formation",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "mrf",
+      "colour": "#ffbe0b",
+      "centroid": [
+        1.0965165675310187e-17,
+        -24.0,
+        -7.999999999999998
+      ],
+      "layer": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "function": "Core midbrain reticular field that integrates ascending sensory drive and projects to intralaminar thalamus.",
+      "clinical": "A strategic lesion here (or in both paramedian thalami) is a classic cause of coma.",
+      "chapter6": "aras",
+      "schematic": true,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.9,
+      "connected": [
+        "mrf",
+        "lc-lh",
+        "lc-rh",
+        "mr"
+      ],
+      "links": [],
+      "id": "pno",
+      "name": "Nucleus pontis oralis",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "pontis_oralis",
+      "colour": "#fb8500",
+      "centroid": [
+        1.699600679673079e-16,
+        -32.0,
+        -24.000000000000004
+      ],
+      "layer": "aras",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "function": "Rostral pontine reticular nucleus on both the ascending arousal path and descending locomotor/REM circuits.",
+      "clinical": "Pontine tegmental lesions that include PnO can abolish REM sleep and impair arousal.",
+      "chapter6": "aras",
+      "schematic": true,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "mid",
+      "opacity": 0.95,
+      "connected": [
+        "sn-lh",
+        "sn-rh",
+        "nac-lh",
+        "nac-rh",
+        "hypothalamus"
+      ],
+      "links": [],
+      "id": "vta",
+      "name": "Ventral tegmental area (DA)",
+      "group": "aras",
+      "parent": null,
+      "meshNode": "vta",
+      "colour": "#ff5400",
+      "centroid": [
+        1.9737298215558337e-16,
+        -16.000000000000004,
+        -11.999999999999996
+      ],
+      "layer": "aras",
+      "transmitter": "DA",
+      "source": "harvard-aan-v2",
+      "licence": "CC0-1.0",
+      "function": "Midbrain dopamine neurons projecting to nucleus accumbens, prefrontal cortex and amygdala \u2014 motivation and the ventral arousal stream.",
+      "clinical": "Drugs of abuse converge on VTA\u2192NAc; VTA lesions blunt reward seeking.",
+      "chapter6": "aras",
+      "schematic": true,
+      "defaultVisible": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.7,
+      "connected": [
+        "lens-lh",
+        "cn2-lh"
+      ],
+      "links": [],
+      "id": "eye-lh",
+      "name": "Left eyeball",
+      "group": "sensory",
+      "parent": null,
+      "meshNode": "eye_lh",
+      "colour": "#ade8f4",
+      "centroid": [
+        -35.28522413852816,
+        66.5062367372189,
+        -35.08076808241503
+      ],
+      "function": "Schematic globe at a roughly MNI-consistent orbit. Real extraocular muscles are not modelled.",
+      "clinical": "Orbit pathology is not the focus of this page; use it as a landmark for CN II / III.",
+      "chapter6": "cranial-nerves",
+      "source": "bodyparts3d",
+      "licence": "CC BY-SA 2.1 JP",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.7,
+      "connected": [
+        "lens-rh",
+        "cn2-rh"
+      ],
+      "links": [],
+      "id": "eye-rh",
+      "name": "Right eyeball",
+      "group": "sensory",
+      "parent": null,
+      "meshNode": "eye_rh",
+      "colour": "#ade8f4",
+      "centroid": [
+        35.608894144291604,
+        66.34029392182973,
+        -35.24904591632465
+      ],
+      "function": "Schematic globe at a roughly MNI-consistent orbit. Real extraocular muscles are not modelled.",
+      "clinical": "Orbit pathology is not the focus of this page; use it as a landmark for CN II / III.",
+      "chapter6": "cranial-nerves",
+      "source": "bodyparts3d",
+      "licence": "CC BY-SA 2.1 JP",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.85,
+      "connected": [
+        "eye-lh"
+      ],
+      "links": [],
+      "id": "lens-lh",
+      "name": "Left lens (schematic)",
+      "group": "sensory",
+      "parent": null,
+      "meshNode": "lens_lh",
+      "colour": "#caf0f8",
+      "centroid": [
+        -35.67233799939554,
+        74.90331455302324,
+        -35.86389114465271
+      ],
+      "function": "Schematic lens sitting in the anterior globe.",
+      "clinical": "Cataract and accommodation are outside the scope of this neuroanatomy page.",
+      "chapter6": "cranial-nerves",
+      "source": "bodyparts3d",
+      "licence": "CC BY-SA 2.1 JP",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.85,
+      "connected": [
+        "eye-rh"
+      ],
+      "links": [],
+      "id": "lens-rh",
+      "name": "Right lens (schematic)",
+      "group": "sensory",
+      "parent": null,
+      "meshNode": "lens_rh",
+      "colour": "#caf0f8",
+      "centroid": [
+        36.25260865005502,
+        74.71310684078946,
+        -36.04015234171483
+      ],
+      "function": "Schematic lens sitting in the anterior globe.",
+      "clinical": "Cataract and accommodation are outside the scope of this neuroanatomy page.",
+      "chapter6": "cranial-nerves",
+      "source": "bodyparts3d",
+      "licence": "CC BY-SA 2.1 JP",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "schematic": false
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "cn8-lh",
+        "scc-lh"
+      ],
+      "links": [],
+      "id": "cochlea-lh",
+      "name": "Left cochlea (schematic)",
+      "group": "sensory",
+      "parent": null,
+      "meshNode": "cochlea_lh",
+      "colour": "#ffc6ff",
+      "centroid": [
+        -45.972739143935456,
+        -21.87038386504825,
+        -33.00000000000002
+      ],
+      "function": "Schematic spiral of Corti \u2014 not a segmented temporal-bone reconstruction.",
+      "clinical": "Sensorineural hearing loss localises to hair cells, spiral ganglion or CN VIII.",
+      "chapter6": "cranial-nerves",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "cn8-rh",
+        "scc-rh"
+      ],
+      "links": [],
+      "id": "cochlea-rh",
+      "name": "Right cochlea (schematic)",
+      "group": "sensory",
+      "parent": null,
+      "meshNode": "cochlea_rh",
+      "colour": "#ffc6ff",
+      "centroid": [
+        45.97273914393547,
+        -21.870383865048236,
+        -33.000000000000014
+      ],
+      "function": "Schematic spiral of Corti \u2014 not a segmented temporal-bone reconstruction.",
+      "clinical": "Sensorineural hearing loss localises to hair cells, spiral ganglion or CN VIII.",
+      "chapter6": "cranial-nerves",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.9,
+      "connected": [
+        "cochlea-lh",
+        "cn8-lh"
+      ],
+      "links": [],
+      "id": "scc-lh",
+      "name": "Left semicircular canals (schematic)",
+      "group": "sensory",
+      "parent": null,
+      "meshNode": "scc_lh",
+      "colour": "#e0aaff",
+      "centroid": [
+        -45.999999999999986,
+        -21.999999999999993,
+        -29.999999999999986
+      ],
+      "function": "Three schematic rings (horizontal, anterior, posterior) standing in for the bony labyrinth.",
+      "clinical": "Canal paresis and BPPV are localised here; this geometry is labelled schematic, not a CT segmentation.",
+      "chapter6": "cranial-nerves",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.9,
+      "connected": [
+        "cochlea-rh",
+        "cn8-rh"
+      ],
+      "links": [],
+      "id": "scc-rh",
+      "name": "Right semicircular canals (schematic)",
+      "group": "sensory",
+      "parent": null,
+      "meshNode": "scc_rh",
+      "colour": "#e0aaff",
+      "centroid": [
+        46.000000000000014,
+        -21.999999999999993,
+        -29.999999999999986
+      ],
+      "function": "Three schematic rings (horizontal, anterior, posterior) standing in for the bony labyrinth.",
+      "clinical": "Canal paresis and BPPV are localised here; this geometry is labelled schematic, not a CT segmentation.",
+      "chapter6": "cranial-nerves",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.8,
+      "connected": [
+        "cn1-lh"
+      ],
+      "links": [],
+      "id": "olf-epithelium-lh",
+      "name": "Left olfactory epithelium (schematic)",
+      "group": "sensory",
+      "parent": null,
+      "meshNode": "olfactory_epithelium_lh",
+      "colour": "#b8c0ff",
+      "centroid": [
+        -7.0,
+        38.0,
+        -26.0
+      ],
+      "function": "Schematic patch on the cribriform region where olfactory receptor neurons sit.",
+      "clinical": "Viral and traumatic anosmia often begin at this epithelium or the fila through the cribriform plate.",
+      "chapter6": "cranial-nerves",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.8,
+      "connected": [
+        "cn1-rh"
+      ],
+      "links": [],
+      "id": "olf-epithelium-rh",
+      "name": "Right olfactory epithelium (schematic)",
+      "group": "sensory",
+      "parent": null,
+      "meshNode": "olfactory_epithelium_rh",
+      "colour": "#b8c0ff",
+      "centroid": [
+        7.0,
+        38.0,
+        -26.0
+      ],
+      "function": "Schematic patch on the cribriform region where olfactory receptor neurons sit.",
+      "clinical": "Viral and traumatic anosmia often begin at this epithelium or the fila through the cribriform plate.",
+      "chapter6": "cranial-nerves",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
+      "layer": "sensory",
+      "defaultVisible": false,
+      "schematic": true
+    },
+    {
+      "kind": "section",
+      "side": "mid",
+      "opacity": 0.85,
+      "connected": [
+        "midbrain"
+      ],
+      "links": [],
+      "id": "section-midbrain",
+      "name": "Midbrain axial section",
+      "group": "slices",
+      "parent": null,
+      "meshNode": "section_midbrain",
+      "colour": "#e07a5f",
+      "centroid": [
+        3.8778659282747667,
+        4.676752009660302,
+        -19.9250427287109
+      ],
+      "layer": "slices",
+      "defaultVisible": false,
+      "source": "pittbrains3d",
+      "licence": "CC BY-SA 4.0",
+      "function": "Placeholder for a PittBrains3D midbrain axial plate (colliculi, PAG, red nucleus, SN, peduncles).",
+      "clinical": "Use the slice presets to clip the solid brainstem at this level when the real plate is not loaded.",
+      "chapter6": "midbrain",
+      "schematic": false
+    },
+    {
+      "kind": "section",
+      "side": "mid",
+      "opacity": 0.85,
+      "connected": [
+        "pons"
+      ],
+      "links": [],
+      "id": "section-pons",
+      "name": "Pontine axial section",
+      "group": "slices",
+      "parent": null,
+      "meshNode": "section_pons",
+      "colour": "#c26d5a",
+      "centroid": [
+        5.05826824706583,
+        1.7577359147993317,
+        -33.654809100791674
+      ],
+      "layer": "slices",
+      "defaultVisible": false,
+      "source": "pittbrains3d",
+      "licence": "CC BY-SA 4.0",
+      "function": "Placeholder for a pontine axial plate (basilar pons, tegmentum, CN nuclei, fourth-ventricle floor).",
+      "clinical": "Exploded view fans the plates apart along the brainstem axis.",
+      "chapter6": "brainstem",
+      "schematic": false
+    },
+    {
+      "kind": "section",
+      "side": "mid",
+      "opacity": 0.85,
+      "connected": [
+        "medulla"
+      ],
+      "links": [],
+      "id": "section-medulla-rostral",
+      "name": "Rostral medulla axial section",
+      "group": "slices",
+      "parent": null,
+      "meshNode": "section_medulla_rostral",
+      "colour": "#9b4d4d",
+      "centroid": [
+        5.972801502751845,
+        -2.7654978343015135,
+        -44.650354037518426
+      ],
+      "layer": "slices",
+      "defaultVisible": false,
+      "source": "pittbrains3d",
+      "licence": "CC BY-SA 4.0",
+      "function": "Placeholder for a rostral medullary plate (olives, inferior cerebellar peduncles, hypoglossal eminence).",
+      "clinical": "Compare with the caudal plate to see the opening of the fourth ventricle.",
+      "chapter6": "brainstem",
+      "schematic": false
+    },
+    {
+      "kind": "section",
+      "side": "mid",
+      "opacity": 0.85,
+      "connected": [
+        "medulla",
+        "pyramid-lh",
+        "pyramid-rh"
+      ],
+      "links": [],
+      "id": "section-medulla-caudal",
+      "name": "Caudal medulla axial section",
+      "group": "slices",
+      "parent": null,
+      "meshNode": "section_medulla_caudal",
+      "colour": "#7f3b3b",
+      "centroid": [
+        6.483234617102489,
+        -5.216849434662326,
+        -49.81852309310133
+      ],
+      "layer": "slices",
+      "defaultVisible": false,
+      "source": "pittbrains3d",
+      "licence": "CC BY-SA 4.0",
+      "function": "Placeholder for a caudal medullary plate (pyramids, medial lemniscus, decussation approaching).",
+      "clinical": "This is the level of several medial vs lateral medullary stroke cartoons.",
+      "chapter6": "brainstem",
+      "schematic": false
+    },
+    {
+      "id": "cerebral-arteries",
+      "name": "Cerebral arteries",
+      "side": "mid",
+      "group": "vasculature",
+      "parent": null,
+      "kind": "mesh",
+      "layer": "vessels",
+      "meshNode": "cerebral_arteries",
+      "colour": "#bc0d1a",
+      "opacity": 0.95,
+      "centroid": [
+        0.6140235149717634,
+        1.5127746568450153,
+        20.927038695507957
+      ],
+      "schematic": false,
+      "defaultVisible": true,
+      "source": "pittbrains3d",
+      "licence": "CC BY-SA 4.0",
+      "connected": [],
+      "links": [],
+      "function": "Combined anterior and posterior cerebral arterial tree (Pitt print mesh).",
+      "clinical": "Useful for circle-of-Willis context; named branches are not separated in this build.",
+      "chapter6": "blood-supply"
+    },
+    {
+      "id": "cerebral-veins",
+      "name": "Cerebral veins",
+      "side": "mid",
+      "group": "vasculature",
+      "parent": null,
+      "kind": "mesh",
+      "layer": "vessels",
+      "meshNode": "cerebral_veins",
+      "colour": "#ca1b28",
+      "opacity": 0.95,
+      "centroid": [
+        -3.2308279581351282,
+        -9.4728134231448,
+        31.503182618543136
+      ],
+      "schematic": false,
+      "defaultVisible": true,
+      "source": "pittbrains3d",
+      "licence": "CC BY-SA 4.0",
+      "connected": [],
+      "links": [],
+      "function": "Superficial and deep cerebral veins as a single mesh.",
+      "clinical": "Vein of Galen / internal cerebral veins are not labelled separately.",
+      "chapter6": "blood-supply"
+    },
+    {
+      "id": "dural-sinuses",
+      "name": "Dural sinuses and reflections",
+      "side": "mid",
+      "group": "vasculature",
+      "parent": null,
+      "kind": "mesh",
+      "layer": "vessels",
+      "meshNode": "dural_sinuses",
+      "colour": "#cc1d2a",
+      "opacity": 0.95,
+      "centroid": [
+        -0.18104987956022614,
+        -7.255767670316626,
+        21.279440870149255
+      ],
+      "schematic": false,
+      "defaultVisible": true,
+      "source": "pittbrains3d",
+      "licence": "CC BY-SA 4.0",
+      "connected": [],
+      "links": [],
+      "function": "Dural venous sinuses and falx/tentorium reflections.",
+      "clinical": "Individual sinus names stay in the tree as folders until split meshes exist.",
+      "chapter6": "blood-supply"
+    },
+    {
+      "id": "cranial-nerves-bundle",
+      "name": "Cranial nerves (Pitt bundle)",
+      "side": "mid",
+      "group": "cranial-nerves",
+      "parent": null,
+      "kind": "mesh",
+      "layer": "nerves",
+      "meshNode": "cranial_nerves",
+      "colour": "#ffe075",
+      "opacity": 0.95,
+      "centroid": [
+        9.374377177254962,
+        16.476490112198604,
+        -70.80158470325512
+      ],
+      "schematic": false,
+      "defaultVisible": true,
+      "source": "pittbrains3d",
+      "licence": "CC BY-SA 4.0",
+      "connected": [],
+      "links": [],
+      "function": "Combined cranial-nerve rootlets after the brainstem component was removed.",
+      "clinical": "Named CN I\u2013XII are not separable in the source STL.",
+      "chapter6": "cranial-nerves"
+    },
+    {
+      "id": "tongue",
+      "name": "Tongue",
+      "side": "mid",
+      "group": "sensory",
+      "parent": null,
+      "kind": "mesh",
+      "layer": "sensory",
+      "meshNode": "tongue",
+      "colour": "#00b8f6",
+      "opacity": 0.95,
+      "centroid": [
+        -0.5699609014980535,
+        38.53795257983283,
+        -120.73394558731593
+      ],
+      "schematic": false,
+      "defaultVisible": true,
+      "source": "bodyparts3d",
+      "licence": "CC BY-SA 2.1 JP",
+      "connected": [],
+      "links": [],
+      "function": "Oral tongue for spatial context with the oral cavity and lower cranial nerves.",
+      "clinical": "Not a surgical mucosa model.",
+      "chapter6": "brainstem"
+    },
+    {
+      "id": "optic-chiasm",
+      "name": "Optic chiasm",
+      "side": "mid",
+      "group": "white-matter",
+      "parent": null,
+      "kind": "mesh",
+      "layer": "white-matter",
+      "meshNode": "optic_chiasm",
+      "colour": "#eeebe5",
+      "opacity": 0.95,
+      "centroid": [
+        3.1349116598725963,
+        41.10908390567629,
+        -16.045448522406716
+      ],
+      "schematic": false,
+      "defaultVisible": false,
+      "source": "allen-hra-brain-male-v1.4",
+      "licence": "CC BY 4.0",
+      "connected": [],
+      "links": [],
+      "function": "Decussation of nasal retinal fibres; sits above the pituitary.",
+      "clinical": "Compression here produces bitemporal hemianopia.",
+      "chapter6": "visual-system"
+    }
+  ],
+  "credits": {
+    "title": "Sources and licences",
+    "disclaimer": "Positions are template-based (MNI152) and many meshes in this build are schematic placeholders. Vessels, nerves and nuclei from different donors will not sit in a single true anatomy. Do not use this page for clinical localisation.",
+    "items": [
+      {
+        "name": "Allen Human Reference Atlas 3D via Human Reference Atlas",
+        "licence": "CC BY 4.0",
+        "note": "Cortical, subcortical, ventricular, cerebellar and brainstem backbone."
+      },
+      {
+        "name": "PittBrains3D",
+        "licence": "CC BY-SA 4.0",
+        "note": "Cranial nerves, cerebral vessels, dural sinuses and brainstem axial sections. Share-alike applies to derived meshes."
+      },
+      {
+        "name": "Harvard Ascending Arousal Network Atlas v2.0",
+        "licence": "CC0",
+        "note": "AAN nuclei (LC, raphe, PAG, PBN, PPN, LDTg, MRF, PnO, VTA)."
+      },
+      {
+        "name": "BodyParts3D",
+        "licence": "CC BY-SA 2.1 JP",
+        "note": "Gap-fillers such as pituitary, pineal and inferior colliculus when present."
+      },
+      {
+        "name": "fsaverage head / 10\u201320 fiducials",
+        "licence": "Check MNE/FreeSurfer terms",
+        "note": "Translucent scalp context and nasion / LPA / RPA / Cz."
+      },
+      {
+        "name": "Procedural sensory organs",
+        "licence": "CC BY 4.0",
+        "note": "Eyeball, lens, cochlea, semicircular canals and olfactory epithelium when no open mesh exists. Always labelled schematic."
+      }
+    ]
+  },
+  "assetsReady": true,
+  "exportedMeshNodes": [
+    "amygdala_lh",
+    "amygdala_rh",
+    "basal_forebrain",
+    "caudate_lh",
+    "caudate_rh",
+    "cerebellar_hemisphere_lh",
+    "cerebellar_hemisphere_rh",
+    "cerebral_aqueduct",
+    "cerebral_arteries",
+    "cerebral_peduncle_lh",
+    "cerebral_peduncle_rh",
+    "cerebral_veins",
+    "cochlea_lh",
+    "cochlea_rh",
+    "corpus_callosum",
+    "cortex_lh",
+    "cortex_rh",
+    "cranial_nerves",
+    "dentate_lh",
+    "dentate_rh",
+    "dorsal_raphe",
+    "dural_sinuses",
+    "eye_lh",
+    "eye_rh",
+    "fornix",
+    "fourth_ventricle",
+    "gpe_lh",
+    "gpe_rh",
+    "gpi_lh",
+    "gpi_rh",
+    "hippocampus_lh",
+    "hippocampus_rh",
+    "hypothalamus",
+    "inferior_colliculus",
+    "inferior_olive_lh",
+    "inferior_olive_rh",
+    "intralaminar_thalamus_lh",
+    "intralaminar_thalamus_rh",
+    "lateral_ventricle_lh",
+    "lateral_ventricle_rh",
+    "ldtg_lh",
+    "ldtg_rh",
+    "lens_lh",
+    "lens_rh",
+    "lgn_lh",
+    "lgn_rh",
+    "locus_coeruleus_lh",
+    "locus_coeruleus_rh",
+    "median_raphe",
+    "medulla",
+    "mgn_lh",
+    "mgn_rh",
+    "midbrain",
+    "mrf",
+    "nucleus_accumbens_lh",
+    "nucleus_accumbens_rh",
+    "olfactory_epithelium_lh",
+    "olfactory_epithelium_rh",
+    "optic_chiasm",
+    "optic_tract_lh",
+    "optic_tract_rh",
+    "pag",
+    "parabrachial_lh",
+    "parabrachial_rh",
+    "pineal",
+    "pituitary",
+    "pons",
+    "pontis_oralis",
+    "ppn_lh",
+    "ppn_rh",
+    "pulvinar_lh",
+    "pulvinar_rh",
+    "putamen_lh",
+    "putamen_rh",
+    "pyramid_lh",
+    "pyramid_rh",
+    "red_nucleus_lh",
+    "red_nucleus_rh",
+    "scalp",
+    "scc_lh",
+    "scc_rh",
+    "section_medulla_caudal",
+    "section_medulla_rostral",
+    "section_midbrain",
+    "section_pons",
+    "stn_lh",
+    "stn_rh",
+    "substantia_nigra_lh",
+    "substantia_nigra_rh",
+    "superior_colliculus",
+    "thalamus_lh",
+    "thalamus_rh",
+    "third_ventricle",
+    "tmn",
+    "tongue",
+    "vermis",
+    "vta",
+    "white_matter_lh",
+    "white_matter_rh"
+  ],
+  "assetBytes": {
+    "aras.glb": 37000,
+    "head.glb": 270600,
+    "sensory.glb": 419820,
+    "core.glb": 3546884,
+    "white-matter.glb": 1190392,
+    "vasculature.glb": 1255832,
+    "ventricles.glb": 343024,
+    "cranial-nerves.glb": 575964,
+    "subcortical.glb": 909956,
+    "cerebellum.glb": 848776,
+    "slices.glb": 713412
+  }
+}

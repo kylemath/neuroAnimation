@@ -1,0 +1,15 @@
+# Python 3.9+ venv requirements for the head-neuroanatomy-3d build pipeline.
+# Install: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+numpy>=1.24
+scipy>=1.10
+trimesh>=4.0
+nibabel>=5.0
+scikit-image>=0.22
+pygltflib>=1.16
+fast-simplification>=0.1
+matplotlib>=3.7
+Pillow>=10.0
+requests>=2.31
+rtree>=1.2
+networkx>=3.0
+imageio>=2.30

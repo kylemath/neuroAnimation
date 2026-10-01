@@ -1,0 +1,112 @@
+{
+  "system": "10-20",
+  "positions": {
+    "Fpz": {
+      "theta": 0,
+      "phi": 0.72,
+      "label": "Frontal Pole"
+    },
+    "Fz": {
+      "theta": 0,
+      "phi": 0.45,
+      "label": "Frontal"
+    },
+    "Cz": {
+      "theta": 0,
+      "phi": 0.0,
+      "label": "Central"
+    },
+    "Pz": {
+      "theta": 3.141592653589793,
+      "phi": 0.45,
+      "label": "Parietal"
+    },
+    "Oz": {
+      "theta": 3.141592653589793,
+      "phi": 0.72,
+      "label": "Occipital"
+    },
+    "Fp1": {
+      "theta": -0.35,
+      "phi": 0.72,
+      "label": "Left Frontal Pole"
+    },
+    "F3": {
+      "theta": -0.45,
+      "phi": 0.45,
+      "label": "Left Frontal"
+    },
+    "C3": {
+      "theta": -1.5707963267948966,
+      "phi": 0.35,
+      "label": "Left Central"
+    },
+    "P3": {
+      "theta": 2.691592653589793,
+      "phi": 0.45,
+      "label": "Left Parietal"
+    },
+    "O1": {
+      "theta": 2.791592653589793,
+      "phi": 0.72,
+      "label": "Left Occipital"
+    },
+    "F7": {
+      "theta": -1.0471975511965976,
+      "phi": 0.6,
+      "label": "Left Temporal-Frontal"
+    },
+    "T3": {
+      "theta": -1.5707963267948966,
+      "phi": 0.6,
+      "label": "Left Temporal"
+    },
+    "T5": {
+      "theta": -2.0943951023931953,
+      "phi": 0.6,
+      "label": "Left Temporal-Parietal"
+    },
+    "Fp2": {
+      "theta": 0.35,
+      "phi": 0.72,
+      "label": "Right Frontal Pole"
+    },
+    "F4": {
+      "theta": 0.45,
+      "phi": 0.45,
+      "label": "Right Frontal"
+    },
+    "C4": {
+      "theta": 1.5707963267948966,
+      "phi": 0.35,
+      "label": "Right Central"
+    },
+    "P4": {
+      "theta": 3.5915926535897933,
+      "phi": 0.45,
+      "label": "Right Parietal"
+    },
+    "O2": {
+      "theta": 3.491592653589793,
+      "phi": 0.72,
+      "label": "Right Occipital"
+    },
+    "F8": {
+      "theta": 1.0471975511965976,
+      "phi": 0.6,
+      "label": "Right Temporal-Frontal"
+    },
+    "T4": {
+      "theta": 1.5707963267948966,
+      "phi": 0.6,
+      "label": "Right Temporal"
+    },
+    "T6": {
+      "theta": 2.0943951023931953,
+      "phi": 0.6,
+      "label": "Right Temporal-Parietal"
+    }
+  },
+  "coordinate_system": "spherical",
+  "notes": "theta=azimuthal (0=front), phi=polar from vertex"
+}
