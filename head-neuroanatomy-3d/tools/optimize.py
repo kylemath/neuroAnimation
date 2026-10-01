@@ -442,6 +442,9 @@ def merge_structures(centroids: Dict[str, List[float]], asset_sizes: Dict[str, i
     if "cranial_nerves" in exported:
         for s in data["structures"]:
             if s.get("group") == "cranial-nerves" and s.get("kind") != "folder":
+                # Authored schematic courses (optic, olfactory, auditory) keep their tubes.
+                if s.get("placeholder"):
+                    continue
                 if s.get("meshNode") not in exported:
                     s["kind"] = "folder"
                     s["meshNode"] = None

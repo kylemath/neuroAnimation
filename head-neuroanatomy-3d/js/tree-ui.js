@@ -2,7 +2,7 @@
  * Structure tree, layer chips, ghost / solo / isolate / hide / show / reset.
  */
 
-import { state, on, descendantsOf } from './state.js';
+import { state, on, isIdVisible } from './state.js';
 import { HIDDEN_UI_GROUPS } from './loader.js';
 import {
   applyAppearance, setHidden, setOpacity, setGhost, setSolo, setIsolate,
@@ -248,8 +248,7 @@ function syncTreeChecks() {
     const def = state.manifest.structures.find((s) => s.id === id);
     const box = node.querySelector('input[type="checkbox"]');
     if (box && def) {
-      const visible = !state.hidden.has(id) && isLayerVisible(def.layer);
-      box.checked = visible && !(state.solo && state.solo !== id && !descendantsOf(state.solo).some((s) => s.id === id) && state.solo !== id);
+      box.checked = isIdVisible(id, def);
     }
     node.classList.toggle('solo', state.solo === id);
     node.classList.toggle('isolated', Boolean(state.isolate && state.isolate.has(id)));

@@ -10,8 +10,22 @@ import { applyAppearance } from './structures.js';
 import { mniToWorld } from './coords.js';
 
 // Shift from published MNI AAN coordinates into the rendered brainstem mesh.
-// Keep in sync with AAN_OFFSET_MNI in tools/viewer_map.py.
+// Keep in sync with AAN_OFFSET_MNI and aan_anterior_tuck() in tools/viewer_map.py.
 const ARAS_OFFSET_MNI = [3, 21, 0];
+
+// Pontine nodes still sit behind the Allen tegmentum after the offset above.
+// Tuck them anterior into the brainstem; fade the tuck out by the rostral midbrain.
+function arasAnteriorTuck(y) {
+  if (y >= -1) return 0;
+  return Math.min(8, -0.5 * (y + 1));
+}
+
+function adjustedMni(p) {
+  const x = p[0] + ARAS_OFFSET_MNI[0];
+  const y0 = p[1] + ARAS_OFFSET_MNI[1];
+  const z = p[2] + ARAS_OFFSET_MNI[2];
+  return [x, y0 + arasAnteriorTuck(y0), z];
+}
 
 const DORSAL = [
   [0, -36, -42],
@@ -51,9 +65,10 @@ export function initAras() {
 }
 
 function addPath(mniPts, color, name) {
-  const pts = mniPts.map((p) =>
-    mniToWorld(p[0] + ARAS_OFFSET_MNI[0], p[1] + ARAS_OFFSET_MNI[1], p[2] + ARAS_OFFSET_MNI[2]),
-  );
+  const pts = mniPts.map((p) => {
+    const [x, y, z] = adjustedMni(p);
+    return mniToWorld(x, y, z);
+  });
   const curve = new THREE.CatmullRomCurve3(pts);
   const geo = new THREE.TubeGeometry(curve, 64, 1.05, 8, false);
   const mat = new THREE.MeshPhongMaterial({

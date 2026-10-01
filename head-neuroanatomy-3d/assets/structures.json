@@ -95,7 +95,7 @@
       "layer": "aras",
       "defaultVisible": true,
       "renderOrder": 32,
-      "bytes": 37624
+      "bytes": 37616
     },
     {
       "id": "sensory",
@@ -983,6 +983,7 @@
       "side": "L",
       "opacity": 0.95,
       "connected": [
+        "optic-chiasm",
         "cn2-lh",
         "lgn-lh"
       ],
@@ -1004,6 +1005,10 @@
       "source": "allen-hra-brain-male-v1.4",
       "licence": "CC BY 4.0",
       "layer": "white-matter",
+      "showWith": [
+        "sensory",
+        "nerves"
+      ],
       "defaultVisible": true,
       "schematic": false
     },
@@ -1012,6 +1017,7 @@
       "side": "R",
       "opacity": 0.95,
       "connected": [
+        "optic-chiasm",
         "cn2-rh",
         "lgn-rh"
       ],
@@ -1033,6 +1039,10 @@
       "source": "allen-hra-brain-male-v1.4",
       "licence": "CC BY 4.0",
       "layer": "white-matter",
+      "showWith": [
+        "sensory",
+        "nerves"
+      ],
       "defaultVisible": true,
       "schematic": false
     },
@@ -3196,11 +3206,138 @@
       "schematic": true
     },
     {
-      "kind": "folder",
+      "kind": "mesh",
+      "side": "L",
+      "opacity": 0.95,
+      "connected": [
+        "olf-epithelium-lh",
+        "amygdala-lh"
+      ],
+      "links": [],
+      "id": "olfactory-tract-lh",
+      "name": "Left olfactory tract",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#9b8cff",
+      "centroid": [
+        -13.5,
+        34.5,
+        -21.1
+      ],
+      "function": "Schematic course from the olfactory epithelium, through the cribriform region, then posteriorly along the orbital frontal lobe toward piriform cortex and the amygdala. Olfaction does not relay in the thalamus.",
+      "clinical": "Anosmia after trauma or an olfactory-groove meningioma; uncinate seizures produce olfactory auras.",
+      "chapter6": "cranial-nerves",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
+      "layer": "nerves",
+      "showWith": [
+        "sensory"
+      ],
+      "defaultVisible": true,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          -13.5,
+          34.5,
+          -21.1
+        ],
+        "tubeRadius": 1.1,
+        "points": [
+          [
+            -7,
+            40,
+            -25.5
+          ],
+          [
+            -8,
+            38,
+            -24
+          ],
+          [
+            -16,
+            32,
+            -20
+          ],
+          [
+            -23,
+            28,
+            -15
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
+      "side": "R",
+      "opacity": 0.95,
+      "connected": [
+        "olf-epithelium-rh",
+        "amygdala-rh"
+      ],
+      "links": [],
+      "id": "olfactory-tract-rh",
+      "name": "Right olfactory tract",
+      "group": "cranial-nerves",
+      "parent": null,
+      "meshNode": null,
+      "colour": "#9b8cff",
+      "centroid": [
+        15.5,
+        34.3,
+        -19.6
+      ],
+      "function": "Schematic course from the olfactory epithelium, through the cribriform region, then posteriorly along the orbital frontal lobe toward piriform cortex and the amygdala. Olfaction does not relay in the thalamus.",
+      "clinical": "Anosmia after trauma or an olfactory-groove meningioma; uncinate seizures produce olfactory auras.",
+      "chapter6": "cranial-nerves",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
+      "layer": "nerves",
+      "showWith": [
+        "sensory"
+      ],
+      "defaultVisible": true,
+      "placeholder": {
+        "type": "tube",
+        "center": [
+          15.5,
+          34.3,
+          -19.6
+        ],
+        "tubeRadius": 1.1,
+        "points": [
+          [
+            7,
+            40,
+            -25.5
+          ],
+          [
+            9,
+            38,
+            -24
+          ],
+          [
+            18,
+            32,
+            -18
+          ],
+          [
+            28,
+            27,
+            -11
+          ]
+        ]
+      },
+      "schematic": true
+    },
+    {
+      "kind": "mesh",
       "side": "L",
       "opacity": 0.95,
       "connected": [
         "eye-lh",
+        "optic-chiasm",
         "optic-tract-lh",
         "lgn-lh"
       ],
@@ -3212,56 +3349,70 @@
       "meshNode": null,
       "colour": "#ffd166",
       "centroid": [
-        -18,
-        40,
-        -12
+        -18.4,
+        49.4,
+        -24
       ],
-      "function": "CNS tract from globe through the optic canal to the chiasm. Myelinated by oligodendrocytes.",
+      "function": "Schematic optic nerve from the posterior globe, through the orbit, into the optic chiasm. Myelinated by oligodendrocytes. The chiasm and tracts are atlas meshes.",
       "clinical": "Papilloedema, optic neuritis and field cuts are localised by the classic chiasmal rules.",
       "chapter6": "cranial-nerves",
-      "source": "PittBrains3D \u00b7 schematic placeholder",
-      "licence": "CC BY-SA 4.0",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
       "layer": "nerves",
+      "showWith": [
+        "sensory"
+      ],
       "cn": {
         "number": 2,
         "name": "Optic",
         "nucleus": "Retinal ganglion cells \u2192 LGN (not a brainstem nucleus)"
       },
-      "defaultVisible": false,
+      "defaultVisible": true,
       "placeholder": {
         "type": "tube",
         "center": [
-          -18,
-          40,
-          -12
+          -18.4,
+          49.4,
+          -24
         ],
-        "tubeRadius": 1.35,
+        "tubeRadius": 1.8,
         "points": [
           [
-            -32,
-            62,
-            -8
+            -34,
+            56,
+            -36
+          ],
+          [
+            -30,
+            52,
+            -30
           ],
           [
             -18,
-            40,
-            -14
+            49,
+            -22
           ],
           [
-            -4,
-            22,
-            -16
+            -8,
+            46,
+            -17
+          ],
+          [
+            -2,
+            44,
+            -15
           ]
         ]
       },
       "schematic": true
     },
     {
-      "kind": "folder",
+      "kind": "mesh",
       "side": "R",
       "opacity": 0.95,
       "connected": [
         "eye-rh",
+        "optic-chiasm",
         "optic-tract-rh",
         "lgn-rh"
       ],
@@ -3273,45 +3424,58 @@
       "meshNode": null,
       "colour": "#ffd166",
       "centroid": [
-        18,
-        40,
-        -12
+        19.6,
+        49.4,
+        -24
       ],
-      "function": "CNS tract from globe through the optic canal to the chiasm. Myelinated by oligodendrocytes.",
+      "function": "Schematic optic nerve from the posterior globe, through the orbit, into the optic chiasm. Myelinated by oligodendrocytes. The chiasm and tracts are atlas meshes.",
       "clinical": "Papilloedema, optic neuritis and field cuts are localised by the classic chiasmal rules.",
       "chapter6": "cranial-nerves",
-      "source": "PittBrains3D \u00b7 schematic placeholder",
-      "licence": "CC BY-SA 4.0",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
       "layer": "nerves",
+      "showWith": [
+        "sensory"
+      ],
       "cn": {
         "number": 2,
         "name": "Optic",
         "nucleus": "Retinal ganglion cells \u2192 LGN (not a brainstem nucleus)"
       },
-      "defaultVisible": false,
+      "defaultVisible": true,
       "placeholder": {
         "type": "tube",
         "center": [
-          18,
-          40,
-          -12
+          19.6,
+          49.4,
+          -24
         ],
-        "tubeRadius": 1.35,
+        "tubeRadius": 1.8,
         "points": [
           [
-            32,
-            62,
-            -8
+            34,
+            56,
+            -36
+          ],
+          [
+            30,
+            52,
+            -30
           ],
           [
             18,
-            40,
-            -14
+            49,
+            -22
           ],
           [
-            4,
-            22,
-            -16
+            10,
+            46,
+            -17
+          ],
+          [
+            6,
+            44,
+            -15
           ]
         ]
       },
@@ -3674,12 +3838,13 @@
       "schematic": true
     },
     {
-      "kind": "folder",
+      "kind": "mesh",
       "side": "L",
       "opacity": 0.95,
       "connected": [
         "pons",
-        "cochlea-lh"
+        "cochlea-lh",
+        "scc-lh"
       ],
       "links": [],
       "id": "cn8-lh",
@@ -3693,53 +3858,62 @@
         -26,
         -30
       ],
-      "function": "Special somatic afferent for hearing and balance, from cochlea and labyrinth through the IAM to the CPA.",
+      "function": "Schematic auditory (and vestibular) nerve from the cochlea through the internal acoustic meatus to the lateral pons. Hearing and balance.",
       "clinical": "Vestibular schwannoma: progressive unilateral hearing loss, tinnitus and later V/VII involvement.",
       "chapter6": "cranial-nerves",
-      "source": "PittBrains3D \u00b7 schematic placeholder",
-      "licence": "CC BY-SA 4.0",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
       "layer": "nerves",
+      "showWith": [
+        "sensory"
+      ],
       "cn": {
         "number": 8,
         "name": "Vestibulocochlear",
         "nucleus": "Cochlear and vestibular nuclei at the pontomedullary junction"
       },
-      "defaultVisible": false,
+      "defaultVisible": true,
       "placeholder": {
         "type": "tube",
         "center": [
-          -22,
-          -26,
-          -30
+          -28.8,
+          -16.5,
+          -29.3
         ],
-        "tubeRadius": 0.85,
+        "tubeRadius": 1.15,
         "points": [
           [
-            -12,
-            -30,
+            -43,
+            -22,
+            -33
+          ],
+          [
+            -32,
+            -18,
+            -30
+          ],
+          [
+            -24,
+            -14,
             -28
           ],
           [
-            -24,
-            -24,
-            -32
-          ],
-          [
-            -44,
-            -20,
-            -32
+            -17,
+            -12,
+            -26
           ]
         ]
       },
       "schematic": true
     },
     {
-      "kind": "folder",
+      "kind": "mesh",
       "side": "R",
       "opacity": 0.95,
       "connected": [
         "pons",
-        "cochlea-rh"
+        "cochlea-rh",
+        "scc-rh"
       ],
       "links": [],
       "id": "cn8-rh",
@@ -3753,41 +3927,49 @@
         -26,
         -30
       ],
-      "function": "Special somatic afferent for hearing and balance, from cochlea and labyrinth through the IAM to the CPA.",
+      "function": "Schematic auditory (and vestibular) nerve from the cochlea through the internal acoustic meatus to the lateral pons. Hearing and balance.",
       "clinical": "Vestibular schwannoma: progressive unilateral hearing loss, tinnitus and later V/VII involvement.",
       "chapter6": "cranial-nerves",
-      "source": "PittBrains3D \u00b7 schematic placeholder",
-      "licence": "CC BY-SA 4.0",
+      "source": "schematic",
+      "licence": "CC BY 4.0",
       "layer": "nerves",
+      "showWith": [
+        "sensory"
+      ],
       "cn": {
         "number": 8,
         "name": "Vestibulocochlear",
         "nucleus": "Cochlear and vestibular nuclei at the pontomedullary junction"
       },
-      "defaultVisible": false,
+      "defaultVisible": true,
       "placeholder": {
         "type": "tube",
         "center": [
-          22,
-          -26,
-          -30
+          31.3,
+          -16.5,
+          -29.3
         ],
-        "tubeRadius": 0.85,
+        "tubeRadius": 1.15,
         "points": [
           [
-            12,
-            -30,
+            43,
+            -22,
+            -33
+          ],
+          [
+            32,
+            -18,
+            -30
+          ],
+          [
+            26,
+            -14,
             -28
           ],
           [
             24,
-            -24,
-            -32
-          ],
-          [
-            44,
-            -20,
-            -32
+            -12,
+            -26
           ]
         ]
       },
@@ -3929,7 +4111,7 @@
       "colour": "#3a86ff",
       "centroid": [
         -1.2,
-        -16.5,
+        -8.75,
         -26.0
       ],
       "function": "Pontine noradrenergic nucleus that broadcasts novelty, stress and gain control across cortex and thalamus.",
@@ -3960,7 +4142,7 @@
       "colour": "#3a86ff",
       "centroid": [
         7.2,
-        -16.5,
+        -8.75,
         -26.0
       ],
       "function": "Pontine noradrenergic nucleus that broadcasts novelty, stress and gain control across cortex and thalamus.",
@@ -3990,7 +4172,7 @@
       "colour": "#8338ec",
       "centroid": [
         3.0,
-        -11.0,
+        -6.0,
         -16.0
       ],
       "layer": "aras",
@@ -4020,7 +4202,7 @@
       "colour": "#9b5de5",
       "centroid": [
         3.0,
-        -15.0,
+        -8.0,
         -24.0
       ],
       "layer": "aras",
@@ -4053,7 +4235,7 @@
       "colour": "#fb5607",
       "centroid": [
         3.0,
-        -7.0,
+        -4.0,
         -8.0
       ],
       "layer": "aras",
@@ -4082,7 +4264,7 @@
       "colour": "#ff006e",
       "centroid": [
         -4.5,
-        -15.0,
+        -8.0,
         -32.0
       ],
       "function": "Pontine relay for visceral, taste and interoceptive afferents; a recently emphasised node for arousal and affective state.",
@@ -4111,7 +4293,7 @@
       "colour": "#ff006e",
       "centroid": [
         10.5,
-        -15.0,
+        -8.0,
         -32.0
       ],
       "function": "Pontine relay for visceral, taste and interoceptive afferents; a recently emphasised node for arousal and affective state.",
@@ -4141,7 +4323,7 @@
       "colour": "#06d6a0",
       "centroid": [
         -4.5,
-        -7.0,
+        -4.0,
         -12.0
       ],
       "function": "Cholinergic mesopontine nucleus (PPT / PTg) projecting to thalamus \u2014 a pillar of the dorsal ARAS route and of gait/locomotor pattern generation.",
@@ -4172,7 +4354,7 @@
       "colour": "#06d6a0",
       "centroid": [
         10.5,
-        -7.0,
+        -4.0,
         -12.0
       ],
       "function": "Cholinergic mesopontine nucleus (PPT / PTg) projecting to thalamus \u2014 a pillar of the dorsal ARAS route and of gait/locomotor pattern generation.",
@@ -4202,7 +4384,7 @@
       "colour": "#0ead69",
       "centroid": [
         -0.8,
-        -15.0,
+        -8.0,
         -28.0
       ],
       "function": "Sister cholinergic cell group to PPN, contributing ACh to thalamus and to REM-on networks.",
@@ -4232,7 +4414,7 @@
       "colour": "#0ead69",
       "centroid": [
         6.8,
-        -15.0,
+        -8.0,
         -28.0
       ],
       "function": "Sister cholinergic cell group to PPN, contributing ACh to thalamus and to REM-on networks.",
@@ -4263,7 +4445,7 @@
       "colour": "#ffbe0b",
       "centroid": [
         3.0,
-        -3.0,
+        -2.0,
         -8.0
       ],
       "layer": "aras",
@@ -4294,7 +4476,7 @@
       "colour": "#fb8500",
       "centroid": [
         3.0,
-        -11.0,
+        -6.0,
         -24.0
       ],
       "layer": "aras",
@@ -4574,7 +4756,8 @@
       "side": "L",
       "opacity": 0.8,
       "connected": [
-        "cn1-lh"
+        "cn1-lh",
+        "olfactory-tract-lh"
       ],
       "links": [],
       "id": "olf-epithelium-lh",
@@ -4602,7 +4785,8 @@
       "side": "R",
       "opacity": 0.8,
       "connected": [
-        "cn1-rh"
+        "cn1-rh",
+        "olfactory-tract-rh"
       ],
       "links": [],
       "id": "olf-epithelium-rh",
@@ -4889,12 +5073,21 @@
         -16.045448522406716
       ],
       "schematic": false,
-      "defaultVisible": false,
+      "defaultVisible": true,
       "source": "allen-hra-brain-male-v1.4",
       "licence": "CC BY 4.0",
-      "connected": [],
+      "showWith": [
+        "sensory",
+        "nerves"
+      ],
+      "connected": [
+        "cn2-lh",
+        "cn2-rh",
+        "optic-tract-lh",
+        "optic-tract-rh"
+      ],
       "links": [],
-      "function": "Decussation of nasal retinal fibres; sits above the pituitary.",
+      "function": "Decussation of nasal retinal fibres; sits above the pituitary. Optic nerves arrive from the globes and the tracts leave for the lateral geniculate nuclei.",
       "clinical": "Compression here produces bitemporal hemianopia.",
       "chapter6": "visual-system"
     },
@@ -5399,7 +5592,7 @@
     "white_matter_rh"
   ],
   "assetBytes": {
-    "aras.glb": 37624,
+    "aras.glb": 37616,
     "head.glb": 270600,
     "sensory.glb": 419820,
     "core.glb": 3971680,

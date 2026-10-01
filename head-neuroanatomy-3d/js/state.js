@@ -61,9 +61,17 @@ export function resetAppearanceState() {
   state.layerHidden.clear();
 }
 
+/** Own layer, or any layer listed in def.showWith (pathways that travel with the organs). */
+export function layerAllows(def) {
+  if (!def || !def.layer) return true;
+  if (!state.layerHidden.has(def.layer)) return true;
+  const also = def.showWith || [];
+  return also.some((layer) => !state.layerHidden.has(layer));
+}
+
 export function isIdVisible(id, def) {
   if (state.hidden.has(id)) return false;
-  if (def && def.layer && state.layerHidden.has(def.layer)) return false;
+  if (def && !layerAllows(def)) return false;
   if (state.solo) return id === state.solo || isDescendantOf(id, state.solo);
   if (state.isolate) {
     return state.isolate.has(id) || [...state.isolate].some((root) => isDescendantOf(id, root));

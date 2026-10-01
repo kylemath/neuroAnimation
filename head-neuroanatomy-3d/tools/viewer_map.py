@@ -162,5 +162,22 @@ AAN_SCHEMATICS = [
 # (Allen-derived) sit ~21 mm more anterior (aqueduct y≈-6.6, not ≈-28). Shift the
 # schematic nuclei into the rendered brainstem. Keep in sync with ARAS_OFFSET_MNI in js/aras.js.
 AAN_OFFSET_MNI = [3.0, 21.0, 0.0]
+
+
+def aan_anterior_tuck(y: float) -> float:
+    """Extra +Y millimetres (anterior) after AAN_OFFSET_MNI.
+
+    Aqueduct alignment still leaves the pontine nodes behind the Allen tegmentum,
+    in the fourth ventricle. Pull those caudal centres forward; the tuck fades out
+    by the rostral midbrain so VTA stays on the ventral surface.
+    Keep in sync with arasAnteriorTuck() in js/aras.js.
+    """
+    if y >= -1.0:
+        return 0.0
+    return min(8.0, -0.5 * (y + 1.0))
+
+
 for _spec in AAN_SCHEMATICS:
-    _spec["center"] = [c + o for c, o in zip(_spec["center"], AAN_OFFSET_MNI)]
+    _center = [c + o for c, o in zip(_spec["center"], AAN_OFFSET_MNI)]
+    _center[1] += aan_anterior_tuck(_center[1])
+    _spec["center"] = _center

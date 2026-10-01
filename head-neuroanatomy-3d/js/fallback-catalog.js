@@ -91,9 +91,11 @@ export function createFallbackManifest() {
           radius: base.radius,
           size: base.size,
           tubeRadius: base.tubeRadius,
-          points: base.points
-            ? base.points.map((p) => [Math.abs(p[0]) * Math.sign(sx), p[1], p[2]])
-            : undefined,
+          points: base.pointsL && base.pointsR
+            ? (side === 'L' ? base.pointsL : base.pointsR)
+            : base.points
+              ? base.points.map((p) => [Math.abs(p[0]) * Math.sign(sx), p[1], p[2]])
+              : undefined,
           turns: base.turns,
           height: base.height,
           plane: base.plane,
@@ -120,6 +122,7 @@ export function createFallbackManifest() {
         transmitter: base.transmitter,
         cn: base.cn,
         defaultVisible: base.defaultVisible,
+        showWith: base.showWith,
         placeholder,
       });
     }
@@ -1306,6 +1309,33 @@ export function createFallbackManifest() {
   });
 
   addLR({
+    id: 'olfactory-tract',
+    name: 'olfactory tract',
+    x: 14,
+    y: 34,
+    z: -20,
+    group: 'cranial-nerves',
+    parent: null,
+    meshNode: 'olfactory_tract',
+    colour: '#9b8cff',
+    opacity: 0.95,
+    layer: 'nerves',
+    defaultVisible: true,
+    showWith: ['sensory'],
+    type: 'tube',
+    tubeRadius: 1.1,
+    pointsL: [[-7, 40, -25.5], [-8, 38, -24], [-16, 32, -20], [-23, 28, -15]],
+    pointsR: [[7, 40, -25.5], [9, 38, -24], [18, 32, -18], [28, 27, -11]],
+    connected: ['olf-epithelium-{s}', 'amygdala-{s}'],
+    ...SCH,
+    ...text(
+      'Schematic course from the olfactory epithelium, through the cribriform region, then posteriorly along the orbital frontal lobe toward piriform cortex and the amygdala.',
+      'Anosmia after trauma or an olfactory-groove meningioma; uncinate seizures produce olfactory auras.',
+      'cranial-nerves',
+    ),
+  });
+
+  addLR({
     id: 'cn2',
     name: 'optic nerve (II)',
     x: 18,
@@ -1317,12 +1347,14 @@ export function createFallbackManifest() {
     colour: '#ffd166',
     opacity: 0.95,
     layer: 'nerves',
-    defaultVisible: false,
+    defaultVisible: true,
+    showWith: ['sensory'],
     type: 'tube',
-    tubeRadius: 1.35,
-    points: [[32, 62, -8], [18, 40, -14], [4, 22, -16]],
+    tubeRadius: 1.8,
+    pointsL: [[-34, 56, -36], [-30, 52, -30], [-18, 49, -22], [-8, 46, -17], [-2, 44, -15]],
+    pointsR: [[34, 56, -36], [30, 52, -30], [18, 49, -22], [10, 46, -17], [6, 44, -15]],
     cn: cn(2, 'Optic', 'Retinal ganglion cells → LGN (not a brainstem nucleus)'),
-    connected: ['eye-{s}', 'optic-tract-{s}', 'lgn-{s}'],
+    connected: ['eye-{s}', 'optic-chiasm', 'optic-tract-{s}', 'lgn-{s}'],
     ...PITT,
     ...text(
       'CNS tract from globe through the optic canal to the chiasm. Myelinated by oligodendrocytes.',
@@ -1421,12 +1453,14 @@ export function createFallbackManifest() {
     colour: '#ee9b00',
     opacity: 0.95,
     layer: 'nerves',
-    defaultVisible: false,
+    defaultVisible: true,
+    showWith: ['sensory'],
     type: 'tube',
-    tubeRadius: 0.85,
-    points: [[12, -30, -28], [24, -24, -32], [44, -20, -32]],
+    tubeRadius: 1.15,
+    pointsL: [[-43, -22, -33], [-32, -18, -30], [-24, -14, -28], [-17, -12, -26]],
+    pointsR: [[43, -22, -33], [32, -18, -30], [26, -14, -28], [24, -12, -26]],
     cn: cn(8, 'Vestibulocochlear', 'Cochlear and vestibular nuclei at the pontomedullary junction'),
-    connected: ['pons', 'cochlea-{s}'],
+    connected: ['pons', 'cochlea-{s}', 'scc-{s}'],
     ...PITT,
     ...text(
       'Special somatic afferent for hearing and balance, from cochlea and labyrinth through the IAM to the CPA.',
