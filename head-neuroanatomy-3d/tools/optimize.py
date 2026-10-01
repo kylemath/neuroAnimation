@@ -36,6 +36,8 @@ FACE_BUDGET = {
 MIN_NODE_FACES = {
     "cortex_lh": 48000,
     "cortex_rh": 48000,
+    "cingulate_lh": 6000,
+    "cingulate_rh": 6000,
     "midbrain": 6000,
     "pons": 7000,
     "medulla": 6000,
@@ -297,6 +299,8 @@ def node_group(node: str) -> str:
     if node in {
         "cortex_lh",
         "cortex_rh",
+        "cingulate_lh",
+        "cingulate_rh",
         "midbrain",
         "superior_colliculus",
         "inferior_colliculus",

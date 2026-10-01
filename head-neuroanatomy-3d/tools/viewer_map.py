@@ -58,6 +58,9 @@ ALLEN_EXACT = {
     "optic_tract_lh": r"(optic_tract_l|optic_radiation_l)$",
     "optic_tract_rh": r"(optic_tract_r|optic_radiation_r)$",
     "optic_chiasm": r"optic_chiasm",
+    # Cingulate gyrus (not paracingulate) is its own node so it can be toggled separately from cortex.
+    "cingulate_lh": r"(^|_)cingulate_gyrus_.*_l$",
+    "cingulate_rh": r"(^|_)cingulate_gyrus_.*_r$",
     "midbrain": r"(midbrain_tegmentum_|pretectal_region_)",
     "superior_colliculus": r"superior_colliculus_",
     "inferior_colliculus": r"inferior_colliculus_",
@@ -84,6 +87,8 @@ NODE_GROUP = {
     "scalp": "head",
     "cortex_lh": "core",
     "cortex_rh": "core",
+    "cingulate_lh": "core",
+    "cingulate_rh": "core",
     "midbrain": "core",
     "superior_colliculus": "core",
     "inferior_colliculus": "core",
@@ -152,3 +157,10 @@ AAN_SCHEMATICS = [
     {"node": "pontis_oralis", "center": [0.0, -32.0, -24.0], "radius": 3.2, "side": "mid", "transmitter": None},
     {"node": "vta", "center": [0.0, -16.0, -12.0], "radius": 3.0, "side": "mid", "transmitter": "DA"},
 ]
+
+# The published AAN centres are true MNI152, but the brainstem meshes in this scene
+# (Allen-derived) sit ~21 mm more anterior (aqueduct y≈-6.6, not ≈-28). Shift the
+# schematic nuclei into the rendered brainstem. Keep in sync with ARAS_OFFSET_MNI in js/aras.js.
+AAN_OFFSET_MNI = [3.0, 21.0, 0.0]
+for _spec in AAN_SCHEMATICS:
+    _spec["center"] = [c + o for c, o in zip(_spec["center"], AAN_OFFSET_MNI)]

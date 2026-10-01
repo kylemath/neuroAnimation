@@ -14,6 +14,7 @@ export const clock = new THREE.Clock();
 
 let container;
 let flying = false;
+let headlight = null;
 
 const VIEW_DISTANCE = 260;
 
@@ -48,7 +49,9 @@ export function initScene() {
   renderer.localClippingEnabled = true;
   renderer.sortObjects = true;
   renderer.physicallyCorrectLights = false;
-  renderer.outputEncoding = THREE.sRGBEncoding;
+  // Linear output (same as the other demos). sRGB output on top of sRGB hex colours
+  // washes everything towards white and flattens the structures.
+  renderer.outputEncoding = THREE.LinearEncoding;
   renderer.setClearColor(0x0b0f17, 1);
   container.appendChild(renderer.domElement);
 
@@ -63,19 +66,21 @@ export function initScene() {
 
   // Phong lighting, same recipe as action-potential-3d: ambient + key + fill.
   // Hemisphere keeps the underside readable; rim separates the silhouette.
-  const ambient = new THREE.AmbientLight(0xffffff, 0.62);
+  // Lower ambient + a headlight that follows the camera give every surface a clear
+  // light-to-dark gradient from the viewer's side, so neighbouring structures separate.
+  const ambient = new THREE.AmbientLight(0xffffff, 0.34);
   scene.add(ambient);
-  const hemi = new THREE.HemisphereLight(0xd7e8ff, 0x2a2218, 0.55);
+  const hemi = new THREE.HemisphereLight(0xcfe3ff, 0x1c1812, 0.32);
   scene.add(hemi);
-  const key = new THREE.DirectionalLight(0xffffff, 0.85);
+  headlight = new THREE.DirectionalLight(0xffffff, 0.82);
+  scene.add(headlight);
+  scene.add(headlight.target);
+  const key = new THREE.DirectionalLight(0xfff4e0, 0.38);
   key.position.set(80, 140, 60);
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0x7ae1ff, 0.42);
+  const fill = new THREE.DirectionalLight(0x9fc4ff, 0.2);
   fill.position.set(-90, 40, -70);
   scene.add(fill);
-  const rim = new THREE.DirectionalLight(0xffb86b, 0.28);
-  rim.position.set(0, -40, 120);
-  scene.add(rim);
 
   window.addEventListener('resize', onResize);
   return { scene, camera, renderer, controls };
@@ -90,6 +95,15 @@ function onResize() {
 
 export function renderScene(extra) {
   controls.update();
+  if (headlight) {
+    // Slightly above and to the left of the viewing direction for a natural 3/4 light.
+    const dir = camera.position.clone().sub(controls.target);
+    const side = new THREE.Vector3().crossVectors(dir, camera.up).normalize().multiplyScalar(-dir.length() * 0.25);
+    const lift = camera.up.clone().multiplyScalar(dir.length() * 0.35);
+    headlight.position.copy(camera.position).add(side).add(lift);
+    headlight.target.position.copy(controls.target);
+    headlight.target.updateMatrixWorld();
+  }
   renderer.autoClear = true;
   renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
   renderer.setScissorTest(false);

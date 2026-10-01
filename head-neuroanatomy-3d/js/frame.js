@@ -13,6 +13,7 @@ const gizmoCamera = new THREE.PerspectiveCamera(50, 1, 0.1, 20);
 let scaleBarEl;
 let mniEl;
 let fiducialGroup;
+const frameParts = { grid: null, axes: new THREE.Group(), landmarks: null };
 
 function makeLabelSprite(text, color, scale = 1) {
   const canvas = document.createElement('canvas');
@@ -51,21 +52,24 @@ export function initFrame() {
   grid.position.y = 0;
   grid.renderOrder = 0;
   scene.add(grid);
+  frameParts.grid = grid;
 
+  // Everything that belongs to the "Axes" toggle (origin axes, AC marker, R/L A/P S/I labels).
+  scene.add(frameParts.axes);
   const axes = new THREE.AxesHelper(40);
   axes.renderOrder = 2;
-  scene.add(axes);
+  frameParts.axes.add(axes);
 
   const acDot = new THREE.Mesh(
     new THREE.SphereGeometry(1.2, 12, 10),
     new THREE.MeshBasicMaterial({ color: 0xffffff }),
   );
   acDot.position.set(0, 0, 0);
-  scene.add(acDot);
+  frameParts.axes.add(acDot);
 
   const acLabel = makeLabelSprite('AC', '#e6edf3', 8);
   acLabel.position.set(6, 8, 0);
-  scene.add(acLabel);
+  frameParts.axes.add(acLabel);
 
   addWorldAxisLabel('R', 48, 0, 0, '#ff6b6b');
   addWorldAxisLabel('L', -48, 0, 0, '#ff6b6b');
@@ -84,7 +88,7 @@ export function initFrame() {
 function addWorldAxisLabel(text, x, y, z, color) {
   const spr = makeLabelSprite(text, color, 10);
   spr.position.set(x, y, z);
-  scene.add(spr);
+  frameParts.axes.add(spr);
 }
 
 function buildGizmo() {
@@ -99,6 +103,8 @@ function buildGizmo() {
 function buildFiducials() {
   fiducialGroup = new THREE.Group();
   fiducialGroup.name = 'fiducials';
+  fiducialGroup.visible = false; // landmarks (nasion, LPA, RPA, Cz...) are opt-in
+  frameParts.landmarks = fiducialGroup;
   scene.add(fiducialGroup);
 }
 
@@ -163,4 +169,27 @@ export function setMniReadout(mni, source) {
 
 export function mniFromWorld(vec) {
   return worldToMni(vec);
+}
+
+/** Show/hide the 10 mm ground grid. */
+export function setGridVisible(on) {
+  if (frameParts.grid) frameParts.grid.visible = on;
+}
+
+/** Show/hide origin axes, the anterior-commissure marker and the R/L A/P S/I labels. */
+export function setAxesVisible(on) {
+  frameParts.axes.visible = on;
+}
+
+/** Show/hide scalp landmarks (nasion, LPA, RPA, Cz). */
+export function setLandmarksVisible(on) {
+  if (frameParts.landmarks) frameParts.landmarks.visible = on;
+}
+
+export function getFrameVisibility() {
+  return {
+    grid: frameParts.grid ? frameParts.grid.visible : true,
+    axes: frameParts.axes.visible,
+    landmarks: frameParts.landmarks ? frameParts.landmarks.visible : false,
+  };
 }

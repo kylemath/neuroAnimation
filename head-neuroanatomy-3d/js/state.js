@@ -12,7 +12,7 @@ export const state = {
   missingAssets: [],
 
   ghost: 1,
-  dimUnselected: false,
+  dimUnselected: true,
   solo: null,
   isolate: null,
   hidden: new Set(),
@@ -53,7 +53,7 @@ export function emit(event, payload) {
 
 export function resetAppearanceState() {
   state.ghost = 1;
-  state.dimUnselected = false;
+  state.dimUnselected = true;
   state.solo = null;
   state.isolate = null;
   state.hidden.clear();

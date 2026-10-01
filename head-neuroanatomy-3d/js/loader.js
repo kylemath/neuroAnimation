@@ -127,6 +127,7 @@ function normalizeManifest(manifest) {
   }
 
   mergeAuthoredText(manifest);
+  applyPalette(manifest);
 
   for (const s of manifest.structures) {
     s.meshNode = s.meshNode || s.mesh || null;
@@ -171,23 +172,78 @@ function prepareGeometry(geo) {
   if (!geo.attributes.normal) geo.computeVertexNormals();
 }
 
+// Groups kept in the manifest/pipeline but not shown in this UI (the scalp surface
+// covered too much of the workspace). Their GLBs are not downloaded.
+export const HIDDEN_UI_GROUPS = new Set(['head']);
+
+// Viewer-side palette tweaks so neighbouring structures read as different objects.
+const PALETTE = {
+  'cortex-lh': { colour: '#7da3c8' },
+  'cortex-rh': { colour: '#7da3c8' },
+  'wm-lh': { colour: '#d9c9a0', opacity: 0.32 },
+  'wm-rh': { colour: '#d9c9a0', opacity: 0.32 },
+  'corpus-callosum': { colour: '#f1ddb0', opacity: 0.85 },
+  'internal-capsule-lh': { colour: '#e8c77a' },
+  'internal-capsule-rh': { colour: '#e8c77a' },
+  'optic-chiasm': { colour: '#fff08a' },
+  'cerebellum-h-lh': { colour: '#a77be0', opacity: 0.55 },
+  'cerebellum-h-rh': { colour: '#a77be0', opacity: 0.55 },
+  vermis: { colour: '#d9a6ff', opacity: 0.8 },
+  'lat-vent-lh': { colour: '#34d1ff', opacity: 0.6 },
+  'lat-vent-rh': { colour: '#34d1ff', opacity: 0.6 },
+  'cranial-nerves-bundle': { colour: '#ffd23f' },
+};
+
+function applyPalette(manifest) {
+  for (const s of manifest.structures) {
+    const p = PALETTE[s.id];
+    if (!p) continue;
+    if (p.colour) s.colour = p.colour;
+    if (p.opacity !== undefined) s.opacity = p.opacity;
+  }
+}
+
+// One shared program for every structure: Phong plus a view-angle "rim" term.
+// Shells (opacity < ~0.7) also fade out where the surface faces the camera, so deeper
+// structures stay readable while the silhouette of the shell is kept ("X-ray" look).
+function patchShader(material) {
+  material.userData.uXray = { value: 0 };
+  material.userData.uRim = { value: 0.22 };
+  material.onBeforeCompile = (shader) => {
+    shader.uniforms.uXray = material.userData.uXray;
+    shader.uniforms.uRim = material.userData.uRim;
+    shader.fragmentShader = `uniform float uXray;\nuniform float uRim;\n${shader.fragmentShader}`.replace(
+      'gl_FragColor = vec4( outgoingLight, diffuseColor.a );',
+      `float facing = clamp( abs( dot( normalize( normal ), normalize( vViewPosition ) ) ), 0.0, 1.0 );
+       float rimK = pow( 1.0 - facing, 2.2 );
+       vec3 litColor = outgoingLight + diffuseColor.rgb * rimK * uRim * 1.4;
+       float outAlpha = diffuseColor.a;
+       if ( uXray > 0.5 ) outAlpha = clamp( diffuseColor.a * ( 0.22 + 2.6 * rimK ), 0.0, 1.0 );
+       gl_FragColor = vec4( litColor, outAlpha );`,
+    );
+  };
+  material.customProgramCacheKey = () => 'neuro-rim-v1';
+}
+
 function makeMaterial(def) {
   const color = parseColor(def && def.colour);
   const opacity = def && def.opacity != null ? def.opacity : 0.9;
-  return new THREE.MeshPhongMaterial({
+  const material = new THREE.MeshPhongMaterial({
     color,
-    emissive: color.clone().multiplyScalar(0.14),
-    specular: new THREE.Color(0x668899),
-    shininess: 22,
+    emissive: color.clone().multiplyScalar(0.04),
+    specular: new THREE.Color(0x39434f),
+    shininess: 28,
     transparent: opacity < 0.999,
     opacity,
     depthWrite: opacity >= 0.85,
-    side: THREE.DoubleSide,
+    side: opacity < 0.85 ? THREE.FrontSide : THREE.DoubleSide,
     vertexColors: false,
     clippingPlanes: [],
     clipShadows: true,
     flatShading: false,
   });
+  patchShader(material);
+  return material;
 }
 
 function ancestorNames(obj) {
@@ -282,6 +338,12 @@ export async function loadGroups(scene, onProgress) {
 
   for (let i = 0; i < groups.length; i++) {
     const group = groups[i];
+    if (HIDDEN_UI_GROUPS.has(group.id)) {
+      for (const def of manifest.structures.filter((s) => s.group === group.id)) {
+        structureObjects.set(def.id, { def, object: null, material: null, fromAsset: false });
+      }
+      continue;
+    }
     const root = new THREE.Group();
     root.name = `group-${group.id}`;
     root.userData.groupId = group.id;

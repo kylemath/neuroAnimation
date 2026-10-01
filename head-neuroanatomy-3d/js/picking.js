@@ -52,7 +52,14 @@ function firstHit(event) {
   raycaster.setFromCamera(mouse, camera);
   const hits = raycaster.intersectObjects(visiblePickables(), true);
   if (!hits.length) return null;
-  const hit = hits[0];
+  // Click through translucent shells (cortex, ghosted layers) to the first solid-ish
+  // structure behind them; fall back to the shell itself if nothing solid is hit.
+  const solid = hits.find((h) => {
+    const sid = h.object.userData.structureId;
+    const rec = sid && getStructureObject(sid);
+    return rec && rec.material && rec.material.opacity >= 0.5;
+  });
+  const hit = solid || hits[0];
   let obj = hit.object;
   while (obj && !obj.userData.structureId) obj = obj.parent;
   if (!obj) return null;

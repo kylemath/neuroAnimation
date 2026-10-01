@@ -106,12 +106,15 @@ body {
 }
 
 .info-card {
-  left: 16px;
-  bottom: 88px;
-  width: 320px;
-  max-height: 42vh;
+  right: 328px;
+  bottom: 16px;
+  width: 300px;
+  max-height: 46vh;
   overflow: auto;
+  display: none;
 }
+.info-card.visible { display: block; }
+.info-close { position: absolute; top: 6px; right: 6px; padding: 2px 8px; }
 
 .top-bar {
   position: absolute;
@@ -129,6 +132,7 @@ body {
 
 .top-bar > * { pointer-events: auto; }
 
+.view-toggles { display: flex; gap: 6px; }
 .view-buttons, .button-group, .layer-chips, .slice-presets {
   display: flex;
   flex-wrap: wrap;
@@ -517,4 +521,34 @@ input[type="checkbox"] {
   .layer-chips { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; }
   .layer-chips::-webkit-scrollbar { display: none; }
   .info-card { font-size: 11px; }
+}
+
+/* ---- lighter UI additions ---- */
+.tree-opts { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 4px; }
+.inline-opt { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+.ghost-opt { flex-wrap: wrap; }
+.ghost-opt input[type="range"] { flex: 1 1 100%; }
+.view-toggles .chip { font-size: 10px; padding: 5px 9px; }
+
+/* opacity slider only for the selected tree row */
+.tree-extra { display: none; }
+.tree-row.selected + .tree-extra { display: block; }
+
+.tool-section { border-top: 1px solid rgba(122, 225, 255, 0.18); padding: 6px 0; }
+.tool-section:first-of-type { border-top: 0; }
+.tool-section > summary {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  padding: 4px 0;
+  list-style: none;
+}
+.tool-section > summary::-webkit-details-marker { display: none; }
+.tool-section > summary::before { content: '▸'; display: inline-block; width: 14px; color: var(--muted); }
+.tool-section[open] > summary::before { content: '▾'; }
+.tools-foot { margin-top: 8px; }
+
+@media (max-width: 1100px) {
+  .info-card { right: 10px; left: 10px; width: auto; bottom: 92px; max-height: 30vh; }
 }

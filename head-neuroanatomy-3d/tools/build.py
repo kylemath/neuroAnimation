@@ -9,7 +9,7 @@ from pathlib import Path
 
 from paths import TOOLS, ensure_dirs
 
-STEPS = ("audit", "fetch", "inspect_sources", "register", "derive", "optimize")
+STEPS = ("audit", "fetch", "inspect_sources", "register", "derive", "optimize", "vessel_split")
 
 
 def run_step(name: str, extra: list[str] | None = None) -> None:

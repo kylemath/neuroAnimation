@@ -9,6 +9,10 @@ import { state, emit } from './state.js';
 import { applyAppearance } from './structures.js';
 import { mniToWorld } from './coords.js';
 
+// Shift from published MNI AAN coordinates into the rendered brainstem mesh.
+// Keep in sync with AAN_OFFSET_MNI in tools/viewer_map.py.
+const ARAS_OFFSET_MNI = [3, 21, 0];
+
 const DORSAL = [
   [0, -36, -42],
   [0, -28, -20],
@@ -47,7 +51,9 @@ export function initAras() {
 }
 
 function addPath(mniPts, color, name) {
-  const pts = mniPts.map((p) => mniToWorld(p[0], p[1], p[2]));
+  const pts = mniPts.map((p) =>
+    mniToWorld(p[0] + ARAS_OFFSET_MNI[0], p[1] + ARAS_OFFSET_MNI[1], p[2] + ARAS_OFFSET_MNI[2]),
+  );
   const curve = new THREE.CatmullRomCurve3(pts);
   const geo = new THREE.TubeGeometry(curve, 64, 1.05, 8, false);
   const mat = new THREE.MeshPhongMaterial({

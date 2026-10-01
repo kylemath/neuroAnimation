@@ -11,6 +11,7 @@ import { selectById } from './picking.js';
 import { updateClipping, setExploded, syncClippingUi } from './clipping.js';
 import { setEnabled as setArasEnabled, setArousal, syncArasUi } from './aras.js';
 import { applyPreset, syncPresetActive } from './presets.js';
+import { setGridVisible, setAxesVisible, setLandmarksVisible, getFrameVisibility } from './frame.js';
 
 let applying = false;
 let writeTimer = 0;
@@ -44,6 +45,10 @@ export function writeHash() {
   }
   if (state.explodedSlices) parts.push('e=1');
   if (!state.arasEnabled) parts.push('ar=0');
+  const fv = getFrameVisibility();
+  if (!fv.grid) parts.push('gr=0');
+  if (!fv.axes) parts.push('ax=0');
+  if (fv.landmarks) parts.push('lm=1');
   const hash = parts.join('&');
   const next = `#${hash}`;
   if (window.location.hash !== next) {
@@ -80,6 +85,9 @@ export function applyHash(hash) {
     if (data.a !== undefined) setArousal(Number(data.a) / 100);
     if (data.ar !== undefined) setArasEnabled(data.ar !== '0');
     if (data.v) setView(data.v, 0);
+    if (data.gr !== undefined) setFrameToggle('toggle-grid', setGridVisible, data.gr !== '0');
+    if (data.ax !== undefined) setFrameToggle('toggle-axes', setAxesVisible, data.ax !== '0');
+    if (data.lm !== undefined) setFrameToggle('toggle-landmarks', setLandmarksVisible, data.lm === '1');
     if (data.c) {
       const [sx, cy, az] = data.c.split(',').map(Number);
       if (!Number.isNaN(sx)) state.clipping.sagittal.value = sx;
@@ -114,6 +122,12 @@ export function applyHash(hash) {
   } finally {
     applying = false;
   }
+}
+
+function setFrameToggle(id, setter, on) {
+  setter(on);
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('off', !on);
 }
 
 function enc(s) {

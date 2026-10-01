@@ -11,12 +11,15 @@ import { selectById, flyToId } from './picking.js';
 import { applySlicePreset, clearClips, setExploded } from './clipping.js';
 import { setEnabled as setArasEnabled, setArousal } from './aras.js';
 
+// The former single 'subcortical' layer is now split into separately toggled layers.
+const SUBCORTICAL_LAYERS = ['subcortical', 'thalamus', 'basal-ganglia', 'hippocampus', 'amygdala', 'fornix', 'cingulate'];
+
 export const PRESETS = [
   {
     id: 'ventricles',
     name: 'Ventricular system',
     view: 'oblique',
-    layers: ['ventricles', 'brainstem', 'subcortical'],
+    layers: ['ventricles', 'brainstem', ...SUBCORTICAL_LAYERS],
     isolate: null,
     select: 'third-ventricle',
     ghost: 0.35,
@@ -27,17 +30,29 @@ export const PRESETS = [
   },
   {
     id: 'willis',
-    name: 'Circle of Willis & sinuses',
+    name: 'Arterial supply',
     view: 'inferior',
-    layers: ['vessels', 'brainstem', 'ventricles'],
+    layers: ['arteries', 'brainstem', 'ventricles'],
     isolate: null,
-    select: 'basilar',
+    select: 'cerebral-arteries',
     ghost: 0.25,
     aras: false,
     clip: null,
     explode: false,
-    extraVisible: ['ica-lh', 'ica-rh', 'mca-lh', 'mca-rh', 'aca-lh', 'aca-rh', 'acom', 'pca-lh', 'pca-rh', 'pcom-lh', 'pcom-rh', 'basilar', 'vertebral-lh', 'vertebral-rh', 'sss', 'transverse-lh', 'transverse-rh'],
-    note: 'Schematic arteries of the circle and the midline venous sinuses.',
+    note: 'Circle of Willis and cerebral arteries in red.',
+  },
+  {
+    id: 'venous',
+    name: 'Veins & dural sinuses',
+    view: 'posterior',
+    layers: ['veins', 'cerebellum', 'brainstem'],
+    isolate: null,
+    select: 'confluence-of-sinuses',
+    ghost: 0.35,
+    aras: false,
+    clip: null,
+    explode: false,
+    note: 'Superior sagittal, straight, transverse and sigmoid sinuses (violet/blue) and cerebral veins; teal = schematic meningeal lymphatics.',
   },
   {
     id: 'nerves',
@@ -56,7 +71,7 @@ export const PRESETS = [
     id: 'aras',
     name: 'Brainstem & ARAS',
     view: 'right',
-    layers: ['brainstem', 'aras', 'subcortical'],
+    layers: ['brainstem', 'aras', ...SUBCORTICAL_LAYERS],
     isolate: null,
     select: 'pag',
     ghost: 0.4,
@@ -82,7 +97,7 @@ export const PRESETS = [
     id: 'diencephalon',
     name: 'Diencephalon',
     view: 'oblique',
-    layers: ['subcortical', 'ventricles', 'white-matter'],
+    layers: [...SUBCORTICAL_LAYERS, 'ventricles', 'white-matter'],
     isolate: 'diencephalon',
     select: 'thalamus-lh',
     ghost: 0.5,
@@ -93,7 +108,7 @@ export const PRESETS = [
     id: 'basal-ganglia',
     name: 'Basal ganglia',
     view: 'anterior',
-    layers: ['subcortical', 'white-matter'],
+    layers: [...SUBCORTICAL_LAYERS, 'white-matter'],
     isolate: 'basal-ganglia',
     select: 'putamen-lh',
     ghost: 0.45,
@@ -104,7 +119,7 @@ export const PRESETS = [
     id: 'limbic',
     name: 'Limbic system',
     view: 'left',
-    layers: ['subcortical', 'white-matter'],
+    layers: [...SUBCORTICAL_LAYERS, 'white-matter'],
     isolate: 'limbic',
     select: 'hippocampus-lh',
     ghost: 0.4,

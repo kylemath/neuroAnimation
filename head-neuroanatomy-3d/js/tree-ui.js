@@ -3,24 +3,26 @@
  */
 
 import { state, on, descendantsOf } from './state.js';
+import { HIDDEN_UI_GROUPS } from './loader.js';
 import {
   applyAppearance, setHidden, setOpacity, setGhost, setSolo, setIsolate,
   showAll, hideAll, resetViewState, toggleLayer, isLayerVisible,
 } from './structures.js';
 
+// Chips toggle one or more manifest layers each. Kept short on purpose.
 const LAYERS = [
-  { id: 'cortex', label: 'Cortex' },
-  { id: 'white-matter', label: 'White matter' },
-  { id: 'ventricles', label: 'Ventricles' },
-  { id: 'vessels', label: 'Vessels' },
-  { id: 'nerves', label: 'Nerves' },
-  { id: 'brainstem', label: 'Brainstem' },
-  { id: 'subcortical', label: 'Subcortical' },
-  { id: 'cerebellum', label: 'Cerebellum' },
-  { id: 'aras', label: 'ARAS' },
-  { id: 'sensory', label: 'Sensory' },
-  { id: 'head', label: 'Head' },
-  { id: 'slices', label: 'Slices' },
+  { id: 'cortex', label: 'Cortex', layers: ['cortex', 'cingulate'] },
+  { id: 'white-matter', label: 'White matter', layers: ['white-matter', 'fornix'] },
+  { id: 'ventricles', label: 'Ventricles', layers: ['ventricles'] },
+  { id: 'arteries', label: 'Arteries', layers: ['arteries'] },
+  { id: 'veins', label: 'Veins & sinuses', layers: ['veins'] },
+  { id: 'nerves', label: 'Nerves', layers: ['nerves'] },
+  { id: 'brainstem', label: 'Brainstem', layers: ['brainstem'] },
+  { id: 'deep', label: 'Deep nuclei', layers: ['subcortical', 'thalamus', 'basal-ganglia', 'hippocampus', 'amygdala'] },
+  { id: 'cerebellum', label: 'Cerebellum', layers: ['cerebellum'] },
+  { id: 'aras', label: 'ARAS', layers: ['aras'] },
+  { id: 'sensory', label: 'Sensory', layers: ['sensory'] },
+  { id: 'slices', label: 'Slices', layers: ['slices'] },
 ];
 
 let treeRoot;
@@ -66,7 +68,7 @@ function bindToolbar(handlers) {
     resetViewState();
     document.getElementById('ghost-slider').value = '100';
     document.getElementById('ghost-val').textContent = '100%';
-    document.getElementById('dim-unselected').checked = false;
+    document.getElementById('dim-unselected').checked = true;
     syncChips();
     renderTree(handlers);
     if (handlers.onReset) handlers.onReset();
@@ -83,7 +85,8 @@ function buildChips() {
     btn.dataset.layer = layer.id;
     btn.textContent = layer.label;
     btn.addEventListener('click', () => {
-      toggleLayer(layer.id, !isLayerVisible(layer.id));
+      const show = !chipVisible(layer);
+      for (const l of layer.layers) toggleLayer(l, show);
       syncChips();
     });
     chipRoot.appendChild(btn);
@@ -91,9 +94,14 @@ function buildChips() {
   syncChips();
 }
 
+function chipVisible(layer) {
+  return layer.layers.some((l) => isLayerVisible(l));
+}
+
 function syncChips() {
   chipRoot.querySelectorAll('.chip').forEach((btn) => {
-    btn.classList.toggle('off', !isLayerVisible(btn.dataset.layer));
+    const layer = LAYERS.find((l) => l.id === btn.dataset.layer);
+    btn.classList.toggle('off', !(layer && chipVisible(layer)));
   });
 }
 
@@ -105,7 +113,9 @@ function renderTree(handlers) {
   if (!state.manifest) return;
   treeRoot.innerHTML = '';
   const groups = state.manifest.groups || [];
+  let first = true;
   for (const group of groups) {
+    if (HIDDEN_UI_GROUPS.has(group.id)) continue;
     const groupNode = document.createElement('div');
     groupNode.className = 'tree-group';
     const header = document.createElement('button');
@@ -120,6 +130,12 @@ function renderTree(handlers) {
     });
     const roots = state.manifest.structures.filter((s) => s.group === group.id && !s.parent);
     for (const def of roots) body.appendChild(renderNode(def, handlers));
+    // Start collapsed except the first group, so the panel stays short.
+    if (!first) {
+      body.classList.add('collapsed');
+      header.querySelector('.twisty').textContent = '▸';
+    }
+    first = false;
     groupNode.appendChild(header);
     groupNode.appendChild(body);
     treeRoot.appendChild(groupNode);

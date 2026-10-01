@@ -9,7 +9,10 @@ import { applyAppearance, initVisibilityFromManifest } from './structures.js';
 import { initTreeUi } from './tree-ui.js';
 import { initPicking, selectById, flyToId } from './picking.js';
 import { initInfobox } from './infobox.js';
-import { initFrame, renderGizmo, updateScaleBar, setMniReadout, refreshFiducials } from './frame.js';
+import {
+  initFrame, renderGizmo, updateScaleBar, setMniReadout, refreshFiducials,
+  setGridVisible, setAxesVisible, setLandmarksVisible, getFrameVisibility,
+} from './frame.js';
 import { initClipping, populateSliceButtons } from './clipping.js';
 import { initAras, updateAras } from './aras.js';
 import { initPresets } from './presets.js';
@@ -43,6 +46,26 @@ function bindViewButtons() {
     const btn = document.getElementById(id);
     if (btn) btn.addEventListener('click', () => {
       setView(view);
+      scheduleWrite();
+    });
+  }
+}
+
+function bindFrameToggles() {
+  const defs = [
+    ['toggle-grid', setGridVisible, 'grid'],
+    ['toggle-axes', setAxesVisible, 'axes'],
+    ['toggle-landmarks', setLandmarksVisible, 'landmarks'],
+  ];
+  const current = getFrameVisibility();
+  for (const [id, setter, key] of defs) {
+    const btn = document.getElementById(id);
+    if (!btn) continue;
+    btn.classList.toggle('off', !current[key]);
+    btn.addEventListener('click', () => {
+      const on = btn.classList.contains('off');
+      setter(on);
+      btn.classList.toggle('off', !on);
       scheduleWrite();
     });
   }
@@ -115,6 +138,7 @@ async function init() {
   initScene();
   initFrame();
   bindViewButtons();
+  bindFrameToggles();
   bindMobileChrome();
   bindCredits();
 

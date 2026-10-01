@@ -19,12 +19,9 @@ function render() {
   if (!card) return;
   const id = state.selected[0];
   const def = id ? structureById(id) : null;
+  card.classList.toggle('visible', Boolean(def));
   if (!def) {
-    card.innerHTML = `
-      <div class="info-empty">
-        <h2>Structure info</h2>
-        <p>Click a mesh or a name in the tree. Shift-click adds to the selection. Double-click flies to it.</p>
-      </div>`;
+    card.innerHTML = '';
     return;
   }
 
@@ -55,6 +52,7 @@ function render() {
     : '';
 
   card.innerHTML = `
+    <button type="button" class="icon-btn info-close" id="info-close" aria-label="Close">✕</button>
     <div class="info-kicker">${group ? group.name : def.group} · ${sideLabel(def.side)} ${transmitter} ${schematic}</div>
     <h2>${def.name}</h2>
     ${extra}
@@ -70,6 +68,13 @@ function render() {
     <div class="licence-line">${def.source || ''} · ${def.licence || ''}</div>
   `;
 
+  const close = card.querySelector('#info-close');
+  if (close) {
+    close.addEventListener('click', () => {
+      selectById(null, false);
+      if (handlers.onStateChange) handlers.onStateChange();
+    });
+  }
   card.querySelectorAll('.conn-chip').forEach((btn) => {
     btn.addEventListener('click', () => {
       const cid = btn.dataset.id;

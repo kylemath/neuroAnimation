@@ -2,6 +2,7 @@
  * Visibility, opacity, ghost, solo / isolate, and material appearance.
  */
 
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js';
 import { state, emit, descendantsOf, isIdVisible, resetAppearanceState } from './state.js';
 import { structureObjects } from './loader.js';
 
@@ -12,7 +13,7 @@ export function effectiveOpacity(def) {
     : (def.opacity ?? 0.9);
   let opacity = base * state.ghost;
   if (state.dimUnselected && state.selected.length && state.selected.indexOf(def.id) === -1) {
-    opacity *= 0.18;
+    opacity *= 0.22;
   }
   return Math.max(0, Math.min(1, opacity));
 }
@@ -56,15 +57,20 @@ export function applyAppearance() {
     rec.material.transparent = opacity < 0.999;
     rec.material.depthWrite = opacity >= 0.85;
     rec.material.visible = opacity > 0.02;
+    // Translucent shells: front faces only + view-angle fade (see loader.patchShader).
+    const shell = opacity < 0.7;
+    if (rec.material.userData.uXray) rec.material.userData.uXray.value = shell ? 1 : 0;
+    const wantSide = opacity < 0.85 ? THREE.FrontSide : THREE.DoubleSide;
+    if (rec.material.side !== wantSide) rec.material.side = wantSide;
     const glow = selected
-      ? 0.42
+      ? 0.5
       : hovered
-        ? 0.24
+        ? 0.26
         : (def.layer === 'aras' && state.arasEnabled)
-          ? 0.18 + state.arousal * 0.28
+          ? 0.12 + state.arousal * 0.24
           : (def.layer === 'cortex' && state.arasEnabled)
-            ? 0.10 + state.arousal * 0.12
-            : 0.12;
+            ? 0.04 + state.arousal * 0.1
+            : 0.04;
     if (rec.material.color && rec.material.emissive) {
       rec.material.emissive.copy(rec.material.color).multiplyScalar(glow);
     }
